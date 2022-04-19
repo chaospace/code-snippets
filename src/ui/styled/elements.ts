@@ -23,7 +23,7 @@ import {
   StyledLayoutProps,
   StyledSizeProps,
   StyledTypoProps
-} from "./types";
+} from "./types/types";
 
 const Box = styled.div<StyledLayoutProps>`
   position: ${props => (props.position ? props.position : "static")};
