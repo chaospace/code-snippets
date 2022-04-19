@@ -1,0 +1,43 @@
+// 라이브러리 프로젝트라면 decration관련 옵션 재설정 필요
+{
+  "compilerOptions": {
+    //"declaration": true, // d.ts 생성
+    //"emitDeclarationOnly": true, // ts파일만 d.ts 생성
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "jsx": "react-jsx", // import React 없이 jsx 사용가능 ( react 17이상 )
+    "module": "esnext",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "noImplicitReturns": false,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "allowSyntheticDefaultImports": true,
+    "jsxFactory": "",
+    "skipLibCheck": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "downlevelIteration": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "tests/**/*.test.ts",
+    "tests/**/*.test.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/**/*.ignore.ts",
+    "src/**/*.ignore.tsx"
+  ]
+}
