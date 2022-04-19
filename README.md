@@ -2,7 +2,8 @@
 폴더 구조는 사용 환경에 따라 정리가 필요할 수 있음.
 
 ```
-+-- utils       // utils 모음( number타입 처리 )
-+-- ui          // ui관련 모음( styled-component기반 ui 컴포넌트 베이스 모음 타입 고도화 필요 )
++-- utils       // utils 함수 모음
++-- helper      // utils의 함수를 이용한 편의함수 제공 객체 or 모듈 모음
++-- ui          // styled-component기반 ui 컴포넌트 베이스 모음 타입 고도화 필요
 
 ```
