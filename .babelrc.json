@@ -1,0 +1,16 @@
+{
+  "presets": [
+    "@babel/typescript",
+    "@babel/react",
+    [
+      "@babel/preset-env",
+      {
+        "targets": "> 0.25%, not dead",
+        "debug": false
+        //"useBuiltIns": "usage" // entry 최상단에 넣어둔 모듈 폴리필 자동적용
+        //"modules": false //false로 해야 트리쉐이킹 지원( amd, umd commonjs 같은 모듈 시스템을 이용하면 의미없음 )
+      }
+    ]
+  ],
+  //"plugins": ["@babel/plugin-transform-runtime"]
+}
