@@ -10,7 +10,7 @@ module.exports = {
     assetModuleFilename: "static/media/[name].[hash][ext]",
     // 소스맵 위치 설정( 개발 시는 로컬 파일경로를 연결)
     devtoolModuleFilenameTemplate: info => {
-      console.log("info", info.absoluteResourcePath);
+      
       return path.resolve(info.absoluteResourcePath).replace(/\\/g, "/");
     }
   },
@@ -40,7 +40,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.jsx?$/,
         exclude: [/node_modules/],
         use: {
           loader: "babel-loader",

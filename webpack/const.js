@@ -8,7 +8,7 @@ function resolvePath(path) {
 }
 const sourcePath = resolvePath("src");
 const outputPath = resolvePath("dist");
-const entryFilePath = resolvePath("./src/index.ts");
+const entryFilePath = resolvePath("./src/index.tsx");
 const publicAssetPath = resolvePath("public");
 const indexTemplatePath = resolvePath("public/index.html");
 const nodeModules = relative(__dirname, "node_modules");

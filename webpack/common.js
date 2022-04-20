@@ -15,28 +15,33 @@ module.exports = {
   entry: {
     app: entryFilePath
   },
-  //context: rootDir,
+  context: rootDir,
   output: {
     clean: true, // 이전 파일 제거
     path: outputPath,
-    publicPath: "/"
+    publicPath: '/'
   },
   resolve: {
-    modules: ["node_modules"],
+    modules: ['node_modules'],
     alias: {
-      "@": sourcePath,
-      process: "process/browser"
+      '@': sourcePath,
+      process: 'process/browser'
     },
-    extensions: [".ts", ".tsx", ".js", ".scss", ".svg", ".json"]
+    extensions: ['.ts', '.tsx', '.js', '.scss', '.svg', '.json']
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        type: "javascript/auto"
+        type: 'javascript/auto'
       },
       {
-        type: "asset",
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: ['ts-loader']
+      },
+      {
+        type: 'asset',
         resourceQuery: /url/ // *.svg?url
       },
       {
@@ -44,12 +49,12 @@ module.exports = {
         issuer: /\.[jt]sx?$/,
         use: [
           {
-            loader: "@svgr/webpack",
+            loader: '@svgr/webpack',
             options: {
               svgoConfig: {
                 plugins: [
                   {
-                    name: "removeViewBox",
+                    name: 'removeViewBox',
                     active: false
                   }
                 ]
@@ -60,7 +65,7 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|woff|woff2|eot|ttf|otf|ico)$/i,
-        type: "asset"
+        type: 'asset'
       }
     ]
   },
@@ -79,10 +84,10 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       templateParameters: {
-        PUBLIC_URL: ""
+        PUBLIC_URL: ''
       },
       template: indexTemplatePath,
-      title: "코드모음"
+      title: '코드모음'
     })
   ]
 };
