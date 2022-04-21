@@ -9,12 +9,13 @@ const {
 
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 
 module.exports = {
   entry: {
     app: entryFilePath
   },
+  stats:'errors-only',
   context: rootDir,
   output: {
     clean: true, // 이전 파일 제거
@@ -31,14 +32,14 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        type: 'javascript/auto'
-      },
+      // {
+      //   test: /\.js$/,
+      //   type: 'javascript/auto'
+      // },
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: ['ts-loader']
+        use: [{loader: 'ts-loader', options: {transpileOnly: true}}]
       },
       {
         type: 'asset',
@@ -81,13 +82,6 @@ module.exports = {
           }
         }
       ]
-    }),
-    new HtmlWebpackPlugin({
-      templateParameters: {
-        PUBLIC_URL: ''
-      },
-      template: indexTemplatePath,
-      title: '코드모음'
     })
   ]
 };
