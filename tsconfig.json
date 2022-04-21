@@ -9,7 +9,8 @@
     "module": "esnext",
     "moduleResolution": "node",
     "sourceMap": true,
-    "esModuleInterop": true,
+    "esModuleInterop": true, // CommonJS/AMD/UMD 모듈 임포트 에러 방지처리
+    "allowSyntheticDefaultImports": true, // CommonJS/AMD/UMD 모듈 임포트 에러 방지처리
     "noImplicitReturns": false,
     "noImplicitThis": true,
     "noImplicitAny": true,
@@ -19,12 +20,12 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "forceConsistentCasingInFileNames":true,
-    "noFallthroughCasesInSwitch":true,
-    "allowSyntheticDefaultImports": true,
-    "resolveJsonModule":true,
-    "isolatedModules":false,
+    "noFallthroughCasesInSwitch":true, // switch문에 break, return 사용 강제
+    
+    "resolveJsonModule":false, // json모듈 사용
+    "isolatedModules":false, // 모든 파일을 모듈로 사용할 지 여부
     "skipLibCheck": true,
-    "noEmit": false,
+    "noEmit": false, // 컴파일 시 javascript 파일을 만들지 않음. babel, swc같은 도구를 이용한 후처리 할때 사용.
     "baseUrl": ".",
     "outDir": "./dist",
     "downlevelIteration": true,
