@@ -1,7 +1,16 @@
 // 리액트 스타일드 컴포넌트 모음
-import React from "react";
-import styled, { css } from "styled-components";
-import colors from "../colors";
+import React from 'react';
+import styled, {css} from 'styled-components';
+import colors from '../colors';
+import {
+  StyledButtonProps,
+  StyledFlexProps,
+  StyledGridLayoutProps,
+  StyledInputProps,
+  StyledLayoutProps,
+  StyledSizeProps,
+  StyledTypoProps
+} from './types/types';
 import {
   getAlignStyle,
   getBorderStyle,
@@ -15,20 +24,13 @@ import {
   getSizeStyle,
   getSpaceStyle,
   getTextStyle,
-  getZIndexStyle,
-  StyledButtonProps,
-  StyledFlexProps,
-  StyledGridLayoutProps,
-  StyledInputProps,
-  StyledLayoutProps,
-  StyledSizeProps,
-  StyledTypoProps
-} from "./types/types";
+  getZIndexStyle
+} from './core';
 
 const Box = styled.div<StyledLayoutProps>`
-  position: ${props => (props.position ? props.position : "static")};
-  display: ${props => (props.$display ? props.$display : "flex")};
-  flex-direction: ${props => (props.flexDirection ? "column" : "")};
+  position: ${props => (props.position ? props.position : 'static')};
+  display: ${props => (props.$display ? props.$display : 'flex')};
+  flex-direction: ${props => (props.flexDirection ? 'column' : '')};
   ${props =>
     props.boxShadow &&
     css`
@@ -37,14 +39,8 @@ const Box = styled.div<StyledLayoutProps>`
       border-radius: 16px;
     `};
   background-color: ${props => props.bgColor};
-  ${props =>
-    props.$display === undefined || props.$display.indexOf("flex") >= 0
-      ? getFlexStyle(props)
-      : ""}
-  ${props =>
-    props.$display === undefined || props.$display.indexOf("flex") >= 0
-      ? getAlignStyle(props)
-      : ""}
+  ${props => (props.$display === undefined || props.$display.indexOf('flex') >= 0 ? getFlexStyle(props) : '')}
+  ${props => (props.$display === undefined || props.$display.indexOf('flex') >= 0 ? getAlignStyle(props) : '')}
   ${props => getZIndexStyle(props)};
   ${props => getSizeStyle(props)};
   ${props => getSpaceStyle(props)};
@@ -64,10 +60,7 @@ const VBox = styled(Box)`
 
 const Spacer = styled.span<StyledFlexProps & StyledLayoutProps>`
   ${props => getFlexStyle(props)};
-  ${props =>
-    props.$display === undefined || props.$display.indexOf("flex") >= 0
-      ? getAlignStyle(props)
-      : ""}
+  ${props => (props.$display === undefined || props.$display.indexOf('flex') >= 0 ? getAlignStyle(props) : '')}
   ${props => getSizeStyle(props)};
 `;
 
@@ -114,8 +107,8 @@ const StyledButton = React.memo(styled.button<StyledButtonProps>`
 
 const StyledForm = styled.form<StyledLayoutProps>`
   display: flex;
-  flex-direction: ${props => props.flexDirection || "column"};
-  background-color: ${props => props.bgColor || "transparent"};
+  flex-direction: ${props => props.flexDirection || 'column'};
+  background-color: ${props => props.bgColor || 'transparent'};
   ${props => getFlexStyle(props)};
   ${props => getAlignStyle(props)};
   ${props => getSpaceStyle(props)};
@@ -132,7 +125,7 @@ const StyledInput = styled.input<StyledInputProps>`
   }
 `;
 
-const StyledLine = styled.hr<StyledSizeProps & { $color?: string | number }>`
+const StyledLine = styled.hr<StyledSizeProps & {$color?: string | number}>`
   background-color: ${props => props.$color || colors.gray01};
   align-self: stretch;
   margin: 0;
@@ -140,16 +133,4 @@ const StyledLine = styled.hr<StyledSizeProps & { $color?: string | number }>`
   ${props => getSizeStyle(props)};
 `;
 
-export {
-  Box,
-  HBox,
-  VBox,
-  GridBox,
-  Spacer,
-  StyledInput,
-  StyledForm,
-  StyledLine,
-  StyledHeadLine,
-  StyledText,
-  StyledButton
-};
+export {Box, HBox, VBox, GridBox, Spacer, StyledInput, StyledForm, StyledLine, StyledHeadLine, StyledText, StyledButton};

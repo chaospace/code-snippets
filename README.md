@@ -4,7 +4,9 @@
 ```
 +-- utils       // utils 함수 모음
 +-- helper      // utils의 함수를 이용한 편의함수 제공 객체 or 모듈 모음
++-- hooks       // 자유 사용하는 hook 모음
 +-- ui          // styled-component기반 ui 컴포넌트 베이스 모음 타입 고도화 필요
+
 
 ```
 
@@ -27,10 +29,10 @@
 <summary>webpack 적용 예시( wepback-dev-server )</summary>
 
 ```js
-const isDevelopment = process.env.NODE_ENV !== "production";
+const isDevelopment = process.env.NODE_ENV !== 'production';
 
 module.exports = {
-  mode: isDevelopment ? "development" : "production",
+  mode: isDevelopment ? 'development' : 'production',
   devServer: {
     hot: true
   }
@@ -43,12 +45,12 @@ module.exports = {
 <summary>babel-loader 설정</summary>
 
 ```js
-const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
-const isDevelopment = process.env.NODE_ENV !== "production";
+const isDevelopment = process.env.NODE_ENV !== 'production';
 
 module.exports = {
-  mode: isDevelopment ? "development" : "production",
+  mode: isDevelopment ? 'development' : 'production',
   module: {
     rules: [
       {
@@ -56,11 +58,9 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: require.resolve("babel-loader"),
+            loader: require.resolve('babel-loader'),
             options: {
-              plugins: [
-                isDevelopment && require.resolve("react-refresh/babel")
-              ].filter(Boolean)
+              plugins: [isDevelopment && require.resolve('react-refresh/babel')].filter(Boolean)
             }
           }
         ]
