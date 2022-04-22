@@ -15,12 +15,22 @@ import {
   StyledAlignProps,
   StyledGridProps,
   StyledSizeProps,
-  StyledZIndexProps
+  StyledZIndexProps,
+  StyledColorProps
 } from './types/types';
+import toArray from '@/utils/toArray';
 
-const wrapArray = (values: string | number | string[] | number[]) => {
-  return Array.isArray(values) ? values : [values];
-};
+const units = ['px', '%', 'vh', 'vw', 'em'];
+
+/**
+ * value뒤에 스타일 단위포함 여부 판단
+ * @param value
+ * @returns
+ */
+function hasSuffix(value: string | number) {
+  return units.some(unit => value.toString().indexOf(unit) > -1);
+}
+
 const overFlowCSS = (props: StyledOverFlowProps) => {
   let style = '';
   if (props.$overflowX || props.$overflowY) {
@@ -33,51 +43,41 @@ const overFlowCSS = (props: StyledOverFlowProps) => {
 };
 function getOverFlowStyle(props: StyledOverFlowProps) {
   const {$overflow, $overflowX, $overflowY} = props;
-  return css`
-    ${() => overFlowCSS({$overflow, $overflowX, $overflowY})}
-  `;
+  return overFlowCSS({$overflow, $overflowX, $overflowY});
 }
+
+/**
+ * 스타일 value타입에 따른 보완처리
+ * @param value  적용 값
+ * @param suffix 단위 기본값 px
+ * @returns
+ */
+const measureValue = (value: string | number, suffix = 'px') => {
+  return hasSuffix(value) ? value : `${value}${suffix}`;
+};
+
+/**
+ * margin, padding값 css문법 처리
+ * px="0 30" => 0px 30px
+ * m={[0 20 20 10]} => 0px 20px 20px 10px
+ * @param values 스타일 적용 값
+ * @param suffix 단위 기본값 px
+ * @returns
+ */
 /* eslint-disable no-return-assign */
 /* eslint-disable no-param-reassign */
 const styleValueFormmater = (values: string | number | string[] | number[], suffix = undefined) => {
-  const cloneValues = wrapArray(values).map(v => validateStyleValue(v.toString(), suffix));
+  const cloneValues = toArray(values).map(v => measureValue(v, suffix));
   function sum(acc = '', v: string) {
     acc += `${v} `;
     return acc;
   }
   return cloneValues.reduce<string>(sum, '').trimEnd();
 };
-/* eslint-enabled no-return-assign */
-/* eslint-enabled no-param-reassign */
-const marginLeftCSS = (value: string) => `margin-left:${value};`;
-const marginRightCSS = (value: string) => `margin-right:${value};`;
-const marginHorizonCSS = (value: string) => `${marginLeftCSS(value)}
-    ${marginRightCSS(value)}`;
-const marginTopCSS = (value: string) => `margin-top:${value};`;
-const marginBottomCSS = (value: string) => `margin-bottom: ${value};`;
-const marginVerticalCSS = (value: string) => `${marginTopCSS(value)}
-    ${marginBottomCSS(value)}`;
-const marginCSS = (value: string) => {
-  return `margin:${value};`;
-};
-const paddingLeftCSS = (value: string) => `padding-left:${value};`;
-const paddingRightCSS = (value: string) => `padding-right:${value};`;
-const paddingHorizonCSS = (value: string) => `${paddingLeftCSS(value)}
-    ${paddingRightCSS(value)}`;
-const paddingTopCSS = (value: string) => `padding-top:${value};`;
-const paddingBottomCSS = (value: string) => `padding-bottom: ${value};`;
-const paddingVerticalCSS = (value: string) => `${paddingTopCSS(value)}
-    ${paddingBottomCSS(value)}`;
-const paddingCSS = (value: string) => {
-  return `padding:${value};`;
-};
+
 const setStyleValue = (key: string, value: string) => `${key}:${value}`;
-const validateStyleValue = (value: string, suffix = 'px') => {
-  return isNaN(Number(value)) ? value.toString() : `${value}${suffix}`;
-};
 const executeStyleSetter = <Func extends TFunc>(func: Func, ...rest: any[]): InferReturn<Func> | undefined => {
   const [key, v, suffix] = rest.length > 1 ? rest : [undefined, ...rest];
-
   if (v) {
     const param = styleValueFormmater(v, suffix);
     return key ? func(key, param) : func(param);
@@ -85,39 +85,47 @@ const executeStyleSetter = <Func extends TFunc>(func: Func, ...rest: any[]): Inf
   return undefined;
 };
 const curriedStyleSetter = <T extends unknown[]>(...rest: T) => executeStyleSetter(setStyleValue, ...rest);
+// margin, padding 스타일 반환 함수모음
+/* eslint-enabled no-return-assign */
+/* eslint-enabled no-param-reassign */
+const marginLeftCSS = (value: string) => `margin-left:${value};`;
+const marginRightCSS = (value: string) => `margin-right:${value};`;
+const marginHorizonCSS = (value: string) => `${marginLeftCSS(value)}${marginRightCSS(value)}`;
+const marginTopCSS = (value: string) => `margin-top:${value};`;
+const marginBottomCSS = (value: string) => `margin-bottom: ${value};`;
+const marginVerticalCSS = (value: string) => `${marginTopCSS(value)} ${marginBottomCSS(value)}`;
+const marginCSS = (value: string) => `margin:${value};`;
+const paddingLeftCSS = (value: string) => `padding-left:${value};`;
+const paddingRightCSS = (value: string) => `padding-right:${value};`;
+const paddingHorizonCSS = (value: string) => `${paddingLeftCSS(value)}${paddingRightCSS(value)}`;
+const paddingTopCSS = (value: string) => `padding-top:${value};`;
+const paddingBottomCSS = (value: string) => `padding-bottom: ${value};`;
+const paddingVerticalCSS = (value: string) => `${paddingTopCSS(value)}${paddingBottomCSS(value)}`;
+const paddingCSS = (value: string) => `padding:${value};`;
+
 function getDefaultTypoStyle(key: TypoGraphyStyleType) {
   const info = TypoGraphyStyles[key];
   return css`
-    font-style: normal;
     font-size: ${info.size};
     letter-spacing: ${info.letterSpacing};
     line-height: ${info.lineHeight};
   `;
 }
 function getDisplayStyle(props: StyledDisplayProps) {
-  return css`
-    display: ${props.$display};
-  `;
+  return `display: ${props.$display}`;
 }
-function getSuffix(value: string | number) {
-  const units = ['px', '%', 'em'];
-  const hasSuffix = units.some(unit => value.toString().indexOf(unit) > -1);
-  return hasSuffix ? value : `${value}px`;
-}
+
 function getBorderStyle(props: StyledBorderProps) {
-  let styles = '';
+  let styles = ``;
   if (props.borderWidth || props.borderType || props.borderColor) {
     styles = `border: ${props.borderWidth || 1}px ${props.borderType || 'solid'} ${props.borderColor || 'white'};`;
   }
   if (props.borderRadius) {
-    styles += `border-radius: ${getSuffix(props.borderRadius)};`;
+    styles += `border-radius: ${measureValue(props.borderRadius)};`;
   }
-  return styles
-    ? css`
-        ${styles}
-      `
-    : undefined;
+  return styles || undefined;
 }
+
 function getFlexStyle(props: StyledFlexProps) {
   const {flexGrow, flexBasis, flexShrink} = props;
   return css<StyledFlexProps>`
@@ -127,10 +135,9 @@ function getFlexStyle(props: StyledFlexProps) {
   `;
 }
 function getPointerEventsStyle(props: StyledPointerEvents) {
-  return css`
-    ${() => curriedStyleSetter('pointer-events', props.pointerEvents, '')};
-  `;
+  return curriedStyleSetter('pointer-events', props.pointerEvents, '');
 }
+
 function getMarginStyle(props: StyledMarginProps) {
   const {ml, mr, mx, mt, mb, my, m} = props;
   return css<StyledMarginProps>`
@@ -155,20 +162,34 @@ function getPaddingStyle(props: StyledPaddingProps) {
     ${() => executeStyleSetter(paddingCSS, p)};
   `;
 }
+
 function getSpaceStyle(props: StyledSpaceProps) {
   return css<StyledSpaceProps>`
     ${() => getMarginStyle(props)};
     ${() => getPaddingStyle(props)};
   `;
 }
+
+function getColorStyle({$color, bgColor}: StyledColorProps) {
+  return css`
+    ${() => $color && `color:${$color};`};
+    ${() => bgColor && `background-color:${bgColor};`};
+  `;
+}
+
+function getFontWeight(bold?: boolean) {
+  return css`
+    font-weight: ${bold ? 'bold' : 'normal'};
+  `;
+}
+
 function getTextStyle(props: StyledTextProps) {
-  const {align, $size, $style, letterSpacing, lineHeight} = props;
+  const {align, $size, $style, bold, letterSpacing, lineHeight} = props;
   return css<StyledTextProps>`
-    color: ${() => props.$color || 'inherit'};
-    background-color: ${() => props.bgColor || 'inherit'};
-    font-weight: ${() => (props.bold ? 'bold' : 'normal')};
     ${() => getDefaultTypoStyle($style || 'p4')};
     ${() => curriedStyleSetter('text-align', align)};
+    ${() => getColorStyle(props)};
+    ${() => getFontWeight(bold)};
     ${() => curriedStyleSetter('font-size', $size)};
     ${() => curriedStyleSetter('letter-spacing', letterSpacing)};
     ${() => curriedStyleSetter('line-height', lineHeight)};
@@ -181,11 +202,11 @@ function getTypoStyleWithOutLineHeight(key: TypoGraphyStyleType) {
     letter-spacing: ${info.letterSpacing};
   `;
 }
-export function getFlexDirectionStyle(props: StyledFlexDirectionProps) {
-  return css`
-    flex-direction: ${props.flexDirection || 'column'};
-  `;
+
+function getFlexDirectionStyle(props: StyledFlexDirectionProps) {
+  return `flex-direction: ${props.flexDirection || 'column'}`;
 }
+
 function getAlignStyle(props: StyledAlignProps) {
   return css<StyledAlignProps>`
     ${() => setStyleValue('align-items', props.alignItems || 'normal')};
@@ -199,8 +220,8 @@ function getAlignStyle(props: StyledAlignProps) {
 }
 function getGridStyle(props: StyledGridProps) {
   return css`
-    ${() => curriedStyleSetter('grid-template-columns', props.columnCount)};
-    ${() => curriedStyleSetter('grid-template-rows', props.rowCount)};
+    ${() => curriedStyleSetter('grid-template-columns', props.columns)};
+    ${() => curriedStyleSetter('grid-template-rows', props.rows)};
     ${() => curriedStyleSetter('row-gap', props.rowGap)};
     ${() => curriedStyleSetter('column-gap', props.columnGap)};
     ${() => curriedStyleSetter('gap', props.gap)};
@@ -216,10 +237,8 @@ function getSizeStyle(props: StyledSizeProps) {
     ${() => curriedStyleSetter('max-height', props.maxHeight)};
   `;
 }
-function getZIndexStyle(props: StyledZIndexProps) {
-  return css<StyledZIndexProps>`
-    ${() => curriedStyleSetter('z-index', props.zIndex, '')};
-  `;
+function getZIndexStyle({zIndex}: StyledZIndexProps) {
+  return curriedStyleSetter('z-index', zIndex, '');
 }
 
 export {
@@ -237,6 +256,6 @@ export {
   getDefaultTypoStyle,
   getPointerEventsStyle,
   getZIndexStyle,
-  getFlexDirectionStyle as getDirectionStyle,
+  getFlexDirectionStyle,
   getTypoStyleWithOutLineHeight
 };

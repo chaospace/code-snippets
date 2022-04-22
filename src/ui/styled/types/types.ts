@@ -42,6 +42,11 @@ type StyledFlexDirectionProps = {
   flexDirection?: AlignDirection;
 };
 
+type StyledColorProps = {
+  $color?: string;
+  bgColor?: string;
+};
+
 type StyledMarginProps = {
   mx?: number | string;
   ml?: number | string;
@@ -62,11 +67,9 @@ type StyledPaddingProps = {
   p?: string | string[] | number | number[];
 };
 
-type StyledTextProps = {
+type StyledTextProps = StyledColorProps & {
   $style?: TypoGraphyStyleType;
   $size?: number;
-  $color?: string;
-  bgColor?: string;
   align?: string;
   letterSpacing?: string;
   lineHeight?: number;
@@ -107,8 +110,8 @@ type StyledOverFlowProps = {
 };
 
 type StyledGridProps = {
-  columnCount?: string;
-  rowCount?: string;
+  columns?: string;
+  rows?: string;
   columnGap?: string | number;
   rowGap?: string | number;
   gap?: string | number;
@@ -177,5 +180,6 @@ export type {
   StyledTextProps,
   StyledPaddingProps,
   StyledPointerEvents,
-  StyledPropsWithProps
+  StyledPropsWithProps,
+  StyledColorProps
 };
