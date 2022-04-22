@@ -1,22 +1,14 @@
 // styled component 요소 모음
-import React, {
-  ComponentProps,
-  ElementType,
-  JSXElementConstructor
-} from "react";
-import { css, StyledComponent } from "styled-components";
-import { InferReturn, TFunc } from "../../../types/types";
-import TypoGraphyStyleType, { TypoGraphyStyles } from "./typo";
+import React, {ComponentProps, ElementType, JSXElementConstructor} from 'react';
+import {css, StyledComponent} from 'styled-components';
+import {InferReturn, TFunc} from '../../../types/types';
+import TypoGraphyStyleType, {TypoGraphyStyles} from './typo';
 type PropsOf<T> = T extends React.ComponentType<infer P> ? P : never;
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
-export type withStyledProps<
-  InitialProps,
-  Element extends
-    | keyof JSX.IntrinsicElements
-    | JSXElementConstructor<any> = "div"
-> = PropsOf<
+// styled컴포넌트 속성을 가진 리액트컴포넌트 속성타입 정의를 위한 타입.
+type StyledPropsWithProps<InitialProps, Element extends keyof JSX.IntrinsicElements | JSXElementConstructor<any> = 'div'> = PropsOf<
   StyledComponent<
     ComponentProps<Element>,
     any,
@@ -29,27 +21,21 @@ export type withStyledProps<
   >
 >;
 
-type AlignDirection = "column" | "row";
+type AlignDirection = 'column' | 'row';
 
 // 엘리먼트 자식 요소 flex설정
-type AlignItems = "baseline" | "center" | "flex-start" | "flex-end";
+type AlignItems = 'baseline' | 'center' | 'flex-start' | 'flex-end';
 
 // 엘리먼트 자신의 flex설정
-type AlignSelf = "center" | "start" | "end" | "normal" | "stretch";
+type AlignSelf = 'center' | 'start' | 'end' | 'normal' | 'stretch';
 
 // justify-content 메인 축
 // align 교차축
 // 엘리먼트 content그룹에 정렬 flex-warp을 사용하고 아이템행이 2줄 이상일 때 동작
-type AlignContents =
-  | "flex-start"
-  | "center"
-  | "flex-end"
-  | "space-between"
-  | "space-evenly"
-  | "space-around";
+type AlignContents = 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-evenly' | 'space-around';
 
 type StyledPointerEvents = {
-  pointerEvents?: "auto" | "none";
+  pointerEvents?: 'auto' | 'none';
 };
 
 type StyledFlexDirectionProps = {
@@ -66,7 +52,7 @@ type StyledMarginProps = {
   m?: string | string[] | number | number[];
 };
 
-export type StyledPaddingProps = {
+type StyledPaddingProps = {
   px?: number | string;
   pl?: number | string;
   pr?: number | string;
@@ -76,7 +62,7 @@ export type StyledPaddingProps = {
   p?: string | string[] | number | number[];
 };
 
-export type StyledTextProps = {
+type StyledTextProps = {
   $style?: TypoGraphyStyleType;
   $size?: number;
   $color?: string;
@@ -87,14 +73,14 @@ export type StyledTextProps = {
   bold?: boolean;
 };
 
-export type StyledBorderProps = {
+type StyledBorderProps = {
   borderColor?: string | number;
   borderWidth?: number | string;
   borderType?: string;
   borderRadius?: number | string;
 };
 
-export type StyledAlignProps = {
+type StyledAlignProps = {
   alignContent?: AlignContents;
   alignItems?: AlignItems;
   alignSelf?: AlignSelf;
@@ -132,14 +118,14 @@ type StyledZIndexProps = {
   zIndex?: number | string;
 };
 
-export type StyledFlexProps = StyledSizeProps & {
+type StyledFlexProps = StyledSizeProps & {
   flexBasis?: number | string;
   flexGrow?: number | string;
   flexWrap?: number | string;
   flexShrink?: number | string;
 };
 
-export type StyledSizeProps = {
+type StyledSizeProps = {
   width?: number | string;
   height?: number | string;
   minWidth?: number | string;
@@ -148,17 +134,14 @@ export type StyledSizeProps = {
   maxHeight?: number | string;
 };
 
-export type StyledInputProps = StyledFlexProps &
-  StyledSizeProps &
-  StyledMarginProps &
-  StyledPaddingProps;
+type StyledInputProps = StyledFlexProps & StyledSizeProps & StyledMarginProps & StyledPaddingProps;
 
 const wrapArray = (values: string | number | string[] | number[]) => {
   return Array.isArray(values) ? values : [values];
 };
 
 const overFlowCSS = (props: StyledOverFlowProps) => {
-  let style = "";
+  let style = '';
   if (props.$overflowX || props.$overflowY) {
     style += `overflow : hidden;`;
     style += props.$overflowX ? `overflow-x:auto` : `overflow-y:auto`;
@@ -169,26 +152,21 @@ const overFlowCSS = (props: StyledOverFlowProps) => {
 };
 
 function getOverFlowStyle(props: StyledOverFlowProps) {
-  const { $overflow, $overflowX, $overflowY } = props;
+  const {$overflow, $overflowX, $overflowY} = props;
   return css`
-    ${() => overFlowCSS({ $overflow, $overflowX, $overflowY })}
+    ${() => overFlowCSS({$overflow, $overflowX, $overflowY})}
   `;
 }
 
 /* eslint-disable no-return-assign */
 /* eslint-disable no-param-reassign */
-const styleValueFormmater = (
-  values: string | number | string[] | number[],
-  suffix = undefined
-) => {
-  const cloneValues = wrapArray(values).map(v =>
-    validateStyleValue(v.toString(), suffix)
-  );
-  function sum(acc = "", v: string) {
+const styleValueFormmater = (values: string | number | string[] | number[], suffix = undefined) => {
+  const cloneValues = wrapArray(values).map(v => validateStyleValue(v.toString(), suffix));
+  function sum(acc = '', v: string) {
     acc += `${v} `;
     return acc;
   }
-  return cloneValues.reduce<string>(sum, "").trimEnd();
+  return cloneValues.reduce<string>(sum, '').trimEnd();
 };
 /* eslint-enabled no-return-assign */
 /* eslint-enabled no-param-reassign */
@@ -220,14 +198,11 @@ const paddingCSS = (value: string) => {
 };
 
 const setStyleValue = (key: string, value: string) => `${key}:${value}`;
-const validateStyleValue = (value: string, suffix = "px") => {
+const validateStyleValue = (value: string, suffix = 'px') => {
   return isNaN(Number(value)) ? value.toString() : `${value}${suffix}`;
 };
 
-const executeStyleSetter = <Func extends TFunc>(
-  func: Func,
-  ...rest: any[]
-): InferReturn<Func> | undefined => {
+const executeStyleSetter = <Func extends TFunc>(func: Func, ...rest: any[]): InferReturn<Func> | undefined => {
   const [key, v, suffix] = rest.length > 1 ? rest : [undefined, ...rest];
 
   if (v) {
@@ -237,8 +212,7 @@ const executeStyleSetter = <Func extends TFunc>(
   return undefined;
 };
 
-const curriedStyleSetter = <T extends unknown[]>(...rest: T) =>
-  executeStyleSetter(setStyleValue, ...rest);
+const curriedStyleSetter = <T extends unknown[]>(...rest: T) => executeStyleSetter(setStyleValue, ...rest);
 
 function getDefaultTypoStyle(key: TypoGraphyStyleType) {
   const info = TypoGraphyStyles[key];
@@ -257,17 +231,15 @@ function getDisplayStyle(props: StyledDisplayProps) {
 }
 
 function getSuffix(value: string | number) {
-  const units = ["px", "%", "em"];
+  const units = ['px', '%', 'em'];
   const hasSuffix = units.some(unit => value.toString().indexOf(unit) > -1);
   return hasSuffix ? value : `${value}px`;
 }
 
 function getBorderStyle(props: StyledBorderProps) {
-  let styles = "";
+  let styles = '';
   if (props.borderWidth || props.borderType || props.borderColor) {
-    styles = `border: ${props.borderWidth || 1}px ${
-      props.borderType || "solid"
-    } ${props.borderColor || "white"};`;
+    styles = `border: ${props.borderWidth || 1}px ${props.borderType || 'solid'} ${props.borderColor || 'white'};`;
   }
   if (props.borderRadius) {
     styles += `border-radius: ${getSuffix(props.borderRadius)};`;
@@ -280,22 +252,22 @@ function getBorderStyle(props: StyledBorderProps) {
 }
 
 function getFlexStyle(props: StyledFlexProps) {
-  const { flexGrow, flexBasis, flexShrink } = props;
+  const {flexGrow, flexBasis, flexShrink} = props;
   return css<StyledFlexProps>`
-    ${() => curriedStyleSetter("flex-grow", flexGrow, "")};
-    ${() => curriedStyleSetter("flex-shrink", flexShrink, "")};
-    ${() => curriedStyleSetter("flex-basis", flexBasis)};
+    ${() => curriedStyleSetter('flex-grow', flexGrow, '')};
+    ${() => curriedStyleSetter('flex-shrink', flexShrink, '')};
+    ${() => curriedStyleSetter('flex-basis', flexBasis)};
   `;
 }
 
 function getPointerEventsStyle(props: StyledPointerEvents) {
   return css`
-    ${() => curriedStyleSetter("pointer-events", props.pointerEvents, "")};
+    ${() => curriedStyleSetter('pointer-events', props.pointerEvents, '')};
   `;
 }
 
 function getMarginStyle(props: StyledMarginProps) {
-  const { ml, mr, mx, mt, mb, my, m } = props;
+  const {ml, mr, mx, mt, mb, my, m} = props;
   return css<StyledMarginProps>`
     ${() => executeStyleSetter(marginLeftCSS, ml)};
     ${() => executeStyleSetter(marginRightCSS, mr)};
@@ -308,7 +280,7 @@ function getMarginStyle(props: StyledMarginProps) {
 }
 
 function getPaddingStyle(props: StyledPaddingProps) {
-  const { pl, pr, px, pt, pb, py, p } = props;
+  const {pl, pr, px, pt, pb, py, p} = props;
   return css<StyledPaddingProps>`
     ${() => executeStyleSetter(paddingLeftCSS, pl)};
     ${() => executeStyleSetter(paddingRightCSS, pr)};
@@ -328,16 +300,16 @@ function getSpaceStyle(props: StyledSpaceProps) {
 }
 
 function getTextStyle(props: StyledTextProps) {
-  const { align, $size, $style, letterSpacing, lineHeight } = props;
+  const {align, $size, $style, letterSpacing, lineHeight} = props;
   return css<StyledTextProps>`
-    color: ${() => props.$color || "inherit"};
-    background-color: ${() => props.bgColor || "inherit"};
-    font-weight: ${() => (props.bold ? "bold" : "normal")};
-    ${() => getDefaultTypoStyle($style || "p4")};
-    ${() => curriedStyleSetter("text-align", align)};
-    ${() => curriedStyleSetter("font-size", $size)};
-    ${() => curriedStyleSetter("letter-spacing", letterSpacing)};
-    ${() => curriedStyleSetter("line-height", lineHeight)};
+    color: ${() => props.$color || 'inherit'};
+    background-color: ${() => props.bgColor || 'inherit'};
+    font-weight: ${() => (props.bold ? 'bold' : 'normal')};
+    ${() => getDefaultTypoStyle($style || 'p4')};
+    ${() => curriedStyleSetter('text-align', align)};
+    ${() => curriedStyleSetter('font-size', $size)};
+    ${() => curriedStyleSetter('letter-spacing', letterSpacing)};
+    ${() => curriedStyleSetter('line-height', lineHeight)};
   `;
 }
 
@@ -351,54 +323,52 @@ function getTypoStyleWithOutLineHeight(key: TypoGraphyStyleType) {
 
 function getFlexDirectionStyle(props: StyledFlexDirectionProps) {
   return css`
-    flex-direction: ${props.flexDirection || "column"};
+    flex-direction: ${props.flexDirection || 'column'};
   `;
 }
 
 function getAlignStyle(props: StyledAlignProps) {
   return css<StyledAlignProps>`
-    ${() => setStyleValue("align-items", props.alignItems || "normal")};
-    ${() => curriedStyleSetter("gap", props.gap)};
-    ${() => curriedStyleSetter("align-self", props.alignSelf)};
-    ${() => curriedStyleSetter("align-content", props.alignContent)};
-    ${() => curriedStyleSetter("justify-items", props.justifyItems)};
-    ${() => curriedStyleSetter("justify-content", props.justifyContent)};
-    ${() => curriedStyleSetter("jusitify-self", props.justifySelf)};
+    ${() => setStyleValue('align-items', props.alignItems || 'normal')};
+    ${() => curriedStyleSetter('gap', props.gap)};
+    ${() => curriedStyleSetter('align-self', props.alignSelf)};
+    ${() => curriedStyleSetter('align-content', props.alignContent)};
+    ${() => curriedStyleSetter('justify-items', props.justifyItems)};
+    ${() => curriedStyleSetter('justify-content', props.justifyContent)};
+    ${() => curriedStyleSetter('jusitify-self', props.justifySelf)};
   `;
 }
 
 function getGridStyle(props: StyledGridProps) {
   return css`
-    ${() => curriedStyleSetter("grid-template-columns", props.columnCount)};
-    ${() => curriedStyleSetter("grid-template-rows", props.rowCount)};
-    ${() => curriedStyleSetter("row-gap", props.rowGap)};
-    ${() => curriedStyleSetter("column-gap", props.columnGap)};
-    ${() => curriedStyleSetter("gap", props.gap)};
+    ${() => curriedStyleSetter('grid-template-columns', props.columnCount)};
+    ${() => curriedStyleSetter('grid-template-rows', props.rowCount)};
+    ${() => curriedStyleSetter('row-gap', props.rowGap)};
+    ${() => curriedStyleSetter('column-gap', props.columnGap)};
+    ${() => curriedStyleSetter('gap', props.gap)};
   `;
 }
 
 function getSizeStyle(props: StyledSizeProps) {
   return css<StyledSizeProps>`
-    ${() => curriedStyleSetter("width", props.width)};
-    ${() => curriedStyleSetter("height", props.height)};
-    ${() => curriedStyleSetter("min-width", props.minWidth)};
-    ${() => curriedStyleSetter("min-height", props.minHeight)};
-    ${() => curriedStyleSetter("max-width", props.maxWidth)};
-    ${() => curriedStyleSetter("max-height", props.maxHeight)};
+    ${() => curriedStyleSetter('width', props.width)};
+    ${() => curriedStyleSetter('height', props.height)};
+    ${() => curriedStyleSetter('min-width', props.minWidth)};
+    ${() => curriedStyleSetter('min-height', props.minHeight)};
+    ${() => curriedStyleSetter('max-width', props.maxWidth)};
+    ${() => curriedStyleSetter('max-height', props.maxHeight)};
   `;
 }
 
 function getZIndexStyle(props: StyledZIndexProps) {
   return css<StyledZIndexProps>`
-    ${() => curriedStyleSetter("z-index", props.zIndex, "")};
+    ${() => curriedStyleSetter('z-index', props.zIndex, '')};
   `;
 }
 
-export type StyledButtonProps = StyledMarginProps &
-  StyledPaddingProps &
-  StyledTextProps;
-export type StyledSpaceProps = StyledMarginProps & StyledPaddingProps;
-export type StyledLayoutProps = StyledDisplayProps &
+type StyledButtonProps = StyledMarginProps & StyledPaddingProps & StyledTextProps;
+type StyledSpaceProps = StyledMarginProps & StyledPaddingProps;
+type StyledLayoutProps = StyledDisplayProps &
   StyledAlignProps &
   StyledContainerProps &
   StyledSizeProps &
@@ -409,13 +379,25 @@ export type StyledLayoutProps = StyledDisplayProps &
   StyledZIndexProps &
   StyledFlexDirectionProps &
   StyledPointerEvents;
-export type StyledTypoProps = StyledDisplayProps &
-  StyledTextProps &
-  StyledSpaceProps &
-  StyledBorderProps;
-export type StyledGridLayoutProps = StyledContainerProps &
-  StyledGridProps &
-  StyledSpaceProps;
+
+type StyledTypoProps = StyledDisplayProps & StyledTextProps & StyledSpaceProps & StyledBorderProps;
+
+type StyledGridLayoutProps = StyledContainerProps & StyledGridProps & StyledSpaceProps;
+
+export type {
+  AlignSelf,
+  AlignContents,
+  AlignItems,
+  StyledFlexDirectionProps,
+  StyledMarginProps,
+  StyledLayoutProps,
+  StyledGridLayoutProps,
+  StyledTypoProps,
+  StyledButtonProps,
+  StyledInputProps,
+  StyledSizeProps,
+  StyledFlexProps
+};
 
 export {
   getDisplayStyle,
@@ -434,12 +416,4 @@ export {
   getZIndexStyle,
   getFlexDirectionStyle as getDirectionStyle,
   getTypoStyleWithOutLineHeight
-};
-export {
-  AlignSelf,
-  AlignContents,
-  AlignItems,
-  StyledFlexDirectionProps,
-  StyledMarginProps,
-  TypoGraphyStyles
 };
