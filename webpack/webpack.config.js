@@ -1,16 +1,16 @@
-const defaultConfig = require("./common");
-const develConfig = require("./dev");
-const productionConfig = require("./production");
-const { merge } = require("webpack-merge");
+const defaultConfig = require('./common');
+const develConfig = require('./dev');
+const productionConfig = require('./production');
+const {merge} = require('webpack-merge');
 //const webpack = require("webpack");
 function getConfig(mode) {
-  let config = "";
+  let config = '';
   switch (mode) {
-    case "development":
-      config = merge(defaultConfig, develConfig, { mode });
+    case 'development':
+      config = merge(defaultConfig, develConfig, {mode});
       break;
-    case "production":
-      config = merge(defaultConfig, productionConfig, { mode });
+    case 'production':
+      config = merge(defaultConfig, productionConfig, {mode});
       break;
   }
   //   config.plugins = [
