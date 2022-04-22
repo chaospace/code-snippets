@@ -6,12 +6,15 @@ const config = {
   testEnvironment: 'jsdom',
   //테스트에 사용할 테스트 환경
   transformIgnorePatterns: ['/node_modules/', '\\.pnp\\.[^\\/]+$'],
+  moduleDirectories: ['node_modules'],
   // 파일 경로가 패턴과 일치하면 변환되지 않습니다.
   coveragePathIgnorePatterns: ['src/index.ts'],
   setupFilesAfterEnv: ['./tests/setup.ts'],
   // 파일 경로가 패턴 중 하나와 일치하면 적용 범위 정보를 건너뜁
   moduleNameMapper: {
-    '@/(.*)$': '<rootDir>/src/$1'
+    '@/(.*)$': '<rootDir>/src/$1',
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/tests/__mocks__/fileMock.ts',
+    '\\.(css|scss|less)$': '<rootDir>/tests/__mocks__/styleMock.ts'
   }
 };
 
