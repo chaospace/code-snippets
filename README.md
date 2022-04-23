@@ -7,7 +7,6 @@
 +-- hooks       // 자유 사용하는 hook 모음
 +-- ui          // styled-component기반 ui 컴포넌트 베이스 모음 타입 고도화 필요
 
-
 ```
 
 ## webpack 주요 설정 정리
@@ -72,3 +71,16 @@ module.exports = {
 ```
 
 </details>
+
+## react test library 정리
+
+> 컴포넌트의 상태관리 및 구현을 위한 코드를 피하고. 동작에 중점을 둔 코드를 만드는게 지속적인 유지보수를 통해 관리하기 쉬운 테스트코드가 된다.
+
+**세부구현 내용이란?**
+
+- Internal state of a component
+- Internal methods of a component
+- Lifecycle methods of a component
+- Child components
+
+[기본적인 사용법](https://www.freecodecamp.org/news/8-simple-steps-to-start-testing-react-apps-using-react-testing-library-and-jest/#3-testing-events)
