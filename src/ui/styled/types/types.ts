@@ -1,7 +1,7 @@
 // styled component 요소 모음
 import React, {ComponentProps, ElementType, JSXElementConstructor} from 'react';
 import {StyledComponent} from 'styled-components';
-import TypoGraphyStyleType from './typo';
+import TypoGraphyType from './typo';
 
 type PropsOf<T> = T extends React.ComponentType<infer P> ? P : never;
 
@@ -34,20 +34,22 @@ type AlignSelf = 'center' | 'start' | 'end' | 'normal' | 'stretch';
 // 엘리먼트 content그룹에 정렬 flex-warp을 사용하고 아이템행이 2줄 이상일 때 동작
 type AlignContents = 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-evenly' | 'space-around';
 
-type StyledPointerEvents = {
-  pointerEvents?: 'auto' | 'none';
+type DisplayPostions = 'static' | 'sticky' | 'absolute' | 'relative' | 'fixed';
+
+type PointerEventProps = {
+  pointerEvent?: 'auto' | 'none';
 };
 
-type StyledFlexDirectionProps = {
+type FlexDirectionProps = {
   flexDirection?: AlignDirection;
 };
 
-type StyledColorProps = {
-  $color?: string;
+type ColorProps = {
+  color?: string;
   bgColor?: string;
 };
 
-type StyledMarginProps = {
+type MarginProps = {
   mx?: number | string;
   ml?: number | string;
   mr?: number | string;
@@ -57,7 +59,7 @@ type StyledMarginProps = {
   m?: string | string[] | number | number[];
 };
 
-type StyledPaddingProps = {
+type PaddingProps = {
   px?: number | string;
   pl?: number | string;
   pr?: number | string;
@@ -67,23 +69,24 @@ type StyledPaddingProps = {
   p?: string | string[] | number | number[];
 };
 
-type StyledTextProps = StyledColorProps & {
-  $style?: TypoGraphyStyleType;
-  $size?: number;
+type TextProps = {
+  type?: TypoGraphyType;
+  size?: number;
   align?: string;
   letterSpacing?: string;
   lineHeight?: number;
   bold?: boolean;
+  color?: string;
 };
 
-type StyledBorderProps = {
+type BorderProps = {
   borderColor?: string | number;
   borderWidth?: number | string;
   borderType?: string;
   borderRadius?: number | string;
 };
 
-type StyledAlignProps = {
+type FlexAlignProps = {
   alignContent?: AlignContents;
   alignItems?: AlignItems;
   alignSelf?: AlignSelf;
@@ -93,23 +96,21 @@ type StyledAlignProps = {
   gap?: number | string;
 };
 
-type StyledDisplayProps = {
-  $display?: string;
+type DisplayProps = {
+  display?: string;
 };
 
-type StyledContainerProps = {
-  position?: string;
-  boxShadow?: boolean;
-  bgColor?: string;
+type PositionProps = {
+  position?: DisplayPostions;
 };
 
-type StyledOverFlowProps = {
-  $overflowY?: boolean;
-  $overflowX?: boolean;
-  $overflow?: boolean;
+type OverFlowProps = {
+  overflowY?: boolean;
+  overflowX?: boolean;
+  overflow?: boolean;
 };
 
-type StyledGridProps = {
+type GridProps = {
   columns?: string;
   rows?: string;
   columnGap?: string | number;
@@ -117,18 +118,18 @@ type StyledGridProps = {
   gap?: string | number;
 };
 
-type StyledZIndexProps = {
+type ZIndexProps = {
   zIndex?: number | string;
 };
 
-type StyledFlexProps = StyledSizeProps & {
+type FlexProps = {
   flexBasis?: number | string;
   flexGrow?: number | string;
   flexWrap?: number | string;
   flexShrink?: number | string;
 };
 
-type StyledSizeProps = {
+type DisplaySizeProps = {
   width?: number | string;
   height?: number | string;
   minWidth?: number | string;
@@ -137,49 +138,51 @@ type StyledSizeProps = {
   maxHeight?: number | string;
 };
 
-type StyledInputProps = StyledFlexProps & StyledSizeProps & StyledMarginProps & StyledPaddingProps;
+type SpaceProps = MarginProps & PaddingProps;
+type ButtonProps = SpaceProps & TextProps;
 
-type StyledButtonProps = StyledMarginProps & StyledPaddingProps & StyledTextProps;
-type StyledSpaceProps = StyledMarginProps & StyledPaddingProps;
-type StyledLayoutProps = StyledDisplayProps &
-  StyledAlignProps &
-  StyledContainerProps &
-  StyledSizeProps &
-  StyledSpaceProps &
-  StyledFlexProps &
-  StyledBorderProps &
-  StyledOverFlowProps &
-  StyledZIndexProps &
-  StyledFlexDirectionProps &
-  StyledPointerEvents;
+type InputProps = FlexProps & DisplaySizeProps & MarginProps & PaddingProps;
 
-type StyledTypoProps = StyledDisplayProps & StyledTextProps & StyledSpaceProps & StyledBorderProps;
+type ContainerProps = PositionProps &
+  DisplayProps &
+  DisplaySizeProps &
+  OverFlowProps &
+  ColorProps &
+  SpaceProps &
+  BorderProps &
+  ZIndexProps &
+  PointerEventProps;
+type FlexContainerProps = ContainerProps & FlexDirectionProps & FlexProps & FlexAlignProps;
+type GridContainerProps = ContainerProps & GridProps;
 
-type StyledGridLayoutProps = StyledContainerProps & StyledGridProps & StyledSpaceProps;
+type TypoProps = TextProps & SpaceProps;
 
 export type {
+  AlignDirection,
+  DisplayPostions,
   AlignSelf,
   AlignContents,
   AlignItems,
-  StyledFlexDirectionProps,
-  StyledMarginProps,
-  StyledLayoutProps,
-  StyledGridLayoutProps,
-  StyledTypoProps,
-  StyledButtonProps,
-  StyledInputProps,
-  StyledSizeProps,
-  StyledFlexProps,
-  StyledSpaceProps,
-  StyledZIndexProps,
-  StyledGridProps,
-  StyledOverFlowProps,
-  StyledDisplayProps,
-  StyledAlignProps,
-  StyledBorderProps,
-  StyledTextProps,
-  StyledPaddingProps,
-  StyledPointerEvents,
+  FlexDirectionProps,
+  MarginProps,
+  TypoProps,
+  ButtonProps,
+  InputProps,
+  DisplaySizeProps,
+  FlexProps,
+  SpaceProps,
+  ZIndexProps,
+  GridProps,
+  OverFlowProps,
+  DisplayProps,
+  FlexAlignProps,
+  BorderProps,
+  TextProps,
+  PaddingProps,
+  PointerEventProps,
   StyledPropsWithProps,
-  StyledColorProps
+  ColorProps,
+  ContainerProps,
+  FlexContainerProps,
+  GridContainerProps
 };
