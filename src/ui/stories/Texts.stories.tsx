@@ -1,29 +1,67 @@
 import React from 'react';
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 
-import {Text} from '../styled/Texts';
+import {Text} from '@/ui/styled/Texts';
 
 export default {
   title: 'Example/Text',
   component: Text,
   argTypes: {
-    type: {
-      options: ['p12', 'p14', 'p16', 'p18', 'p20', 'p24'],
-      control: {type: 'select'} // Automatically
-    },
+    type: {table: {disable: true}},
     color: {control: 'color'},
     bold: {control: 'boolean'}
   }
 } as ComponentMeta<typeof Text>;
 
 const Template: ComponentStory<typeof Text> = args => {
-  //const {children, rest} = args;
-  console.log('args', args);
   return <Text {...args} />;
 };
 
-export const Normal = Template.bind({});
-Normal.args = {
+const P8 = Template.bind({});
+P8.args = {
   children: 'Hello'
 };
+const P7 = Template.bind({});
+P7.args = {
+  children: 'Hello',
+  type: 'h7'
+};
+
+const P6 = Template.bind({});
+P6.args = {
+  children: 'Hello',
+  type: 'h6'
+};
+
+const P5 = Template.bind({});
+P5.args = {
+  children: 'Hello',
+  type: 'h5'
+};
+
+const P4 = Template.bind({});
+P4.args = {
+  children: 'Hello',
+  type: 'h4'
+};
+
+const P3 = Template.bind({});
+P3.args = {
+  children: 'Hello',
+  type: 'h3'
+};
+
+const P2 = Template.bind({});
+P2.args = {
+  children: 'Hello',
+  type: 'h2'
+};
+
+const P1 = Template.bind({});
+P1.args = {
+  children: 'Hello',
+  type: 'h1'
+};
+
+export {P8, P7, P6, P5, P4, P3, P2, P1};
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
