@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {createRoot} from 'react-dom/client';
 import styled from 'styled-components';
 import {Space} from './ui/space';
-import {VBox} from './ui/styled/elements';
+import {VBox} from './ui/styled/Elements';
 const message = 'hello';
 const MyBox = styled.div`
   display: flex;
