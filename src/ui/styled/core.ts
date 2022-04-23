@@ -195,7 +195,7 @@ function getFontWeight(bold?: boolean) {
 function getTextStyle(props: TextProps) {
   const {align, size, type, bold, letterSpacing, lineHeight} = props;
   return css`
-    ${() => getDefaultTypoStyle(type || 'p12')};
+    ${() => getDefaultTypoStyle(type || 'h6')};
     ${() => curriedStyleSetter('text-align', align)};
     ${() => getColorStyle(props)};
     ${() => getFontWeight(bold)};

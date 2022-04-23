@@ -3,41 +3,21 @@ import colors from '../colors';
 import {TypoProps} from './types/types';
 import {getSpaceStyle, getTextStyle} from './core';
 
-const Text = styled.p<TypoProps>`
-  ${props => {
-    props.color ||= colors.gray07;
-    return getTextStyle(props);
-  }};
+const TextBase = styled.p<TypoProps>`
+  ${props => getTextStyle(props)};
   ${props => getSpaceStyle(props)};
 `;
 
-const Text14 = styled(Text).attrs({
-  type: 'p14'
-})``;
+const Text = styled(TextBase).attrs((props: TypoProps) => ({
+  color: colors.gray07,
+  type: props.type || 'h8'
+}))``;
 
-const Text16 = styled(Text).attrs({
-  type: 'p16'
-})``;
-
-const Text18 = styled(Text).attrs({
-  type: 'p18'
-})``;
-
-const Text20 = styled(Text).attrs({
-  type: 'p20'
-})``;
-
-const Text24 = styled(Text).attrs({
-  type: 'p24'
-})``;
-
-const Text32 = styled(Text).attrs({
-  type: 'p32'
-})``;
-
-const HeadLine = styled(Text).attrs({
+const HeadLine = styled(Text).attrs((props: TypoProps) => ({
   bold: true,
-  color: colors.gray08
-})``;
+  color: colors.gray08,
+  type: props.type || 'h1',
+  as: props.type
+}))``;
 
-export {Text, Text14, Text16, Text18, Text20, Text24, Text32, HeadLine};
+export {Text, HeadLine};
