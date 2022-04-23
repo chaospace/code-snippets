@@ -8,7 +8,9 @@
   "license": "MIT",
   "scripts": {
     "serve": "webpack server --mode development --config ./webpack/webpack.config.js",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "private": false,
   "dependencies": {
@@ -23,6 +25,14 @@
     "@babel/preset-react": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
+    "@storybook/addon-actions": "^6.4.22",
+    "@storybook/addon-essentials": "^6.4.22",
+    "@storybook/addon-interactions": "^6.4.22",
+    "@storybook/addon-links": "^6.4.22",
+    "@storybook/builder-webpack5": "^6.4.22",
+    "@storybook/manager-webpack5": "^6.4.22",
+    "@storybook/react": "^6.4.22",
+    "@storybook/testing-library": "^0.0.11",
     "@svgr/webpack": "^6.2.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
