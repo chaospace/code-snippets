@@ -45,7 +45,7 @@ type FlexDirectionProps = {
 };
 
 type ColorProps = {
-  color?: string;
+  $color?: string;
   bgColor?: string;
 };
 
@@ -70,13 +70,13 @@ type PaddingProps = {
 };
 
 type TextProps = {
-  type?: TypoGraphyType;
+  $type?: TypoGraphyType;
   size?: number;
   align?: string;
   letterSpacing?: string;
   lineHeight?: number;
   bold?: boolean;
-  color?: string;
+  $color?: string;
 };
 
 type BorderProps = {
@@ -111,10 +111,14 @@ type OverFlowProps = {
 };
 
 type GridProps = {
+  templateColumns?: string;
+  templateRows?: string;
   columns?: string;
   rows?: string;
   columnGap?: string | number;
   rowGap?: string | number;
+  autoRows?: string;
+  autoColumns?: string;
   gap?: string | number;
 };
 

@@ -2,52 +2,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import colors from '../colors';
-import {ButtonProps, FlexProps, InputProps, DisplaySizeProps, FlexContainerProps, GridContainerProps, ContainerProps} from './types/types';
-import {
-  getAlignStyle,
-  getBorderStyle,
-  getDisplayStyle,
-  getFlexDirectionStyle,
-  getFlexStyle,
-  getGridStyle,
-  getMarginStyle,
-  getOverFlowStyle,
-  getPaddingStyle,
-  getPointerEventsStyle,
-  getPositionStyle,
-  getSizeStyle,
-  getSpaceStyle,
-  getTextStyle,
-  getZIndexStyle
-} from './core';
-
-const Box = styled.div<FlexContainerProps>`
-  ${props => getDisplayStyle(props.display ?? 'flex')};
-  ${props => getPositionStyle(props.position ?? 'static')};
-  ${props => getFlexDirectionStyle(props.flexDirection ?? 'row')};
-  ${props => getFlexStyle(props)}
-  ${props => getAlignStyle(props)}
-  ${props => getZIndexStyle(props)};
-  ${props => getSizeStyle(props)};
-  ${props => getSpaceStyle(props)};
-  ${props => getOverFlowStyle(props)};
-  ${props => getBorderStyle(props)};
-  ${props => getPointerEventsStyle(props)};
-`;
-
-const HBox = styled(Box).attrs({flexDirection: 'row'})``;
-const VBox = styled(Box).attrs({flexDirection: 'column'})``;
+import {ButtonProps, FlexProps, InputProps, DisplaySizeProps, GridContainerProps, ContainerProps} from './types/types';
+import {getFlexStyle, getMarginStyle, getPaddingStyle, getSizeStyle, getTextStyle} from './core';
+import {VBox} from './Box';
 
 const Spacer = styled.span<FlexProps & DisplaySizeProps>`
   ${props => getFlexStyle(props)};
   ${props => getSizeStyle(props)};
-`;
-
-const GridBox = styled.div<GridContainerProps>`
-  display: grid;
-  ${props => getGridStyle(props)};
-  ${props => getMarginStyle(props)};
-  ${props => getPaddingStyle(props)};
 `;
 
 const StyledButton = React.memo(styled.button<ButtonProps>`
@@ -64,9 +25,8 @@ const StyledButton = React.memo(styled.button<ButtonProps>`
   }
 `);
 
-const Form = styled(Box).attrs({
-  as: 'form',
-  flexDirection: 'column'
+const Form = styled(VBox).attrs({
+  as: 'form'
 })``;
 
 const StyledInput = styled.input<InputProps>`
@@ -86,4 +46,4 @@ const StyledLine = styled.hr<DisplaySizeProps & {color?: string | number}>`
   ${props => getSizeStyle(props)};
 `;
 
-export {Box, HBox, VBox, GridBox, Spacer, StyledInput, Form, StyledLine, StyledButton};
+export {Spacer, StyledInput, Form, StyledLine, StyledButton};

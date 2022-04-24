@@ -179,7 +179,7 @@ function getSpaceStyle(props: SpaceProps) {
   `;
 }
 
-function getColorStyle({color, bgColor}: ColorProps) {
+function getColorStyle({$color: color, bgColor}: ColorProps) {
   return css`
     ${() => color && `color:${color};`};
     ${() => bgColor && `background-color:${bgColor};`};
@@ -193,7 +193,7 @@ function getFontWeight(bold?: boolean) {
 }
 
 function getTextStyle(props: TextProps) {
-  const {align, size, type, bold, letterSpacing, lineHeight} = props;
+  const {align, size, $type: type, bold, letterSpacing, lineHeight} = props;
   return css`
     ${() => getDefaultTypoStyle(type || 'h6')};
     ${() => curriedStyleSetter('text-align', align)};
@@ -225,8 +225,12 @@ function getAlignStyle(props: FlexAlignProps) {
 }
 function getGridStyle(props: GridProps) {
   return css`
-    ${() => curriedStyleSetter('grid-template-columns', props.columns)};
-    ${() => curriedStyleSetter('grid-template-rows', props.rows)};
+    ${() => curriedStyleSetter('grid-template-columns', props.templateColumns, '')};
+    ${() => curriedStyleSetter('grid-template-rows', props.templateRows, '')};
+    ${() => curriedStyleSetter('grid-columns', props.columns, '')};
+    ${() => curriedStyleSetter('grid-rows', props.rows, '')};
+    ${() => curriedStyleSetter('grid-auto-columns', props.autoColumns, '')};
+    ${() => curriedStyleSetter('grid-auto-rows', props.autoRows, '')};
     ${() => curriedStyleSetter('row-gap', props.rowGap)};
     ${() => curriedStyleSetter('column-gap', props.columnGap)};
     ${() => curriedStyleSetter('gap', props.gap)};
@@ -263,5 +267,6 @@ export {
   getZIndexStyle,
   getFlexDirectionStyle,
   getTypoStyleWithOutLineHeight,
-  getPositionStyle
+  getPositionStyle,
+  getColorStyle
 };
