@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grid nested</title>
+    <style>
+      .wrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: minmax(100px, auto);
+      }
+      .box {
+        color: orangered;
+        border: 1px solid orange;
+        background-color: bisque;
+      }
+
+      .box1 {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        grid-row-start: 1;
+        grid-row-end: 3;
+        /*
+        display: grid;
+        grid-template-rows: repeat(3, 1fr);
+        padding: 10px; 
+        */
+        display: contents;
+      }
+
+      .nested {
+        background-color: yellowgreen;
+        color: orangered;
+        border: 1px solid yellow;
+      }
+
+      .box2 {
+        /* grid-column-start: 1;
+        grid-row-start: 3;
+        grid-row-end: 5; */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="box box1">
+        <div class="nested">a</div>
+        <div class="nested">b</div>
+        <div class="nested">c</div>
+      </div>
+      <div class="box box2">Two</div>
+      <div class="box box3">Three</div>
+      <div class="box box4">Four</div>
+      <div class="box box5">Five</div>
+    </div>
+  </body>
+</html>
