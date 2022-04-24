@@ -8,11 +8,6 @@ const TextBase = styled.p<TypoProps>`
   ${props => getSpaceStyle(props)};
 `;
 
-// const Text = styled(TextBase).attrs((props: TypoProps) => ({
-//   $color: props.$color || colors.gray07,
-//   $type: props.$type || 'h8'
-// }))``;
-
 const Text = styled(TextBase)``;
 Text.defaultProps = {
   $color: colors.gray07,

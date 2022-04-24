@@ -17,14 +17,14 @@ $h6-font-size:                $font-size-base !default;
  */
 const DEFAULT_FONT_SIZE = 16;
 const TypoGraphyStyles = {
-  h1: composeTypoGraphy(DEFAULT_FONT_SIZE * 2.5, 30, -0.02),
-  h2: composeTypoGraphy(DEFAULT_FONT_SIZE * 2.25, 30, -0.03),
-  h3: composeTypoGraphy(DEFAULT_FONT_SIZE * 2, 30, -0.03),
-  h4: composeTypoGraphy(DEFAULT_FONT_SIZE * 1.8, 23, -0.04),
-  h5: composeTypoGraphy(DEFAULT_FONT_SIZE * 1.6, 23, -0.04),
-  h6: composeTypoGraphy(DEFAULT_FONT_SIZE * 1.4, 20, -0.02),
-  h7: composeTypoGraphy(DEFAULT_FONT_SIZE * 1.2, 20, -0.03),
-  h8: composeTypoGraphy(DEFAULT_FONT_SIZE, 14, -0.03)
+  h1: composeTypoGraphy(DEFAULT_FONT_SIZE + 14, 30, -0.02),
+  h2: composeTypoGraphy(DEFAULT_FONT_SIZE + 12, 30, -0.03),
+  h3: composeTypoGraphy(DEFAULT_FONT_SIZE + 10, 30, -0.03),
+  h4: composeTypoGraphy(DEFAULT_FONT_SIZE + 8, 23, -0.04),
+  h5: composeTypoGraphy(DEFAULT_FONT_SIZE + 6, 23, -0.04),
+  h6: composeTypoGraphy(DEFAULT_FONT_SIZE + 4, 20, -0.02),
+  h7: composeTypoGraphy(DEFAULT_FONT_SIZE + 2, 20, -0.03),
+  h8: composeTypoGraphy(DEFAULT_FONT_SIZE, 20, -0.03)
 } as const;
 
 type TypoGraphyType = keyof typeof TypoGraphyStyles;

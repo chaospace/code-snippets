@@ -97,7 +97,7 @@ type FlexAlignProps = {
 };
 
 type DisplayProps = {
-  display?: string;
+  $display?: string;
 };
 
 type PositionProps = {

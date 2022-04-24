@@ -17,7 +17,7 @@ import {
 } from './core';
 
 const ContainerBase = styled.div<ContainerProps>`
-  ${props => props.display && getDisplayStyle(props.display)};
+  ${props => props.$display && getDisplayStyle(props.$display)};
   ${props => getPositionStyle(props.position ?? 'static')};
   ${props => getZIndexStyle(props)};
   ${props => getColorStyle(props)};
@@ -28,21 +28,23 @@ const ContainerBase = styled.div<ContainerProps>`
   ${props => getPointerEventsStyle(props)};
 `;
 
-const Box = styled(ContainerBase).attrs((props: FlexContainerProps) => {
-  return {...props, display: 'flex'};
-})`
+const Box = styled(ContainerBase)<FlexContainerProps>`
   ${props => getFlexDirectionStyle(props.flexDirection ?? 'row')};
   ${props => getFlexStyle(props)}
   ${props => getAlignStyle(props)}
 `;
+Box.defaultProps = {
+  $display: 'flex'
+};
 const HBox = styled(Box).attrs({flexDirection: 'row'})``;
 const VBox = styled(Box).attrs({flexDirection: 'column'})``;
 
-const GridBox = styled(ContainerBase).attrs((props: GridContainerProps) => ({
-  ...props,
-  display: 'grid'
-}))`
+const GridBox = styled(ContainerBase)<GridContainerProps>`
   ${props => getGridStyle(props)};
 `;
+
+GridBox.defaultProps = {
+  $display: 'grid'
+};
 
 export {VBox, HBox, GridBox};
