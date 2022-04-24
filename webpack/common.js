@@ -1,21 +1,18 @@
-const {
-  rootDir,
-  outputPath,
-  sourcePath,
-  entryFilePath,
-  publicAssetPath,
-  indexTemplatePath
-} = require("./const");
+const {rootDir, outputPath, sourcePath, entryFilePath, publicAssetPath, indexTemplatePath} = require('./const');
 
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+// 1. import default from the plugin module
+const createStyledComponentsTransformer = require('typescript-plugin-styled-components').default;
+// 2. create a transformer;
+// the factory additionally accepts an options object which described below
+const styledComponentsTransformer = createStyledComponentsTransformer();
 
 module.exports = {
   entry: {
     app: entryFilePath
   },
-  stats:'errors-only',
+  stats: 'errors-only',
   context: rootDir,
   output: {
     clean: true, // 이전 파일 제거
@@ -39,7 +36,15 @@ module.exports = {
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: [{loader: 'ts-loader', options: {transpileOnly: true}}]
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+              getCustomTransformers: () => ({before: [styledComponentsTransformer]})
+            }
+          }
+        ]
       },
       {
         type: 'asset',

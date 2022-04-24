@@ -3,14 +3,9 @@ import ReactDOM from 'react-dom';
 import {createRoot} from 'react-dom/client';
 import styled from 'styled-components';
 import {Space} from './ui/space';
-import {VBox} from './ui/styled/Elements';
+import {GridBox, VBox} from './ui/styled/Box';
+import {Text, HeadLine} from './ui/styled/Texts';
 const message = 'hello';
-const MyBox = styled.div`
-  display: flex;
-  font-size: 60px;
-  font-weight: bold;
-  color: gray;
-`;
 
 const Wrapper = styled.div`
   position: relative;
@@ -22,11 +17,14 @@ if (appContainer) {
   root.render(
     <Wrapper>
       <VBox gap={Space.xl} alignItems="center">
-        <div>다른메시지는 그래도 있습니다.</div>
-        <MyBox>{message}</MyBox>
+        <HeadLine>다른메시지는 그래도 있습니다.</HeadLine>
+        <Text $type="h2">{message}</Text>
       </VBox>
-
-      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+      <GridBox gap={Space.xs} templateColumns="repeat(3, 1fr)" autoRows="auto">
+        <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
+        <div>열2</div>
+        <div>열3</div>
+      </GridBox>
     </Wrapper>
   );
 }
