@@ -21,6 +21,8 @@ type StyledPropsWithProps<InitialProps, Element extends keyof JSX.IntrinsicEleme
   >
 >;
 
+type FlexWraps = 'wrap' | 'nowrap' | 'unset';
+
 type AlignDirection = 'column' | 'row';
 
 // 엘리먼트 자식 요소 flex설정
@@ -129,8 +131,8 @@ type ZIndexProps = {
 type FlexProps = {
   flexBasis?: number | string;
   flexGrow?: number | string;
-  flexWrap?: number | string;
   flexShrink?: number | string;
+  flexWrap?: FlexWraps;
 };
 
 type DisplaySizeProps = {

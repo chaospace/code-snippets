@@ -135,20 +135,19 @@ function getBorderStyle(props: BorderProps) {
   return styles || undefined;
 }
 
-function getFlexStyle(props: FlexProps) {
-  const {flexGrow, flexBasis, flexShrink} = props;
+function getFlexStyle({flexWrap, flexGrow, flexBasis, flexShrink}: FlexProps) {
   return css`
     ${() => curriedStyleSetter('flex-grow', flexGrow, '')};
     ${() => curriedStyleSetter('flex-shrink', flexShrink, '')};
     ${() => curriedStyleSetter('flex-basis', flexBasis)};
+    ${() => curriedStyleSetter('flex-wrap', flexWrap, '')};
   `;
 }
 function getPointerEventsStyle(props: PointerEventProps) {
   return curriedStyleSetter('pointer-events', props.pointerEvent, '');
 }
 
-function getMarginStyle(props: MarginProps) {
-  const {ml, mr, mx, mt, mb, my, m} = props;
+function getMarginStyle({ml, mr, mx, mt, mb, my, m}: MarginProps) {
   return css`
     ${() => executeStyleSetter(marginLeftCSS, ml)};
     ${() => executeStyleSetter(marginRightCSS, mr)};
@@ -159,8 +158,7 @@ function getMarginStyle(props: MarginProps) {
     ${() => executeStyleSetter(marginCSS, m)};
   `;
 }
-function getPaddingStyle(props: PaddingProps) {
-  const {pl, pr, px, pt, pb, py, p} = props;
+function getPaddingStyle({pl, pr, px, pt, pb, py, p}: PaddingProps) {
   return css`
     ${() => executeStyleSetter(paddingLeftCSS, pl)};
     ${() => executeStyleSetter(paddingRightCSS, pr)};
