@@ -6,6 +6,7 @@ import {Space} from '@/ui/space';
 export default {
   title: 'Example/VBox',
   component: VBox,
+
   argTypes: {
     children: {table: {disable: true}},
     alignItems: {
