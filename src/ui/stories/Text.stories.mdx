@@ -1,0 +1,99 @@
+import {ArgsTable, Canvas, Meta, Story} from '@storybook/addon-docs';
+import {Text} from '@/ui/styled/Texts';
+import {TypoProps} from '@/ui/styled/types/types';
+import colors from '@/ui/colors';
+
+<!-- 컴포넌트 정의   type: {required: true} -->
+
+<Meta
+  title="Example/Text"
+  argTypes={{
+    children: {
+      table: {disable: true},
+      defaultValue: 'Hello World!'
+    },
+    $color: {
+      control: {type: 'color'},
+      defaultValue: colors.gray07,
+      description: '폰트 컬러',
+      table: {
+        type: {summary: 'string'},
+        defaultValue: {summary: colors.gray07}
+      }
+    },
+    $type: {table: {disable: true}},
+    bold: {
+      control: {type: 'boolean'},
+      defaultValue: false,
+      description: '볼드 여부 설정',
+      table: {
+        type: {summary: 'boolean'},
+        defaultValue: {summary: false}
+      }
+    }
+  }}
+  component={Text}
+/>
+
+export const Template = args => {
+  return <Text {...args} />;
+};
+
+export const AllTemplate = args => {
+  return <AllText {...args} />;
+};
+
+export const AllText = args => {
+  return (
+    <>
+      <Text $type="h1" {...args}>
+        Hello
+      </Text>
+      <Text $type="h2" {...args}>
+        Hello
+      </Text>
+      <Text $type="h3" {...args}>
+        Hello
+      </Text>
+      <Text $type="h4" {...args}>
+        Hello
+      </Text>
+      <Text $type="h5" {...args}>
+        Hello
+      </Text>
+      <Text $type="h6" {...args}>
+        Hello
+      </Text>
+    </>
+  );
+};
+
+# Text
+
+텍스트 컴포넌트 $type에 따른 폰트 크기를 설정가능
+
+<Canvas>
+  <Story
+    name="allText"
+    parameters={{
+      previewTabs: {
+        docs: {
+          hidden: true
+        }
+      },
+      viewMode: 'canvas'
+    }}
+  >
+    {AllTemplate.bind({})}
+  </Story>
+</Canvas>
+
+# Default
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+### API
+
+<ArgsTable story="Default" />

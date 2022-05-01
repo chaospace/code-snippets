@@ -21,6 +21,18 @@ import {Space} from '@/ui/space';
         </>
       )
     },
+    flexWrap: {
+      options: ['wrap', 'nowrap'],
+      control: {type: 'select'},
+      defaultValue: 'nowrap',
+      description: '자식요소의 줄바꿈 표현 여부 설정',
+      table: {
+        type: {
+          summary: 'string'
+        },
+        defaultValue: {summary: 'nowrap'}
+      }
+    },
     alignItems: {
       options: ['center', 'flex-end', 'flex-start'],
       control: {type: 'select'},
