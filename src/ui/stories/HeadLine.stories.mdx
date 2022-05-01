@@ -1,12 +1,12 @@
-import {ArgsTable, Canvas, Meta, Story, Props} from '@storybook/addon-docs';
-import {Text} from '@/ui/styled/Texts';
+import {ArgsTable, Canvas, Meta, Story} from '@storybook/addon-docs';
+import {HeadLine} from '@/ui/styled/Texts';
 import {TypoProps} from '@/ui/styled/types/types';
 import colors from '@/ui/colors';
 
 <!-- 컴포넌트 정의   type: {required: true} -->
 
 <Meta
-  title="Example/Text"
+  title="Example/HeadLine"
   argTypes={{
     children: {
       table: {disable: true},
@@ -23,25 +23,21 @@ import colors from '@/ui/colors';
     },
     $type: {table: {disable: true}},
     bold: {
-      control: {type: 'boolean'},
-      defaultValue: false,
-      description: '볼드 여부 설정',
       table: {
-        type: {summary: 'boolean'},
-        defaultValue: {summary: false}
+        disable: true
       }
     }
   }}
-  component={Text}
+  component={HeadLine}
 />
 
 export const ComponentTemplate = args => {
-  return <Text {...args} />;
+  return <HeadLine {...args} />;
 };
 
-# Text
+# HeadLine
 
-p 태그를 쉽게 사용하기 위한 컴포넌트
+h 태그를 쉽게 사용하기 위한 컴포넌트
 스타일 정의한 타입값에 따라 폰트속성이 달라진다.
 
 <Canvas>
@@ -52,23 +48,23 @@ p 태그를 쉽게 사용하기 위한 컴포넌트
 
 <ArgsTable story="Default" />
 
-## Text Types
+## HeadLine Types
 
 지원되는 타입 및 폰트 크기(왼쪽부터 h1 ~ h6)
 
 <Canvas>
   <Story
-    name="Text Types"
+    name="HeadLine Types"
     parameters={{
       controls: {disable: true},
       options: {showPanel: false}
     }}
   >
-    <Text $type="h1">Hello!</Text>
-    <Text $type="h2">Hello!</Text>
-    <Text $type="h3">Hello!</Text>
-    <Text $type="h4">Hello!</Text>
-    <Text $type="h5">Hello!</Text>
-    <Text $type="h6">Hello!</Text>
+    <HeadLine $type="h1">Hello!</HeadLine>
+    <HeadLine $type="h2">Hello!</HeadLine>
+    <HeadLine $type="h3">Hello!</HeadLine>
+    <HeadLine $type="h4">Hello!</HeadLine>
+    <HeadLine $type="h5">Hello!</HeadLine>
+    <HeadLine $type="h6">Hello!</HeadLine>
   </Story>
 </Canvas>
