@@ -2,6 +2,8 @@ import axiosMock from './__mocks__/axiosMock';
 import axios from 'axios';
 import isError from '@/utils/isError';
 import reduceAxios from '@/utils/reduceAxios';
+import isArray from '@/utils/isArray';
+import toArray from '@/utils/toArray';
 
 // axios response설정
 axios.interceptors.response.use(response => response.data);
@@ -53,6 +55,7 @@ function getPostInfo(id: number) {
 }
 
 function getDefaultPostInfo(posts: Post[]) {
+  //console.log(posts);
   return getPostInfo(posts[0].userId);
 }
 
@@ -75,7 +78,13 @@ describe('비동기 요청 테스트', () => {
   //axiosMock.onGet(employeeURL).reply(200, employeeList);
 
   test('목록가져오기', async () => {
-    const response = await reduceAxios([getPostList, getDefaultPostInfo]);
-    console.log('res', response[1]);
+    const response = await reduceAxios([getPostList, getDefaultPostInfo]).catch(e => e);
+
+    if (!isError(response)) {
+      const [_postList, defalutPost] = response as unknown[];
+      console.log('res', defalutPost);
+    }
+    //무조건 에러처리
+    //const [postList, defalutPost] = (isArray(response) && response) || toArray(response);
   });
 });

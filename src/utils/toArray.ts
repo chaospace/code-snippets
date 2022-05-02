@@ -1,5 +1,6 @@
+import isArray from './isArray';
 const toArray = (values: unknown) => {
-  return Array.isArray(values) ? values : [values];
+  return isArray(values) ? values : [values];
 };
 
 export default toArray;
