@@ -5,7 +5,7 @@ type AsyncFunc = (args: unknown) => Promise<any>;
 
 async function reduceAxios(actions: AsyncFunc[]) {
   const responses = await actions
-    .reduce(async (result: Promise<unknown[]>, action: AsyncFunc, index: number, arr: AsyncFunc[]) => {
+    .reduce(async (result: Promise<unknown[]>, action: AsyncFunc) => {
       let resultsArray = await result;
       const value = resultsArray.concat().pop();
       if (!isError(value)) {
