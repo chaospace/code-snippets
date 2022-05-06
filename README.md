@@ -84,3 +84,7 @@ module.exports = {
 - Child components
 
 [기본적인 사용법](https://www.freecodecamp.org/news/8-simple-steps-to-start-testing-react-apps-using-react-testing-library-and-jest/#3-testing-events)
+
+## typescript 타입처리 참고
+
+[typescript 타입처리](https://catchts.com/validators)
