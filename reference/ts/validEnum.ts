@@ -19,7 +19,7 @@ hanleEnum(NaN);
 }
  */
 
-// type Keys = keyof typeof MyEnum;
+type Keys = keyof typeof MyEnum;
 // type Enumerate2 = keyof {
 //   [Prop in Keys]: Prop;
 // };
@@ -52,3 +52,23 @@ validHandleEnum(MyEnum, MyEnum.ONE);
 validHandleEnum(MyEnum, 1);
 validHandleEnum(MyEnum, -1); // error
 validHandleEnum(MyEnum, Infinity); // error
+
+type EnumType = Record<string | number, string | number>;
+type EnumToObj<Enum extends EnumType> = Pick<
+  {
+    [Prop in keyof Enum]: Enum[Prop] extends string | number ? `${Enum[Prop]}` : never;
+  },
+  keyof Enum
+>;
+
+type EnumObjResult = EnumToObj<typeof MyEnum>;
+
+type GetEnumValue<
+  Enum extends EnumType,
+  Index extends number,
+  Obj extends EnumToObj<Enum> = EnumToObj<Enum>
+> = {
+  [Prop in keyof Obj]: `${Index}` extends Obj[Prop] ? Prop : never;
+}[keyof Enum];
+
+type TestGetEnumValue = GetEnumValue<typeof MyEnum, MyEnum.TWO>;
