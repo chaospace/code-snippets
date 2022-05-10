@@ -49,3 +49,22 @@ const foo = <Key extends PropertyKey, Value extends number | string, T extends R
 
 foo({a: 42, b: 'hello'});
 ```
+
+**제레릭을 이용한 객체 타입 추론 확장**
+
+```typescript
+// 기존 number | string만 허용한 Value를 Json형식으로 확장
+type Json =
+  | null
+  | string
+  | number
+  | boolean
+  | Array<JSON>
+  | {
+      [prop: string]: Json;
+    };
+const foo = <Key extends PropertyKey, Value extends Json, T extends Record<Key, Value>[]>(a: T) =>
+  a;
+
+foo([{a: 42, b: 'hello'}]);
+```
