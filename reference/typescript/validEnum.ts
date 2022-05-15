@@ -72,3 +72,11 @@ type GetEnumValue<
 }[keyof Enum];
 
 type TestGetEnumValue = GetEnumValue<typeof MyEnum, MyEnum.TWO>;
+
+// GetEnumValue를 이용한 IsKeyValid개선
+type IsNever<T> = [T] extends [never] ? true : false;
+type IsKeyValidUpgrade<Index extends number, Enum extends EnumType> = IsNever<
+  GetEnumValue<Enum, Index>
+> extends true
+  ? never
+  : Index;
