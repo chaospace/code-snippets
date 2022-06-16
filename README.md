@@ -88,3 +88,13 @@ module.exports = {
 ## typescript 타입처리 참고
 
 [typescript 타입처리](https://catchts.com/validators)
+
+## typescript 내용 정리
+
+[조건부 타입](./summary/ts/ConditionalTypes.md)  
+[타입추론](./summary/ts/TypeInference.md)
+
+## css 내용 정리
+
+[Grid](./summary/css/Grid.MD)  
+[Flex](./summary/css/Flex.MD)
