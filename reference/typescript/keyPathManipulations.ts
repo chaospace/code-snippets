@@ -1,5 +1,3 @@
-import {tsObjectKeyword} from '@babel/types';
-
 type Data = {
   k2: {
     k2A: {
