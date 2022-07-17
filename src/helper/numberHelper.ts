@@ -1,6 +1,6 @@
-import { Formatter } from "../utils/const";
-import nop from "../utils/nop";
-import toNumber from "../utils/toNumber";
+import {Formatter} from '../utils/const';
+import nop from '../utils/nop';
+import toNumber from '../utils/toNumber';
 export type TFunc = (..._args: any) => any;
 
 function isConvertUnit(unit: string) {
@@ -8,8 +8,8 @@ function isConvertUnit(unit: string) {
 }
 
 // number형이 아닌 값 mark로 replace 처리
-function replaceNaNValue<T = any>(value: T, mark = "-") {
-  return typeof toNumber(value) !== "number" ? mark : value;
+function replaceNaNValue<T = any>(value: T, mark = '-') {
+  return typeof toNumber(value) !== 'number' ? mark : value;
 }
 
 /**
@@ -20,7 +20,7 @@ function replaceNaNValue<T = any>(value: T, mark = "-") {
  */
 function convertUnit<T = any>(value: T, unit = 1000) {
   const nValue = toNumber(value);
-  return nValue === nop ? value : +nValue / unit;
+  return nValue === nop ? value : nValue / unit;
 }
 
 /**
@@ -34,7 +34,7 @@ function intComma<T = any>(str: T) {
   let value = nValue.toString();
   const reg = /(^[+-]?\d+)(\d{3})/;
   while (reg.test(value)) {
-    value = value.replace(reg, "$1,$2");
+    value = value.replace(reg, '$1,$2');
   }
   return value;
 }
@@ -70,7 +70,7 @@ function convert<T = any>(value: T, filters: TFunc[]) {
  * @param suffix vlaue에 단위
  * @returns
  */
-function numberFormatterWithSuffix<T = any>(value: T, suffix = "") {
+function numberFormatterWithSuffix<T = any>(value: T, suffix = '') {
   const r = replaceNaNValue(value);
   if (r !== Formatter.NULL_REPLACE_VALUE) {
     if (suffix && isConvertUnit(suffix)) {
@@ -87,9 +87,9 @@ function numberFormatterWithSuffix<T = any>(value: T, suffix = "") {
  * @param suffix
  * @returns
  */
-function numberFormatterAppendSuffix<T = any>(value: T, suffix = "") {
+function numberFormatterAppendSuffix<T = any>(value: T, suffix = '') {
   const r = numberFormatterWithSuffix(value, suffix);
   return `${r} ${suffix}`;
 }
 
-export { numberFormatterAppendSuffix, numberFormatterWithSuffix, convert };
+export {numberFormatterAppendSuffix, numberFormatterWithSuffix, convert};
