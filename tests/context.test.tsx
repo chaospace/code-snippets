@@ -15,7 +15,6 @@ const providerRender = (ui: ReactNode, providerValue: NameContextProps) => {
 };
 
 describe('context 테스트', () => {
-  afterEach(cleanup);
   it('NameContextConsumer를  통한 Context값 접근', () => {
     render(
       <NameContextProvider value={{nick: 'aa', job: 'frontend'}}>
