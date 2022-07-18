@@ -1,1 +1,3 @@
-export default Array.isArray.bind(Array);
+const isArray = (value: unknown) => Array.isArray(value);
+
+export default isArray;
