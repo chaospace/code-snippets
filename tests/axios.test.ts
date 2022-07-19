@@ -1,23 +1,40 @@
-import axiosMock from './__mocks__/axiosMock';
 import axios from 'axios';
-import isError from '@/utils/isError';
-import reduceAxios from '@/utils/reduceAxios';
-import isArray from '@/utils/isArray';
-import toArray from '@/utils/toArray';
+import axiosMock from './__mocks__/axiosMock';
 
-// axios response설정
-axios.interceptors.response.use(response => response.data);
+interface User {
+  id: number;
+  name: string;
+  part: string;
+}
 
 // 비동기 요청 시퀀스 테스트
-const postsURL = 'https://jsonplaceholder.typicode.com/posts';
-const getPostURL = `${postsURL}/id`;
-//const createEmployeeURL = 'https://dummy.restapiexample.com/api/v1/create';
+const postsURL = '/posts';
 
-interface Post {
-  userId: number;
-  title: string;
-  body: string;
-}
+jest.useFakeTimers();
+//jest.spyOn(global, 'setTimeout');
+const mockUsers = [
+  {
+    id: 1,
+    name: 'chaospace',
+    part: 'frontend'
+  }
+];
+describe('axiosMock동작테스트', () => {
+  it('/posts요청에 대한 응답은 지정된 값이 와야 한다.', () => {
+    axiosMock.onGet(postsURL).reply(200, {
+      users: mockUsers
+    });
+    axios
+      .get<{users: User[]}>(postsURL)
+      .then(res => {
+        console.log('응답 res', res);
+        expect(res.users).toEqual(mockUsers);
+      })
+      .catch(e => console.log('e', e));
+  });
+});
+
+//const createEmployeeURL = 'https://dummy.restapiexample.com/api/v1/create';
 
 // const employeeList: Employee[] = [
 //   {id: 1, name: 'Tiger Nixon', salary: 320800, age: 61, profile_image: ''},
@@ -45,46 +62,3 @@ interface Post {
 //   {id: 23, name: 'Caesar Vance', salary: 106450, age: 21, profile_image: ''},
 //   {id: 24, name: 'Doris Wilder', salary: 85600, age: 23, profile_image: ''}
 // ];
-
-function getPostList() {
-  return axios.get(postsURL);
-}
-
-function getPostInfo(id: number) {
-  return axios.get(`${getPostURL.replace('id', id.toString())}`);
-}
-
-function getDefaultPostInfo(posts: Post[]) {
-  //console.log(posts);
-  return getPostInfo(posts[0].userId);
-}
-
-// async function macroAxios(actions: ((args: any) => Promise<any>)[]) {
-//   const responses = await actions
-//     .reduce(async (current, action, index, arr) => {
-//       let resultsArray: any = await current; // promsie값 꺼내오기
-//       const value = resultsArray.concat().pop();
-//       // promise요청 중 에러 발생하면 중단
-//       isError(value) && arr.splice(index);
-//       const results = await action(value && value).catch((e: any) => e);
-//       resultsArray.push(results);
-//       return resultsArray;
-//     }, Promise.resolve([]))
-//     ?.catch(e => e);
-//   return responses;
-// }
-
-describe('비동기 요청 테스트', () => {
-  //axiosMock.onGet(employeeURL).reply(200, employeeList);
-
-  test('목록가져오기', async () => {
-    const response = await reduceAxios([getPostList, getDefaultPostInfo]).catch(e => e);
-
-    if (!isError(response)) {
-      const [_postList, defalutPost] = response as unknown[];
-      console.log('res', defalutPost);
-    }
-    //무조건 에러처리
-    //const [postList, defalutPost] = (isArray(response) && response) || toArray(response);
-  });
-});
