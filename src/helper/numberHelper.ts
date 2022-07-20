@@ -1,7 +1,7 @@
+import {TFunc} from '@/types/types';
 import {Formatter} from '../utils/const';
 import nop from '../utils/nop';
 import toNumber from '../utils/toNumber';
-export type TFunc = (..._args: any) => any;
 
 function isConvertUnit(unit: string) {
   return unit === Formatter.GENERATION_UNIT || unit === Formatter.CAPACITY_UNIT;
