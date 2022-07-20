@@ -1,2 +1,2 @@
-const isObject = (value: unknown) => typeof value === 'object';
+const isObject = (value: unknown): value is object => typeof value === 'object';
 export default isObject;
