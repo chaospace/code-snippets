@@ -1,6 +1,6 @@
 import {TFunc} from '@/types/types';
 import {Formatter} from '../utils/const';
-import nop from '../utils/nop';
+import {isNop} from '../utils/nop';
 import toNumber from '../utils/toNumber';
 
 function isConvertUnit(unit: string) {
@@ -20,7 +20,7 @@ function replaceNaNValue<T = any>(value: T, mark = '-') {
  */
 function convertUnit<T = any>(value: T, unit = 1000) {
   const nValue = toNumber(value);
-  return nValue === nop ? value : nValue / unit;
+  return isNop(nValue) ? value : nValue / unit;
 }
 
 /**
@@ -29,14 +29,8 @@ function convertUnit<T = any>(value: T, unit = 1000) {
  * @returns
  */
 function intComma<T = any>(str: T) {
-  const nValue = toNumber(str);
-  if (nValue === nop) return str;
-  let value = nValue.toString();
-  const reg = /(^[+-]?\d+)(\d{3})/;
-  while (reg.test(value)) {
-    value = value.replace(reg, '$1,$2');
-  }
-  return value;
+  const value = toNumber(str);
+  return isNop(value) ? str : value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
 }
 
 /**
@@ -47,7 +41,7 @@ function intComma<T = any>(str: T) {
  */
 function smartFixed<T = any>(value: T, precision = 2) {
   const nValue = toNumber(value);
-  if (nValue !== nop) {
+  if (!isNop(nValue)) {
     return parseFloat(nValue.toFixed(precision));
   }
   return value;
