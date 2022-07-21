@@ -24,8 +24,8 @@
 
    **활용예**
 
-   > test-message $<mark>100</mark>  
-   > another message 400$<mark>20</mark>
+   > test-message $ <mark>100</mark>  
+   > another message 400$ <mark>20</mark>
 
    **정규식**
 
@@ -52,4 +52,4 @@
 
    **활용예**
 
-   > test message $22 10$1 40 $100
+   > test message $22 <mark>10</mark>$1 <mark>40</mark> $100
