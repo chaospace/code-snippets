@@ -30,7 +30,7 @@ function convertUnit<T = any>(value: T, unit = 1000) {
  */
 function intComma<T = any>(str: T) {
   const value = toNumber(str);
-  return isNop(value) ? str : value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+  return isNop(value) ? str : value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 /**
