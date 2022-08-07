@@ -128,3 +128,66 @@
     }
   `;
   ```
+
+# 컴포넌트 테마 관리 방법
+
+테마를 관리하는 방법은 다양하겠지만 잘게 제공되는 기본 ThemeProvider를 좀더 효율적으로 사용하고 싶다면 상위에 하나의 Context를 추가해 관리하면 좋음.
+
+```javascript
+  //테마와 상관없는 공통요소 선언 예시는 컬러 정보만 테마로 관리
+  const base = {
+        space:{
+            0,
+            2,
+            4,
+            8,
+            12,
+            16,
+            20
+        },
+        fontSizes:{
+            12,
+            14,
+            16,
+            18,
+            20,
+            22,
+            24,
+            26,
+            28,
+            30
+        }
+    }
+
+    const dark = {
+        background:'black',
+        text:'white'
+    }
+
+    const light = {
+        text:'black',
+        background:'white'
+    }
+
+    const themes = {
+        light,
+        dark
+    }
+
+    const ThemePreferenceContext = React.createContext();
+
+    const App = () => {
+        const [theme, setTheme] = useState('light');
+        const currentTheme = {...base, colors:themes[theme]};
+
+        return (
+            <ThemePreferenceContext.Provider value={{theme, setTheme}}>
+                <ThemeProvider theme={currentTheme}>
+                    {
+                        /* children components */
+                    }
+                </ThemeProvider>
+            </ThemePreferenceContext.Provider>
+        )
+    }
+```
