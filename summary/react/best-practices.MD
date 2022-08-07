@@ -11,9 +11,11 @@
   - 이미지, 스타일, 테스트 코드, 서브 컴포넌트 포함
 - 컴포넌트 속성에 defaultProps와 propTypes를 이용하자( js기준 )
 
-## 리액트 훅 사용시 주의사항
+## 리액트 훅 구성 유의사항.
 
+- 엄청 복잡한 연산이 아닌 경우는 memo를 하지 않는게 초기 랜더링을 빠르게 유지하는 방법이다.
 - 성능문제에 직면하기 전까지는 useMemo, useCalback의 사용은 자제.
+- useMemo, useCallback의 사용은 참조동일성 유지와 re-render방지를 위한 memo와 관련 있을 때만 하는게 좋다.
 - re-render와 관련없는 React.memo, useMemo, useCallback 은 사용하지 않는게 좋다.
   - 참조 동일성과 관련없는 일반적인 연산은 훅을 사용하지 않아도 충분히 퍼포먼스가 좋다.
 
