@@ -10,3 +10,13 @@
 - 모든 관련 파일은 하나의 폴더에 관리
   - 이미지, 스타일, 테스트 코드, 서브 컴포넌트 포함
 - 컴포넌트 속성에 defaultProps와 propTypes를 이용하자( js기준 )
+
+## 리액트 훅 사용시 주의사항
+
+- 성능문제에 직면하기 전까지는 useMemo, useCalback의 사용은 자제.
+- re-render와 관련없는 React.memo, useMemo, useCallback 은 사용하지 않는게 좋다.
+  - 참조 동일성과 관련없는 일반적인 연산은 훅을 사용하지 않아도 충분히 퍼포먼스가 좋다.
+
+**참고**
+
+- [how to useMemo,useCallback](https://www.developerway.com/posts/how-to-use-memo-use-callback)
