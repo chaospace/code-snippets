@@ -12,4 +12,6 @@ configure({
 });
 
 // 모든 테스트 후 cleanup 적용
-afterEach(cleanup);
+afterEach(() => {
+  cleanup();
+});
