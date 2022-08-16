@@ -60,4 +60,186 @@
 
 **참고**
 
-- [how to useMemo,useCallback](https://www.developerway.com/posts/how-to-use-memo-use-callback)
+- [원문](https://www.developerway.com/posts/how-to-use-memo-use-callback)
+
+## 성능이 좋은 리액트 코드 : 룰, 패턴, 해야할 것과 하지 말아야할 것
+
+- 인라인 함수를 useCallback으로 감싸는 이유가 자식 요소의 re-rendering방지를 위해서라면 동작하지 않으니 하지마라.
+
+  ```typescript
+  // ...이 경우 useCallback을 사용해도 부모 요소가 재랜더링 되면 자식도 같이 랜더링 된다.
+  const onCountryChanged = useCallback(c => setSelectedCountry(c), []);
+  const onCountrySaved = useCallback(() => setSavedCountry(selectedCountry), []);
+
+  return (
+    <>
+      ...
+      <CountriesList onCountryChanged={onCountryChange} />
+      <SelectedCountry onCountrySaved={onCountrySaved} />
+      ...
+    </>
+  );
+  ```
+
+- 컴포넌트가 상태를 관리한다면 랜더Tree와 관련없는 상태를 찾고 memo를 이용해 분리해 최대한 re-rendering이 발생하지 않도록 한다.
+
+  ```typescript
+  // selectedCountry는 SelectedCountry에만 영향을 줌
+  const [selectedCountry, setSelectedCountry] = useState<Country>(countries[0]);
+  // savedCountry는 CountriesList에만 영향을 줌
+  const [savedCountry, setSavedCountry] = useState<Country>(countries[0]);
+
+  const list = useMemo(() => {
+    return (
+      <CountriesList
+        countries={countries}
+        onCountryChanged={c => setSelectedCountry(c)}
+        savedCountry={savedCountry}
+      />
+    );
+  }, [savedCountry, countries]);
+
+  const selected = useMemo(() => {
+    return (
+      <SelectedCountry
+        country={selectedCountry}
+        onCountrySaved={() => setSavedCountry(selectedCountry)}
+      />
+    );
+  }, [selectedCountry]);
+  ```
+
+- 다른 컴포넌트 안에서 새로운 컴포넌트를 절대 생성하지 말것( 필요하면 별도 분리 )
+
+  > 일반적인 re-render비용 <<<<< 새로운 컴포넌트를 생성 후 mount 비용
+
+  ```typescript
+  // 목록 아이템을 내부에서 만드는 비용은 비쌈.
+  const Item = ({country}: {country: Country}) => {
+    // ... same code
+  };
+
+  return (
+    <div>
+      {countries.map(country => (
+        <Item country={country} key={country.id} />
+      ))}
+    </div>
+  );
+  ```
+
+  이런 경우 별도 컴포넌트로 분리
+
+  ```typescript
+  // 아이템을 별도 컴포넌트로 분리.
+  const Item = ({country}: {country: Country}) => {
+    // ... same code
+  };
+  // 리스트에서는 분리된 Item을 이용해 목록 생성
+  const List = () => {
+    return (
+      <div>
+        {countries.map(country => (
+          <Item country={country} key={country.id} />
+        ))}
+      </div>
+    );
+  };
+  ```
+
+- context의 value가 기본형이 아니라면 항상 memo를 사용해 re-render를 방지
+
+- **참고**
+
+- [원문](https://www.developerway.com/posts/how-to-write-performant-react-code)
+
+## 커스텀 훅 작성시 유의사항
+
+- 단일책임원칙을 준수해라(OOP와 동일)
+
+  - hook안에서 다른 훅을 참조해 사용하면 결국 host컴포넌트에 re-rendering이 발생하는 이유가 된다.
+
+      <details>  
+        <summary> 샘플보기 </summary>
+
+    ```typescript
+    // useModal.ts
+    const useModal = () => {
+      const [isOpen, setIsOpen] = useState(false);
+      const ref = useRef<HTMLElement>(null);
+      // useModal에서 단일책임을 어기고 scroll상태관리를 추가한 격이 됨.
+      const [scroll, setScroll] = useState(0);
+
+      // 결국 scroll 이벤트 마다 scroll값이 변경되고 호스트 컴포넌트인 Page가 re-rendering됨.
+      useEffect(() => {
+        const element = ref.current;
+        if (!element) return;
+
+        const handleScroll = () => {
+          setScroll(element?.scrollTop || 0);
+        };
+
+        element.addEventListener('scroll', handleScroll);
+        return () => {
+          element.removeEventListener('scroll', handleScroll);
+        };
+      });
+
+      const Dialog = useMemo(
+        () => () => <ModalBase onClosed={close} isOpen={isOpen} ref={ref} />,
+        [isOpen]
+      );
+
+      return useMemo(
+        () => ({
+          isOpen,
+          Dialog,
+          open,
+          close
+        }),
+        [isOpen, Dialog, open, close]
+      );
+    };
+
+    const Page = () => {
+      const {Dialog, open} = useModal();
+      return (
+        <div>
+          <button onClick={open}>모달열기</button>
+          <Dialog />
+          <OtherComponent />
+        </div>
+      );
+    };
+    ```
+
+    </details>
+
+  - 단일책임을 무시한다면 내부에서 사용되는 상태와 훅들 역시 한덩어리로 보고 호스트 컴포넌트의 무거운 re-rendering영역을 분리할 수 있는 Boundary엘리먼트를 고민해야 될듯.
+    <details>
+        <summary> 샘플보기 </summary>
+
+    ```typescript
+    // scroll이 발생해도 Page와 독립된 ModalButtonElement만 갱신됨.
+    const ModalButtonElement = () => {
+      const {Dialog, open} = useModal();
+      return (
+        <>
+          <button onClick={open}>모달열기</button>
+          <Dialog />
+        </>
+      );
+    };
+
+    const Page = () => {
+      const {Dialog, open} = useModal();
+      return (
+        <div>
+          <ModalButtonElement />
+          <OtherComponent />
+        </div>
+      );
+    };
+    ```
+
+    </details>
