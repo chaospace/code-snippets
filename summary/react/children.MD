@@ -6,9 +6,6 @@
 
 onMouseMove를 통해 갱신되는 상태를 가진 컴포넌트가 있다고 가정
 
-<details>
-    <summary>코드보기</summary>
-
 ```typescript
 const MovingComponent = () => {
   const [state, setState] = useState({x: 100, y: 100});
@@ -24,14 +21,15 @@ const MovingComponent = () => {
 };
 ```
 
-</details>
-
-위와 같은 상황에서 마우스를 움직이면
+<details>
+    <summary>예상동작</summary>
 
 1. state값이 갱신
 2. MovingComponent re-render발생
 3. ChildComponent re-render 발생
 4. ChildComponent에 무거운 연산이 있다면 마우스를 움직일 때마다 화면 퍼포먼스에 문제가 발생할 확률이 증가( 최적화 필요 )
+
+</details>
 
 ## 해결방법
 
@@ -184,7 +182,7 @@ const SomeOutSideComponent = () => {
 
 ## 리액트 children속성의 정체
 
-쉽게 말하면 props에 하나며 react제공하는 편의문법으로 사용하는 경우도 많아 혼란 스러울 수도 있음.
+react제공하는 편의문법으로 사용하는 경우도 많아 혼란 스러울 수도 있지만 결국 props일 뿐이다.
 
 ### children을 사용하는 다양한 방법
 
@@ -232,12 +230,80 @@ const Parent = ({ children }) => {
   return <>{children()}</>
 }
 
-// 이렇게도 사용가능 물론 사용하지 않겠지만
+// 일반적으로 사용하진 않지만 이렇게도 가능
 <Parent children={Child} />;
 
 const Parent = ({ children: Child }) => {
   return <>{<Child />}</>;
 };
 ```
+
+## children의 동작원리
+
+children이 props의 하나라는 것을 알았다면 이제 children이 어떻게 동작하는지 이해가 필요.
+
+**아래 코드가 하는 일은?**
+
+```typescript
+const child = <Child />;
+```
+
+<details>
+  <summary>정답</summary>  
+  종종 해당 코드를 시작으로 컴포넌트 라이프사이클이 동작한다 생각할 수 있지만 정답이 아니다.
+
+> 앞에 <code><Child \/></code> 는 리액트의 "Element"를 나타내고, <code>React.createElement</code>의 syntax sugar로 결국 <code>object</code>를 반환한다
+
+이제 아래코드를 보자
+
+```typescript
+const Parent = () => {
+  // 여기에 child는 object상태일 뿐
+  const child = <Child />;
+  return <div />;
+};
+
+// 위 코드는 아래처럼 대체가 가능하다.
+const Parent = () => {
+  const child = React.createElement(Child, null, null);
+};
+```
+
+결국 컴포넌트 함수에서 return이 일어나기 전에는 render가 일어나지 않고 object상태로 머물 뿐이다.
+
+```typescript
+const Parent = () => {
+  const child = <Child />;
+  // return을 만나 반환이 되야 비로소 render트리가 발생되고 element가 생김
+  return <div>{child}</div>;
+};
+```
+
+</details>
+
+## Updating Elements
+
+elements는 불변 객체로 이를 업데이트 하는 방법은 오직 re-render뿐이고 이때 re-created 된다.  
+이를 코드로 보면 아래와 같다.
+
+```typescript
+const Parent = () => {
+  // 자식 요소에 변경이 있으면 결국 객체는 re-created되고 이 표현은 부모요소의 re-render를 통해 확인가능
+  const child = <Child />;
+
+  return <div>{child}</div>;
+};
+```
+
+리액트 관점에서 새로 생성된 Element는 같은 위치, 같은 타입으로 이전 컴포넌트를 새로운 데이터로 업데이트(re-render) 하면 됩니다.  
+그렇다면 <code>React.memo</code>, <code>useMemo</code>를 감싼 컴포넌트의 동작을 이해할 수 있다.  
+리액트 입장에서 정의된 객체가 <code>re-created 되지 않으면</code> 해당 객체 의 업데이트 하지않고 <code>Child를 re-render하지 않는다.</code>
+
+더 자세한 내용을 이해하고 싶다면 아래 문서를 참고하면 좋다.
+
+- [리액트 엘리먼트 렌더링](https://ko.reactjs.org/docs/rendering-elements.html)
+
+- [React Components, Elements, and Instances](reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html#elements-describe-the-tree)
+- [JSX없이 리액트 사용하기](https://ko.reactjs.org/docs/react-without-jsx.html)
 
 [원문](https://www.developerway.com/posts/react-elements-children-parents)
