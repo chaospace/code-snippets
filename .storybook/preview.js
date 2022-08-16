@@ -1,4 +1,5 @@
-import '@/assets/styles/index.scss';
+//import '@/assets/styles/index.scss';
+import GlobalStyle from '@/globalStyle';
 
 export const parameters = {
   actions: {argTypesRegex: '^on[A-Z].*'},
@@ -13,8 +14,11 @@ export const parameters = {
 
 export const decorators = [
   Story => (
-    <div style={{margin: '3em'}}>
-      <Story />
-    </div>
+    <>
+      <GlobalStyle />
+      <div style={{margin: '3em'}}>
+        <Story />
+      </div>
+    </>
   )
 ];
