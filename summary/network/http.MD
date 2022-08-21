@@ -85,10 +85,12 @@ Transfer-Encoding: chunked
   - 302( Found & Redirect ) : 요청된 리소스의 위치가 임시적으로 변경됨
 
 - 4xx(Client Error) : Request에 문법 오류가 있거나 의미를 이해하지 못함을 의미
+
   - 400 ( Bad Request ) : 서버에서 Request를 이해하지 못함, 구문의 오류가 있을 가능성이 있음을 의미
   - 403 ( Forbidden ) : 클라이언트의 신원에 상관없이 서버에서 리소스 제공을 거부함을 의미
   - 404 ( Not Found ) : 요청된 리로스를 서버에서 찾지 못함.
   - 405 ( Method Not Allowed ) : 클라이언트에서 요청한 Request 서버에서 허용하지 않음.
+
 - 5xx (Server Error) : 서버에서 요청을 처리하지 못함.
   - 500 ( Internal Server Error ) : 서버 내부 프로그램 오류
   - 501 ( Method Not Implemented ) : Request Method가 잘못됨.
@@ -104,7 +106,6 @@ Transfer-Encoding: chunked
 - Content-Encoding : Body에 포함된 컨텐츠의 인코딩의 형태를 알려주는데 사용.( Content-Encoding:gzip )
 - Content-Type : 컨텐츠의 미디어 타입을 나타냄. (Content-Type:text/html; charset=ISO-8859-4)
 - Expires : 컨텐츠 유효기간 표시 date/time을 제공하는데 사용.( Expires: Fri, 16 Oct 2020 03:24:32 GMT )
--
 
 ## HTTP1.0 과 HTTP1.1 차이
 
