@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form novalidate onsubmit="onSubmit(event)">
+        <label>
+            이름 :
+            <input type="text" name="name" pattern=".{3,}" autocomplete="off" required>
+        </label>
+        <button type="submit">제출</button>
+    </form>
+    <script>
+        const inputEle = document.querySelector("[name='name']");
+        inputEle.addEventListener('input', () => {
+            // validity.patternMismatch속성을 통해 패턴 유효성 통과 여부를 판단한다.
+            if (!inputEle.validity.patternMismatch) {
+                inputEle.setCustomValidity('');
+            } else {
+                inputEle.setCustomValidity('이름은 3자이상 넣어주세요');
+                inputEle.reportValidity();
+            }
+
+        });
+
+        const formEle = document.forms[0];
+        function onSubmit(event) {
+
+            if (formEle.checkValidity()) {
+                alert('ok');
+            } else {
+                event.preventDefault();
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>
