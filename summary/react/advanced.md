@@ -232,8 +232,95 @@ const ref = useRef();
 > 두 번째 ref인자는 React.forwardRef와 같이 호출된 컴포넌트에서만 생성됩니다.  
 > ref전달은 DOM컴포넌트뿐 아니라, 클래스 인스턴스에도 전달할 수 있습니다.
 
+### Ref를 사용해야 할 때
+
+- 포커스, 텍스트 선택영역, 혹은 미디어의 재생을 관리할 때
+- 애니메이션을 직접적으로 실행시킬 때
+- 서드 파티 DOM라이브러리를 React와 같이 사용할 때
+
+선언적으로 해결될 수 있는 문제에서는 ref사용을 지양.  
+ex ) Dialog의 open, close메서드를 두는 대신 isOpen속성을 사용
+
+### 콜백 ref
+
+ref가 설정되고 해재되는 상황을 세세하게 다룰 수 있는 "콜백 ref"이라 불리는 ref를 설정하기 위한 또 다른 방법을 제공합니다.
+
+```typescript
+class CustomTextInput extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.textInput = null;
+
+    this.setTextInputRef = element => {
+      this.textInput = element;
+    };
+
+    this.focusTextInput = () => {
+      // DOM API를 사용하여 text 타입의 input 엘리먼트를 포커스합니다.
+      if (this.textInput) this.textInput.focus();
+    };
+  }
+
+  componentDidMount() {
+    // 마운트 되었을 때 자동으로 text 타입의 input 엘리먼트를 포커스합니다.
+    this.focusTextInput();
+  }
+
+  render() {
+    // text 타입의 input 엘리먼트의 참조를 인스턴스의 프로퍼티
+    // (예를 들어`this.textInput`)에 저장하기 위해 `ref` 콜백을 사용합니다.
+    return (
+      <div>
+        <input type="text" ref={this.setTextInputRef} />
+        <input type="button" value="Focus the text input" onClick={this.focusTextInput} />
+      </div>
+    );
+  }
+}
+```
+
+## 콜백 ref에 관한 주의사항
+
+ref콜백은 업데이트 과정 중에 처음에는 <code>null</code>로, 그 다음에 DOM엘리먼트로, 총 두번 호출되는데 이는 매 랜더링마다 ref콜백의 새 인스턴스가 생성되는 과정에서 React가 이전 ref를 제거하는 과정으로 많은 경우 이런 현상은 문제가 되지 않습니다.
+
 ## Fragment
 
 DOM에 별도의 노드를 추가하지 않고 여러 자식을 그룹화 하는 방법.
 
 > Fragment에 허용된 유일한 속성은 <code>key</code>입니다.
+
+## Portals
+
+부모 컴포넌트의 DOM계층 구조 바깥에 있는 DOM 노드로 자식을 렌더링하는 방법
+
+```typescript
+ReactDOM.createProtal(child, container);
+```
+
+포탈의 유스케이스는 부모 컴포넌트에 <code>overflow:hidden</code>이나 <code>z-index</code>가 있는 경우, 시각적으로 자식을 '튀어나와' 보여야 하는 경우 사용합니다.  
+(ex : 다이얼로그, 호버카드, 툴팁 )
+
+> portal을 이용할 경우 <code>키보드 포커스 관리</code>가 중요하며 <code>[WAI-ARIA](https://www.w3.org/WAI/ARIA/apg/#dialog_modal)</code>에 따라 모든 모달 다이얼로그와 상호작용할 수 있는지 확인이 필요합니다.
+
+## ES6없이 사용하는 React
+
+es6없이 사용한다면 <code>create-react-class</code>모듈을 사용해야 합니다.
+
+```typescript
+//ES6 class의 API는 몇몇 차이점을 제외하고는 createReactClass()와 비슷합니다
+var createReactClass = require('create-react-class');
+var Greeting = createReactClass({
+  render: function () {
+    return <h1>Hello, {this.props.name}</h1>;
+  }
+});
+```
+
+## Stric 모드
+
+- 안전하지 않은 생명주기를 사용하는 컴포넌트 발견
+- 레거시 문자열 ref사용에 대한 경고
+- 권장되지 않는 findDOMNode 사용에 대한 경고
+- 예상치 못한 부작용 검사
+- 레거시 context API 검사
