@@ -1,4 +1,10 @@
+import {ArrayKeys} from '@babel/traverse';
+
 function identity<Type>(arg: Type): Type {
+  return arg;
+}
+
+function strIdentity(arg: string) {
   return arg;
 }
 
@@ -17,7 +23,7 @@ let myIdentity: GenericIdentityFn = identity;
 
 // interface에 generic을 이용한 대체
 // identity에서 사용하는 타입을 선언적으로 변경가능
-let myIdentityGeneric: GenericIdentityFnWithGeneric<number> = identity;
+let myIdentityGeneric: GenericIdentityFnWithGeneric<string> = identity;
 
 /**
  *  제네릭 제약조건에서 유형 매개변수 사용
@@ -68,7 +74,6 @@ type FunReturnType = ReturnType<typeof f>;
 /**
  * Indexed Access 타입
  */
-
 type Person = {age: number; name: string; alive: boolean};
 type Age = Person['age'];
 
@@ -126,11 +131,11 @@ const random = conditionalCreateLabel(Math.random() > 0.4 ? 20 : 'rand');
 /**
  * 조건부 타입 제한
  */
-
 type MessageOf<T> = T['messaage']; // 타입에 message속성을 알수 없음
 
 // 타입에 message속성을 강제해서 주어진 타입에 message속성 타입을 추출
 type MessageOfType<T extends {message: unknown}> = T['message'];
+
 interface Email {
   message: string;
 }
@@ -166,7 +171,6 @@ type Bools = GetReturnType<() => boolean>;
 /**
  * 분배 조건부 타입
  */
-
 type ToArray<Type> = Type extends any ? Type[] : never;
 type StrOrNumArray = ToArray<string | number>;
 
@@ -184,7 +188,7 @@ type OnlyBoolsAndHorses = {
 const conforms: OnlyBoolsAndHorses = {
   del: false,
   rodney: true,
-  name: 'ss'
+  name: 'aaa'
 };
 
 /**
@@ -207,17 +211,16 @@ type NoneOptionalType<Type> = {
   [Property in keyof Type]-?: Type[Property];
 };
 
-type OptionalUser {
-    id:string;
-    name?:string;
-    job?:string;
-}
+type OptionalUser = {
+  id: string;
+  name?: string;
+  job?: string;
+};
 
 type PrimaryUser = NoneOptionalType<OptionalUser>;
 
 /**
  *  as를 사용한 키 맵핑
- * 
  * type MappedTypeWithNewProperties<Type> = {
     [Properties in keyof Type as NewKeyType] : Type[Properties];
    }
@@ -225,31 +228,41 @@ type PrimaryUser = NoneOptionalType<OptionalUser>;
 
 // as를 이용해 새로운 타입 맵핑을 적용
 type Getters<Type> = {
-    [Property in keyof Type as `get${Capitalize<string & Property>}`]: () => Type[Property];
-}
+  [Property in keyof Type as `get${Capitalize<string & Property>}`]: () => Type[Property];
+};
 type UserGetters = Getters<PrimaryUser>;
 
 type RemoveKindKey<Type> = {
-    [Property in keyof Type as Exclude<Property, "kind">] : Type[Property];
-}
+  [Property in keyof Type as Exclude<Property, 'kind'>]: Type[Property];
+};
 
 interface Circle {
-    kind: "circle";
-    radius: number;
+  kind: 'circle';
+  radius: number;
+  width: string;
+  height: string | boolean;
 }
 
 type NoneKindCircle = RemoveKindKey<Circle>;
 
+const setCircle = (key: keyof NoneKindCircle, value: NoneKindCircle[keyof NoneKindCircle]) => {
+  let obj: NoneKindCircle = {
+    radius: 1,
+    width: '1',
+    height: false
+  };
+  obj[key] = value;
+};
 /**
  *  키 맵핑은 기본형이 아닌 커스텀 타입도 가능
  */
 
-type EventConfig<Events extends {kind:string}> = {
-    [E in Events as E['kind']]: (event:E) => void;
-}
+type EventConfig<Events extends {kind: string}> = {
+  [E in Events as E['kind']]: (event: E) => void;
+};
 
-type SquareEvent = {kind:"square", x:number, y:number};
-type CircleEvent = {kind:"circle", radius:number};
+type SquareEvent = {kind: 'square'; x: number; y: number};
+type CircleEvent = {kind: 'circle'; radius: number};
 
 type Config = EventConfig<SquareEvent | CircleEvent>;
 
@@ -258,12 +271,12 @@ type Config = EventConfig<SquareEvent | CircleEvent>;
  * 속성에 특정정보 ( pii 값)여부로 true : false를 설정
  */
 type ExtractPII<Type> = {
-    [Property in keyof Type]: Type[Property] extends {pii:true} ? true : false;
-}
+  [Property in keyof Type]: Type[Property] extends {pii: true} ? true : false;
+};
 
 type DBFields = {
-    id:{format:'incremeting'},
-    name:{type:string, pii:true}
+  id: {format: 'incremeting'};
+  name: {type: string; pii: true};
 };
 
 type ObjectsNeedingGDPRDeletion = ExtractPII<DBFields>;
