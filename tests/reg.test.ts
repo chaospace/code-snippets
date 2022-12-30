@@ -11,7 +11,7 @@ describe.skip('정규식 테스트', () => {
   });
 });
 
-describe('스타일문자열 제어 테스트', () => {
+describe.skip('스타일문자열 제어 테스트', () => {
   it.skip('camelCase를 snakeCase로 변환', () => {
     const message = 'paddingLeftSide';
     // 유니코드 글자 중 대문자를 찾음.
@@ -52,7 +52,7 @@ describe('스타일문자열 제어 테스트', () => {
     console.log('I paid $30 for 100 apples.', 'I paid $30 for 100 apples'.match(/(?!\$)\d+/));
   });
 
-  it('정규식을 이용한 숫자 콤마처리', () => {
+  it.skip('정규식을 이용한 숫자 콤마처리', () => {
     const message = '우리나라 1234430303.223322원';
     //const r = message.match(/(?=(\d{3})+(?!\d))/);
     //console.log('후방', message.match(/(\d{3})+(?=\.)/));
@@ -105,5 +105,17 @@ describe.skip('탐색 테스트', () => {
     const str = '...<a href="link1" class="wrong">... <p style="" class="doc">...';
     const pattern = /<a href=".*?" class="doc">/g;
     console.log(str.match(pattern));
+  });
+});
+
+describe('replace테스트', () => {
+  it('replace심볼사용', () => {
+    const message = '30 20 10';
+    console.log('origin', message);
+    console.log('message', message.match(/(30)/));
+    console.log('$n심볼 사용', message.replace(/(30)/, '$1px'));
+    console.log('$` 심볼 사용- 매칭 전 문자열의 일부 삽입', message.replace(/(30)/, '$`9'));
+    console.log("$' 심볼 사용- 매칭 후 문자열의 일부 삽입", message.replace(/(30)/, "$' "));
+    console.log('$& 심볼 사용- 매칭 문자열의 전체 삽입', message.replace(/(30)/, '$&px'));
   });
 });
