@@ -1,5 +1,5 @@
 import {TFunc} from '@/types/types';
-import {Formatter} from '../utils/const';
+import {Formatter, PATTERN} from '../utils/const';
 import {isNop} from '../utils/nop';
 import toNumber from '../utils/toNumber';
 
@@ -30,7 +30,7 @@ function convertUnit<T = any>(value: T, unit = 1000) {
  */
 function intComma<T = any>(str: T) {
   const value = toNumber(str);
-  return isNop(value) ? str : value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return isNop(value) ? str : value.toString().replace(PATTERN.NUMBER_COMMA, ',');
 }
 
 /**
