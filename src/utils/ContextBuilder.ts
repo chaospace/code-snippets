@@ -10,4 +10,5 @@ function build<T>() {
   return [useCustomContext, context.Provider, context.Consumer] as const;
 }
 
-export default build;
+const ContextBuilder = {build} as const;
+export default ContextBuilder;
