@@ -6,13 +6,13 @@ import useInitState from './useInitState';
  * @param deps:any[]
  * @param deep:boolean
  */
-function useUpdateCallback(callback: () => void, deps: any[], deep = false) {
+function useUpdateCallback(callback: (...args: any[]) => void, deps: any[], deep = false) {
   const init = useInitState();
 
   useEffect(() => {
     console.log('useUpdateCallback-init', init, deps);
-    deep && callback();
-    init && callback();
+    //deep && callback();
+    (init || deep) && callback.apply(null, deps);
   }, deps);
 }
 
