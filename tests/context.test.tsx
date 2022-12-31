@@ -1,14 +1,15 @@
 // context 테스트
 import React, {ReactNode} from 'react';
-import build from '@/utils/reactContextBuilder';
-import {cleanup, render, screen} from '@testing-library/react';
+import ContextBuilder from '@/utils/ContextBuilder';
+import {render, screen} from '@testing-library/react';
 
 type NameContextProps = {
   nick: string;
   job: string;
 };
 
-const [useNameContext, NameContextProvider, NameContextConsumer] = build<NameContextProps>();
+const [useNameContext, NameContextProvider, NameContextConsumer] =
+  ContextBuilder.build<NameContextProps>();
 
 const providerRender = (ui: ReactNode, providerValue: NameContextProps) => {
   return render(<NameContextProvider value={providerValue}>{ui}</NameContextProvider>);
