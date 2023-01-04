@@ -1,0 +1,60 @@
+import {ArgsTable, Canvas, Meta, Story, Props} from '@storybook/addon-docs';
+
+import Select from '@/ui/styled/form/Select';
+import {VBox} from '@/ui/styled/Box';
+
+<Meta
+  title="FormUI/Select"
+  argTypes={{
+    children: {
+      table: {disable: true}
+    }
+  }}
+  component={Select}
+/>
+
+export const Template = args => <Select {...args} />;
+
+# 인풋
+
+인풋 컴포넌트
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+# Props
+
+<ArgsTable story="Default" />
+
+# 상태에 따른 스타일
+
+<Canvas>
+  <Story
+    name="Select States"
+    parameters={{
+      controls: {disable: true},
+      options: {showPanel: false}
+    }}
+  >
+    <VBox gap="8">
+      <label>disabled</label>
+      <Select disabled />
+      <label>invalid</label>
+      <Select className="invalid">
+        <option value="none" selected disabled hidden>
+          Select an Option
+        </option>
+        <option>option-1</option>
+        <option>option-2</option>
+        <option>option-3</option>
+      </Select>
+      <label>placeholder</label>
+      <Select>
+        <option>option-1</option>
+        <option>option-2</option>
+        <option selected>option-3</option>
+      </Select>
+    </VBox>
+  </Story>
+</Canvas>

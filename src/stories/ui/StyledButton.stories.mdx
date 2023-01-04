@@ -1,0 +1,70 @@
+<!-- 컴포넌트 정의  -->
+
+import {ArgsTable, Canvas, Meta, Story} from '@storybook/addon-docs';
+import {StyledButton} from '@/ui/styled/Elements';
+import colors from '@/ui/colors';
+
+<!-- 컴포넌트 정의   type: {required: true} -->
+
+<Meta
+  title="UI/StyledButton"
+  argTypes={{
+    children: {
+      table: {disable: true}
+    },
+    fontSize: {
+      control: {type: 'text'},
+      description: '폰트 크기',
+      table: {
+        type: {summary: 'text'}
+      }
+    },
+    color: {
+      control: {type: 'color'},
+      description: '배경컬러',
+      table: {
+        type: {summary: 'color'}
+      }
+    },
+    backgroundColor: {
+      control: {type: 'color'},
+      description: '배경컬러',
+      table: {
+        type: {summary: 'color'}
+      }
+    }
+  }}
+  component={StyledButton}
+/>
+
+<!-- Define template for Primary Story -->
+
+export const Template = args => {
+  return <StyledButton {...args}>hello</StyledButton>;
+};
+
+# StyledButton
+
+버튼 컴포넌트
+
+<!-- Don't forget to replace (") with (```) when you copy the snippet to your own app -->
+
+```typescript
+const name: string = 'chaospace';
+```
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{
+      fontSize: '20px',
+      color: 'black'
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable story="Default" />

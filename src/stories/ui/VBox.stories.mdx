@@ -6,7 +6,7 @@ import {Space} from '@/ui/space';
 <!-- 컴포넌트 정의   type: {required: true} -->
 
 <Meta
-  title="Example/VBox"
+  title="Layout/VBox"
   argTypes={{
     children: {
       table: {disable: true},
@@ -47,7 +47,14 @@ import {Space} from '@/ui/space';
     },
     alignContents: {
       type: {name: 'string'},
-      options: ['flex-start', 'center', 'flex-end', 'space-between', 'space-evenly', 'space-around'],
+      options: [
+        'flex-start',
+        'center',
+        'flex-end',
+        'space-between',
+        'space-evenly',
+        'space-around'
+      ],
       control: {type: 'select'},
       defaultValue: 'flex-start',
       description: 'flex line을 정렬 *flex-wrap설정 필수',

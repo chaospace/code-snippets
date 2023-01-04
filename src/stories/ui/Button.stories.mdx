@@ -1,0 +1,79 @@
+import {ArgsTable, Canvas, Meta, Story, Props} from '@storybook/addon-docs';
+import Button from '@/ui/styled/Button';
+
+<!-- 버튼 스토리 파일 -->
+
+<Meta
+  title="UI/Button"
+  argTypes={{
+    children: {
+      table: {disable: true},
+      defaultValue: 'chaospace'
+    },
+    fontSize: {
+      control: {type: 'text'},
+      description: '버튼 폰트 크기',
+      table: {
+        type: {summary: 'string'},
+        defaultValue: '20px'
+      }
+    },
+    fontWeight: {
+      control: {type: 'select', options: ['normal', 'bold']},
+      description: '버튼 폰트 볼드 여부 ',
+      table: {
+        type: {summary: 'select'},
+        defaultValue: 'normal'
+      }
+    },
+    color: {
+      control: {type: 'color'},
+      description: '버튼 라벨 컬러',
+      table: {
+        type: {summary: 'color'}
+      }
+    },
+    backgroundColor: {
+      control: {type: 'color'},
+      description: '버튼 배경 컬러',
+      table: {
+        type: {summary: 'color'}
+      }
+    },
+    borderRadius: {
+      control: {type: 'text'},
+      description: 'border-radius',
+      table: {
+        type: {
+          summary: 'border-radius',
+          defaultValue: '8px'
+        }
+      }
+    },
+    border: {
+      control: {type: 'text'},
+      description: '보더 스타일',
+      table: {
+        type: {
+          summary: 'border-style',
+          defaultValue: 'none'
+        }
+      }
+    }
+  }}
+  component={Button}
+/>
+
+export const Template = args => <Button {...args} />;
+
+# Button
+
+버튼 컴포넌트
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+# Props
+
+<ArgsTable story="Default" />

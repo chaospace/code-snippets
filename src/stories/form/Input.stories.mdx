@@ -1,0 +1,51 @@
+import {ArgsTable, Canvas, Meta, Story, Props} from '@storybook/addon-docs';
+
+import Input from '@/ui/styled/form/Input';
+import {VBox} from '@/ui/styled/Box';
+
+<Meta
+  title="FormUI/Input"
+  argTypes={{
+    children: {
+      table: {disable: true}
+    }
+  }}
+  component={Input}
+/>
+
+export const Template = args => <Input {...args} />;
+
+# 인풋
+
+인풋 컴포넌트
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+# Props
+
+<ArgsTable story="Default" />
+
+# 상태에 따른 스타일
+
+<Canvas>
+  <Story
+    name="Input States"
+    parameters={{
+      controls: {disable: true},
+      options: {showPanel: false}
+    }}
+  >
+    <VBox gap="8">
+      <label>readonly</label>
+      <Input readOnly placeholder="readOnly상태" />
+      <label>disable</label>
+      <Input disabled placeholder="disabled상태" />
+      <label>invalid</label>
+      <Input className="invalid" />
+      <label>placeholder</label>
+      <Input placeholder="주소입력" />
+    </VBox>
+  </Story>
+</Canvas>
