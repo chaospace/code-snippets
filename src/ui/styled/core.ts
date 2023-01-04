@@ -1,4 +1,4 @@
-import {css} from 'styled-components';
+import {css, CSSProperties} from 'styled-components';
 import {InferReturn, TFunc} from '../../types/types';
 import TypoGraphyType, {TypoGraphyStyles} from './types/typo';
 import {
@@ -20,7 +20,7 @@ import {
 } from './types/types';
 import toArray from '@/utils/toArray';
 
-const units = ['px', '%', 'vh', 'vw', 'em'];
+const units = ['px', '%', 'vh', 'vw', 'em', 'rem'];
 
 /**
  * value뒤에 스타일 단위포함 여부 판단
@@ -76,7 +76,10 @@ const styleValueFormmater = (values: string | number | string[] | number[], suff
 };
 
 const setStyleValue = (key: string, value: string) => `${key}:${value}`;
-const executeStyleSetter = <Func extends TFunc>(func: Func, ...rest: any[]): InferReturn<Func> | undefined => {
+const executeStyleSetter = <Func extends TFunc>(
+  func: Func,
+  ...rest: any[]
+): InferReturn<Func> | undefined => {
   const [key, v, suffix] = rest.length > 1 ? rest : [undefined, ...rest];
   if (v) {
     const param = styleValueFormmater(v, suffix);
@@ -84,7 +87,8 @@ const executeStyleSetter = <Func extends TFunc>(func: Func, ...rest: any[]): Inf
   }
   return undefined;
 };
-const curriedStyleSetter = <T extends unknown[]>(...rest: T) => executeStyleSetter(setStyleValue, ...rest);
+const curriedStyleSetter = <T extends unknown[]>(...rest: T) =>
+  executeStyleSetter(setStyleValue, ...rest);
 // margin, padding 스타일 반환 함수모음
 /* eslint-enabled no-return-assign */
 /* eslint-enabled no-param-reassign */
@@ -127,7 +131,9 @@ function getFlexDirectionStyle(value: AlignDirection) {
 function getBorderStyle(props: BorderProps) {
   let styles = ``;
   if (props.borderWidth || props.borderType || props.borderColor) {
-    styles = `border: ${props.borderWidth || 1}px ${props.borderType || 'solid'} ${props.borderColor || 'white'};`;
+    styles = `border: ${props.borderWidth || 1}px ${props.borderType || 'solid'} ${
+      props.borderColor || 'white'
+    };`;
   }
   if (props.borderRadius) {
     styles += `border-radius: ${measureValue(props.borderRadius)};`;
@@ -248,6 +254,32 @@ function getZIndexStyle({zIndex}: ZIndexProps) {
   return curriedStyleSetter('z-index', zIndex, '');
 }
 
+/**
+ * 돔 스타일 설정 함수
+ * props에 넘어오는 camelCase키를 kebabCase 변경 후 스타일 구성 후 리턴
+ * style에 hasOwnProperty를 이용해 스타일 키인지 판단해 적용.
+ * @param props
+ * @returns
+ */
+const styleMap = new Map<string, string>();
+function getStyleProps(props: CSSProperties) {
+  let style = '';
+  for (let prop in props) {
+    if (document.body.style.hasOwnProperty(prop)) {
+      const hasKey = styleMap.get(prop);
+      const kebabKey = hasKey
+        ? styleMap.get(prop)!
+        : prop.replace(/(\p{Ll})(\p{Lu})/gu, `$1-$2`).toLowerCase();
+
+      style += `${kebabKey}: ${props[prop]};`;
+      if (!hasKey) {
+        styleMap.set(prop, kebabKey);
+      }
+    }
+  }
+  return style;
+}
+
 export {
   getDisplayStyle,
   getFlexStyle,
@@ -266,5 +298,6 @@ export {
   getFlexDirectionStyle,
   getTypoStyleWithOutLineHeight,
   getPositionStyle,
-  getColorStyle
+  getColorStyle,
+  getStyleProps
 };

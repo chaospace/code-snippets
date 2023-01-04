@@ -1,9 +1,24 @@
 // 리액트 스타일드 컴포넌트 모음
 import React from 'react';
-import styled from 'styled-components';
+import styled, {CSSProperties} from 'styled-components';
 import colors from '../colors';
-import {ButtonProps, FlexProps, InputProps, DisplaySizeProps, GridContainerProps, ContainerProps} from './types/types';
-import {getFlexStyle, getMarginStyle, getPaddingStyle, getSizeStyle, getTextStyle} from './core';
+import {
+  ButtonProps,
+  FlexProps,
+  InputProps,
+  DisplaySizeProps,
+  GridContainerProps,
+  ContainerProps
+} from './types/types';
+import {
+  getBorderStyle,
+  getFlexStyle,
+  getMarginStyle,
+  getPaddingStyle,
+  getSizeStyle,
+  getStyleProps,
+  getTextStyle
+} from './core';
 import {VBox} from './Box';
 
 const Spacer = styled.span<FlexProps & DisplaySizeProps>`
@@ -11,19 +26,21 @@ const Spacer = styled.span<FlexProps & DisplaySizeProps>`
   ${props => getSizeStyle(props)};
 `;
 
-const StyledButton = React.memo(styled.button<ButtonProps>`
-  background-color: transparent;
+const StyledButton = styled.button<CSSProperties>`
+  cursor: pointer;
   background: none;
   border: none;
   outline: none;
   user-select: none;
-  cursor: pointer;
-  ${props => getTextStyle(props)};
-  font-weight: bold;
-  && {
-    ${props => getPaddingStyle(props)};
-  }
-`);
+  ${props => {
+    return getStyleProps(props);
+  }};
+`;
+
+StyledButton.defaultProps = {
+  color: colors.gray07,
+  fontSize: '12px'
+};
 
 const Form = styled(VBox).attrs({
   as: 'form'
