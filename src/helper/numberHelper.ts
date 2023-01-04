@@ -86,4 +86,24 @@ function numberFormatterAppendSuffix<T = any>(value: T, suffix = '') {
   return `${r} ${suffix}`;
 }
 
-export {numberFormatterAppendSuffix, numberFormatterWithSuffix, convert};
+/**
+ *
+ * @param color : hex컬러 코드
+ * @param value : 조정 값
+ * @returns
+ */
+function adjustHexColor(color: string, value = 0) {
+  let nColor = color;
+  const hasPrefix = nColor.indexOf('#') > -1;
+  if (hasPrefix) {
+    nColor = nColor.slice(1);
+  }
+  const num = parseInt(nColor, 16);
+  const r = Math.max(0, Math.min(255, (num >> 16) + value));
+  const g = Math.max(0, Math.min(255, ((num >> 8) & 0x00ff) + value));
+  const b = Math.max(0, Math.min(255, num & 0x0000ff));
+  const result = ((r << 16) | (g << 8) | b).toString(16);
+  return hasPrefix ? `#${result}` : result;
+}
+
+export {numberFormatterAppendSuffix, numberFormatterWithSuffix, convert, adjustHexColor};
