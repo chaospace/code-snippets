@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form요소 스타일 설정 테스트</title>
+    <style>
+        .form-group {
+            position: relative;
+            display: flex;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .checkbox-item .checkmark {
+            position: relative;
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: #eee;
+            border-radius: 50%;
+            margin-left: 8px;
+        }
+
+        .checkbox-item:hover input[type="checkbox"]~.checkmark {
+            background-color: #ccc;
+        }
+
+        .checkbox-item input[type="checkbox"]:checked~.checkmark {
+            background-color: #2196f3;
+        }
+
+        .checkmark:after {
+            position: absolute;
+            content: '';
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: white;
+        }
+
+        .checkmark:after {
+            display: none;
+        }
+
+        .checkbox-item input[type="checkbox"]:checked~.checkmark:after {
+            display: block;
+        }
+
+
+        input[type="tel"],
+        input[type="url"],
+        input[type="text"],
+        input[type="date"],
+        input[type="email"],
+        input[type="number"],
+        input[type="search"],
+        input[type="password"] {
+            outline: none;
+            border-width: 1px;
+            border-style: solid;
+            border-color: black;
+            border-radius: .5rem;
+            padding: .5rem 1rem;
+            transition: all .1s ease-out;
+            transition-property: color, background-color;
+        }
+
+        input[type="text"]:disabled,
+        input[type="text"]:read-only {
+            border-color: #ccc;
+            background-color: #eee;
+            color: gray;
+            pointer-events: none;
+        }
+
+        /* outline과 border 컬러를 변경해 size변동없이 효과 적용 */
+        input[type="text"]:focus {
+            border-color: #2196f3;
+            outline: 1px solid #2196f3;
+        }
+
+
+        .checkbox-item input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        input.invalid:focus,
+        input.invalid {
+            border-color: #ff0000;
+            outline: 1px solid #ff0000;
+            background-color: #ffcbcb;
+        }
+
+        .input-group {
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            column-gap: 8px;
+            align-items: center;
+        }
+
+        .input-group.vertical {
+            flex-direction: column;
+            row-gap: 8px;
+            align-items: flex-start;
+        }
+
+        .input-group .feedback-message {
+            font-size: .8rem;
+        }
+
+        .input-group input.invalid~.feedback-message {
+            color: #ff0000;
+        }
+
+
+
+        /* 체크박스 스타일 before이용 */
+        .cp-checkbox {
+            position: relative;
+            display: flex;
+            cursor: pointer;
+        }
+
+        .clip-area {
+            clip: rect(0, 0, 0, 0);
+            overflow: hidden;
+            width: 1px;
+            height: 1px;
+        }
+
+        .cp-checkbox .checkmark {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            background-color: gray;
+        }
+
+        .cp-checkbox .checkmark:after {
+            position: absolute;
+            display: inline-flex;
+            content: '';
+            width: 6px;
+            height: 8px;
+            border: solid transparent;
+            border-width: 0px 2px 3px 0px;
+            transform: rotate(45deg);
+            background-color: transparent;
+            border-radius: 0;
+        }
+
+        .cp-checkbox input[type="checkbox"]:checked~.checkmark:after {
+            border-color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <input type="text" />
+        <input type="text" disabled placeholder="주소입력" />
+        <input type="text" readonly placeholder="주소입력" />
+        <input type="text" class="invalid" placeholder="주소입력" />
+
+        <div class="input-group">
+            <label for="">ㅇㅇㅇ</label>
+            <input type="text" />
+            <span class="feedback-message">피드백 메시지</span>
+        </div>
+        <div class="input-group vertical">
+            <label for="">ㅇㅇㅇ</label>
+            <input class="invalid" type="text" />
+            <span class="feedback-message">피드백 메시지</span>
+        </div>
+        <select>
+            <option>옵션-1</option>
+            <option>옵션-2</option>
+            <option>옵션-3</option>
+            <option>옵션-4</option>
+        </select>
+
+        <fieldset>
+            <label>
+                <input type="radio" name="type" value="1" />
+                옵션-1
+            </label>
+            <label>
+                <input type="radio" name="type" value="2" />
+                옵션-2
+            </label>
+            <label>
+                <input type="radio" name="type" value="3" />
+                옵션-3
+            </label>
+        </fieldset>
+
+        <fieldset>
+            <label class="checkbox-item">정기구독 여부
+                <input id="box" type="checkbox" name="subscription" value="Y" />
+                <span class="checkmark"></span>
+            </label>
+        </fieldset>
+
+        <fieldset>
+            <h4>체크박스 스타일 다른 것</h4>
+            <label class="cp-checkbox">
+                <span class="label">체크박스 스타일</span>
+                <input type="checkbox" class="clip-area" value="Y" />
+                <span class="checkmark"></span>
+            </label>
+        </fieldset>
+    </form>
+</body>
+
+</html>
