@@ -73,8 +73,41 @@ const theme = {
       outline: 1px solid red;
     }
   `,
-  checkbox:css`
-    
+  checkbox: css`
+    input[type='checkbox'] {
+      position: absolute;
+      clip: rect(0, 0, 0, 0);
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+    i {
+      position: relative;
+      display: inline-flex;
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      background-color: #eee;
+      border: 1px solid black;
+      margin-left: 8px;
+      &::after {
+        position: absolute;
+        content: '';
+        left: 50%;
+        top: 50%;
+        width: 8px;
+        height: 14px;
+        border-style: solid;
+        border-radius: 0;
+        border-width: 0px 3px 2px 0px;
+        border-color: transparent;
+        transform: rotate(45deg) translate(-60%, -70%);
+        transform-origin: top left;
+      }
+    }
+    input[type='checkbox']:checked ~ i::after {
+      border-color: red;
+    }
   `
 };
 

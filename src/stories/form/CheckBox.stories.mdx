@@ -7,7 +7,51 @@ import {VBox} from '@/ui/styled/Box';
   title="FormUI/CheckBox"
   argTypes={{
     children: {
-      table: {disable: true}
+      table: {disable: true},
+      defaultValue: '지원여부'
+    },
+    color: {
+      control: {type: 'color'},
+      description: '라벨 컬러',
+      table: {
+        type: {summary: 'color'}
+      }
+    },
+    fontWeight: {
+      control: {type: 'select', options: ['normal', 'bold']},
+      description: '버튼 폰트 볼드 여부 ',
+      table: {
+        type: {summary: 'select'},
+        defaultValue: 'normal'
+      }
+    },
+    size: {
+      control: {type: 'text'},
+      description: '체크박스 크기',
+      table: {
+        type: {summary: 'string'}
+      }
+    },
+    iconColor: {
+      control: {type: 'color'},
+      description: '체크마크 컬러',
+      table: {
+        type: {summary: 'color'}
+      }
+    },
+    backgroundColor: {
+      control: {type: 'color'},
+      description: '체크마크 배경 컬러',
+      table: {
+        type: {summary: 'color'}
+      }
+    },
+    border: {
+      control: {type: 'text'},
+      description: '체크마크 보더 스타일',
+      table: {
+        type: {summary: 'string'}
+      }
     }
   }}
   component={CheckBox}

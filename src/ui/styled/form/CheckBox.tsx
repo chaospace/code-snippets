@@ -2,57 +2,38 @@ import React, {PropsWithChildren} from 'react';
 import styled, {StyledProps, CSSProperties} from 'styled-components';
 import {getStyleProps} from '../core';
 
-const Input = styled.input.attrs({type: 'checkbox'})`
-  position: absolute;
-  clip: rect(0, 0, 0, 0);
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-`;
+type CheckBoxProps = CSSProperties & {size?: string; border?: string; iconColor?: string};
 
-const CheckMark = styled.i`
-  position: relative;
-  display: inline-flex;
-  width: 20px;
-  height: 20px;
-  border-radius: 4px;
-  background-color: #333;
-  margin-left: 8px;
+const Input = styled.input.attrs({type: 'checkbox'})``;
+const CheckMark = styled.i<StyledProps<CheckBoxProps>>`
+  ${({size}) => size && getStyleProps({width: size, height: size})};
+  && {
+    ${({size, ...rest}) => getStyleProps(rest)};
+  }
 `;
-
-const CheckBoxBase = styled.label<StyledProps<CSSProperties>>`
+const CheckLabel = styled.span<StyledProps<CSSProperties>>`
+  margin-top: 2px;
+  ${props => getStyleProps(props)};
+`;
+const CheckBoxBase = styled.label<StyledProps<CheckBoxProps>>`
   position: relative;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   cursor: pointer;
   ${props => props.theme.checkbox};
-  ${({theme, ...rest}) => getStyleProps(rest)};
-  ${CheckMark} {
-    &::after {
-      position: absolute;
-      content: '';
-      top: 1px;
-      left: 6px;
-      width: 8px;
-      height: 14px;
-      border-style: solid;
-      border-radius: 0;
-      border-width: 0px 3px 2px 0px;
-      border-color: transparent;
-      transform: rotate(45deg);
-    }
-  }
   ${Input}:checked ~ ${CheckMark}::after {
-    border-color: #fffc03;
+    ${props => props.iconColor && getStyleProps({borderColor: props.iconColor})};
   }
 `;
 
-function CheckBox(props: PropsWithChildren<StyledProps<CSSProperties>>) {
+function CheckBox(props: PropsWithChildren<StyledProps<CheckBoxProps>>) {
+  const {children, size, iconColor, fontWeight, backgroundColor, border, color, ...rest} = props;
   return (
-    <CheckBoxBase>
-      체크박스
+    <CheckBoxBase {...{iconColor}}>
+      <CheckLabel {...{fontWeight, color}}>{children}</CheckLabel>
       <Input />
-      <CheckMark />
+      <CheckMark {...{size, backgroundColor, border}} />
     </CheckBoxBase>
   );
 }
