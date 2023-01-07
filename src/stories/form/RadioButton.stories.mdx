@@ -1,0 +1,44 @@
+import {ArgsTable, Canvas, Meta, Story, Props} from '@storybook/addon-docs';
+
+import RadioButton from '@/ui/styled/form/RadioButton';
+import {VBox} from '@/ui/styled/Box';
+
+<Meta
+  title="FormUI/RadioButton"
+  argTypes={{
+    children: {
+      table: {disable: true},
+      defaultValue: '체크박스'
+    }
+  }}
+  component={RadioButton}
+/>
+
+export const Template = args => <RadioButton {...args} />;
+
+# 라디오버튼
+
+<Canvas>
+  <Story name="Default">
+    <VBox gap="10">
+      <RadioButton
+        style={{
+          fontWeight: 'normal',
+          color: 'red',
+          borderColor: 'green'
+        }}
+        name="opt"
+        value="radio"
+      >
+        체크-1
+      </RadioButton>
+      <RadioButton style={{fontWeight: 'bold'}} name="opt" value="tv">
+        체크-2
+      </RadioButton>
+    </VBox>
+  </Story>
+</Canvas>
+
+# Props
+
+<ArgsTable story="Default" />
