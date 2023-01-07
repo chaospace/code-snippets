@@ -108,6 +108,29 @@ const theme = {
     input[type='checkbox']:checked ~ i::after {
       border-color: red;
     }
+  `,
+  radioButton: css`
+    position: relative;
+    display: flex;
+    align-items: end;
+    font-size: 16px;
+    input[type='radio'] {
+      appearance: none;
+      margin: 0 4px;
+      padding: 0;
+      width: 1.4em;
+      height: 1.4em;
+      border-radius: 50%;
+      border: 2px solid;
+      border-color: gray;
+      background-color: white;
+      transition: 0.3s ease-out;
+      transition-property: border;
+    }
+    input[type='radio']:checked {
+      border-width: 0.4em;
+      background-color: #ffcbcb;
+    }
   `
 };
 
