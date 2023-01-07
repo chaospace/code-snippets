@@ -7,7 +7,7 @@ import {configure} from '@testing-library/dom';
 import {cleanup} from '@testing-library/react';
 
 configure({
-  testIdAttribute: 'data-my-test-id',
+  testIdAttribute: 'data-test-id',
   computedStyleSupportsPseudoElements: true
 });
 
