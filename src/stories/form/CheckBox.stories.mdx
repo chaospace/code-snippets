@@ -18,16 +18,17 @@ import {VBox} from '@/ui/styled/Box';
       }
     },
     fontWeight: {
-      control: {type: 'select', options: ['normal', 'bold']},
+      options: ['normal', 'bold'],
+      control: {type: 'select'},
       description: '버튼 폰트 볼드 여부 ',
       table: {
         type: {summary: 'select'},
         defaultValue: 'normal'
       }
     },
-    checkBoxSize: {
+    fontSize: {
       control: {type: 'text'},
-      description: '체크박스 크기',
+      description: '폰트 크기',
       table: {
         type: {summary: 'string'}
       }
@@ -57,7 +58,14 @@ import {VBox} from '@/ui/styled/Box';
   component={CheckBox}
 />
 
-export const Template = args => <CheckBox {...args} />;
+export const Template = args => {
+  const {children, border, fontSize, fontWeight, color, backgroundColor, ...rest} = args;
+  return (
+    <CheckBox style={{border, fontSize, fontWeight, color, backgroundColor}} {...rest}>
+      {children}
+    </CheckBox>
+  );
+};
 
 # 인풋
 

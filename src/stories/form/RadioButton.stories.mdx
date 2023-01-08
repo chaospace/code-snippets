@@ -9,36 +9,84 @@ import {VBox} from '@/ui/styled/Box';
     children: {
       table: {disable: true},
       defaultValue: '체크박스'
+    },
+    fontSize: {
+      control: {type: 'text'},
+      description: '폰트 크기',
+      table: {
+        type: {summary: '폰트 크기'}
+      }
+    },
+    color: {
+      control: {type: 'color'},
+      description: '폰트 컬러',
+      table: {
+        type: {summary: '폰트 컬러'}
+      }
+    },
+    borderColor: {
+      control: {type: 'color'},
+      description: '라디오박스 보더 컬러',
+      table: {
+        type: {summary: '라디오박스 보더 컬러'}
+      }
+    },
+    backgroundColor: {
+      control: {type: 'color'},
+      description: '라디오박스 배경 컬러',
+      table: {
+        type: {summary: '라디오박스 배경 컬러'}
+      }
+    },
+    fontWeight: {
+      options: ['normal', 'bold'],
+      control: {type: 'select'},
+      description: '버튼 볼드 여부',
+      table: {
+        type: {summary: 'select'},
+        defaultValue: 'normal'
+      }
     }
   }}
   component={RadioButton}
 />
 
-export const Template = args => <RadioButton {...args} />;
+export const Template = args => {
+  const {children, labelPosition, ...rest} = args;
+  console.log('rest', rest);
+  return (
+    <VBox gap="8">
+      <RadioButton name="hobby" value="tv" labelPosition={labelPosition} style={{...rest}}>
+        {children}
+      </RadioButton>
+      <RadioButton name="hobby" value="radio" labelPosition={labelPosition} style={{...rest}}>
+        {children}
+      </RadioButton>
+    </VBox>
+  );
+};
 
 # 라디오버튼
 
 <Canvas>
-  <Story name="Default">
-    <VBox gap="10">
-      <RadioButton
-        style={{
-          fontWeight: 'normal',
-          color: 'red',
-          borderColor: 'green'
-        }}
-        name="opt"
-        value="radio"
-      >
-        체크-1
-      </RadioButton>
-      <RadioButton style={{fontWeight: 'bold'}} name="opt" value="tv">
-        체크-2
-      </RadioButton>
-    </VBox>
-  </Story>
+  <Story name="Default">{Template.bind({})}</Story>
 </Canvas>
 
 # Props
 
 <ArgsTable story="Default" />
+
+# RadioButton State
+
+<Canvas>
+  <Story name="radiobutton-state">
+    <VBox gap="8">
+      <RadioButton disabled name="job" value="backend">
+        백엔드
+      </RadioButton>
+      <RadioButton name="job" value="front">
+        프론트
+      </RadioButton>
+    </VBox>
+  </Story>
+</Canvas>

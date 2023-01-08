@@ -1,7 +1,13 @@
 // 테마 설정
 
 import {css} from 'styled-components';
+import {adjustHexColor} from './helper/styleHelper';
 
+const colors = {
+  disabled: '#d7d7d7',
+  disabledDarken: adjustHexColor('#d7d7d7', 20)
+};
+console.log('colors', colors);
 const theme = {
   button: css`
     background: none;
@@ -74,6 +80,8 @@ const theme = {
     }
   `,
   checkbox: css`
+    position: relative;
+    font-size: 16px;
     input[type='checkbox'] {
       position: absolute;
       clip: rect(0, 0, 0, 0);
@@ -84,29 +92,29 @@ const theme = {
     i {
       position: relative;
       display: inline-flex;
-      width: 20px;
-      height: 20px;
-      border-radius: 4px;
+      width: 1.4em;
+      height: 1.4em;
+      border-radius: 0.3em;
       background-color: #eee;
-      border: 1px solid black;
+      border: 1px solid ${adjustHexColor('#eeeeee', -40)};
       margin-left: 8px;
       &::after {
         position: absolute;
         content: '';
         left: 50%;
         top: 50%;
-        width: 8px;
-        height: 14px;
+        width: 0.6em;
+        height: 0.8em;
         border-style: solid;
         border-radius: 0;
-        border-width: 0px 3px 2px 0px;
+        border-width: 0px 0.2em 0.1em 0px;
         border-color: transparent;
         transform: rotate(45deg) translate(-60%, -70%);
         transform-origin: top left;
       }
     }
     input[type='checkbox']:checked ~ i::after {
-      border-color: red;
+      border-color: #000;
     }
   `,
   radioButton: css`
@@ -126,10 +134,19 @@ const theme = {
       background-color: white;
       transition: 0.3s ease-out;
       transition-property: border;
-    }
-    input[type='radio']:checked {
-      border-width: 0.4em;
-      background-color: #ffcbcb;
+      &:disabled {
+        background-color: ${colors.disabled};
+        border-color: ${colors.disabledDarken};
+      }
+
+      &:disabled ~ span {
+        color: ${colors.disabled};
+      }
+
+      &:checked {
+        border-width: 0.4em;
+        background-color: #ffcbcb;
+      }
     }
   `
 };
