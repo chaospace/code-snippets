@@ -8,19 +8,81 @@ import {VBox} from '@/ui/styled/Box';
   argTypes={{
     children: {
       table: {disable: true}
+    },
+    label: {
+      defaultValue: '라벨',
+      control: {type: 'text'},
+      table: {
+        type: {summary: '라벨 텍스트'},
+        defaultValue: '라벨'
+      }
+    },
+    append: {
+      control: {type: 'boolean'},
+      table: {
+        type: {summary: '추가요소'},
+        defaultValue: false
+      }
+    },
+    prepend: {
+      control: {type: 'boolean'},
+      table: {
+        type: {summary: '추가요소'},
+        defaultValue: false
+      }
+    },
+    color: {
+      control: {type: 'color'},
+      table: {
+        type: {summary: '폰트컬러'},
+        defaultValue: 'black'
+      }
+    },
+    borderColor: {
+      control: {type: 'color'},
+      table: {
+        type: {summary: '보더컬러'},
+        defaultValue: 'gray'
+      }
+    },
+    backgroundColor: {
+      control: {type: 'color'},
+      table: {
+        type: {summary: '배경컬러'},
+        defaultValue: 'gainsboro'
+      }
     }
   }}
   component={Input}
 />
 
-export const Template = args => <Input {...args} />;
+export const PrependText = text => <span>{text}</span>;
+
+export const Template = args => {
+  const {color, borderColor, backgroundColor, ...rest} = args;
+  return <Input style={{color, borderColor, backgroundColor}} {...rest} />;
+};
+
+export const TemplateType2 = args => {
+  const {color, borderColor, backgroundColor, append, prepend, ...rest} = args;
+  const appendEle = append && PrependText('달러');
+  const prependEle = prepend && PrependText('$');
+  return (
+    <Input
+      style={{color, borderColor, backgroundColor}}
+      append={appendEle}
+      prepend={prependEle}
+      {...rest}
+    />
+  );
+};
 
 # 인풋
 
 인풋 컴포넌트
 
 <Canvas>
-  <Story name="Default">{Template.bind({})}</Story>
+  <Story name="Default">{TemplateType2.bind({})}</Story>
 </Canvas>
 
 # Props
@@ -33,19 +95,26 @@ export const Template = args => <Input {...args} />;
   <Story
     name="Input States"
     parameters={{
-      controls: {disable: true},
       options: {showPanel: false}
     }}
   >
     <VBox gap="8">
-      <label>readonly</label>
-      <Input readOnly placeholder="readOnly상태" />
-      <label>disable</label>
-      <Input disabled placeholder="disabled상태" />
-      <label>invalid</label>
-      <Input className="invalid" />
-      <label>placeholder</label>
-      <Input placeholder="주소입력" />
+      <Input label="readOnly 상태" readOnly placeholder="readOnly상태" />
+      <Input label="disabled 상태" disabled placeholder="disabled상태" />
+      <Input label="invalid 상태" className="invalid" />
+      <Input label="placeholder 적용" placeholder="주소입력" />
+      <Input
+        label="prepand 적용"
+        placeholder="주소입력"
+        style={{
+          color: 'green',
+          borderColor: 'red',
+          fontSize: '24px',
+          backgroundColor: '#ff2200'
+        }}
+        prepend={PrependText('@')}
+        append={PrependText('kwh/원')}
+      />
     </VBox>
   </Story>
 </Canvas>

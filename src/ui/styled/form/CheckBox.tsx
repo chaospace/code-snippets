@@ -1,28 +1,25 @@
-import {pickProps} from '@/helper/styleHelper';
 import React, {PropsWithChildren, InputHTMLAttributes} from 'react';
-import styled, {StyledProps, CSSProperties} from 'styled-components';
+import styled, {CSSProperties} from 'styled-components';
+import {pickProps} from '@/helper/styleHelper';
 import {getStyleProps} from '../core';
 
-//HTMLProp
-//HTMLInputElement
 type CheckBoxProps = InputHTMLAttributes<HTMLInputElement> & {
   checkColor?: string;
-  type: 'checkbox';
 };
-//   Pick<
-//     CSSProperties,
-//     'border' | 'borderRadius' | 'color' | 'backgroundColor' | 'fontWeight' | 'fontSize'
-//   >;
 
-const Input = styled.input.attrs({type: 'checkbox'})``;
-const CheckMark = styled.i`
-  ${props => props.style && getStyleProps(props.style)};
+const Input = styled.input``;
+const CheckMark = styled.i<Pick<CSSProperties, 'backgroundColor'>>`
+  && {
+    ${props => getStyleProps(props)}
+  }
 `;
-const CheckLabel = styled.span`
+const Label = styled.span`
   margin-top: 2px;
-  ${props => props.style && getStyleProps(props.style)};
+  && {
+    ${props => getStyleProps(props)}
+  }
 `;
-const CheckBoxBase = styled.label<Pick<CheckBoxProps, 'checkColor'>>`
+const Container = styled.label<Pick<CheckBoxProps, 'checkColor'>>`
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -30,7 +27,9 @@ const CheckBoxBase = styled.label<Pick<CheckBoxProps, 'checkColor'>>`
   align-items: center;
   cursor: pointer;
   ${props => props.theme.checkbox};
-  ${props => props.style && getStyleProps(props.style)};
+  && {
+    ${props => getStyleProps(props)}
+  }
   ${Input}:checked ~ ${CheckMark}::after {
     ${props => props.checkColor && getStyleProps({borderColor: props.checkColor})};
   }
@@ -41,14 +40,21 @@ function CheckBox(props: PropsWithChildren<CheckBoxProps>) {
   const containerStyle = style && pickProps(style, ['fontSize']);
   const labelStyle = style && pickProps(style, ['color', 'fontWeight']);
   const checkMarkStyle = style && pickProps(style, ['backgroundColor', 'border', 'borderRadius']);
+  console.log('checkMark', checkMarkStyle);
+  console.log('labelStyle', labelStyle);
   return (
-    <CheckBoxBase style={containerStyle} checkColor={checkColor}>
-      <CheckLabel style={labelStyle}>{children}</CheckLabel>
-      <Input {...rest} />
-      <CheckMark style={checkMarkStyle} />
-    </CheckBoxBase>
+    <CheckBox.Container {...containerStyle} checkColor={checkColor}>
+      <CheckBox.Label {...labelStyle}>{children}</CheckBox.Label>
+      <CheckBox.Input type="checkbox" {...rest} />
+      <CheckBox.CheckMark {...checkMarkStyle} />
+    </CheckBox.Container>
   );
 }
+
+CheckBox.Container = Container;
+CheckBox.Label = Label;
+CheckBox.Input = Input;
+CheckBox.CheckMark = CheckMark;
 CheckBox.defalutProps = {
   fontWeight: 'normal'
 };
