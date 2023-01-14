@@ -16,7 +16,7 @@ function pixelToRem(value: string | number, base = 16) {
 function pickProps<T, K extends keyof T>(style: T, keys: K[]) {
   const results = {};
   for (const key of keys) {
-    if (hasProperty(style, key)) {
+    if (hasProperty(style, key) && !!style[key]) {
       results[key.toString()] = style[key];
     }
   }
