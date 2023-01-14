@@ -120,5 +120,5 @@ const theme = {
     }
   `
 };
-
+export {colors};
 export default theme;
