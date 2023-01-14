@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인풋그룹 테스트</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .input-group {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            font-size: 16px;
+            row-gap: 8px;
+        }
+
+        .input-group.direction-row {
+            flex-direction: row;
+            column-gap: 8px;
+            align-items: center;
+        }
+
+        .input-group>label {
+            font-weight: bold;
+        }
+
+        /* .input-group-form-control {
+            flex-direction: column;
+            display: flex;
+            row-gap: 8px;
+        } */
+
+        .input-group .input-wrapper {
+            position: relative;
+            display: flex;
+            border: 1px solid gray;
+            border-radius: .5em;
+            align-items: stretch;
+            background-color: gainsboro;
+        }
+
+        .input-wrapper .input-group-append,
+        .input-wrapper .input-group-prepend {
+            font-size: inherit;
+            display: inline-flex;
+            background-color: inherit;
+            align-items: center;
+            padding: 0 1em;
+        }
+
+        .input-wrapper .input-group-append {
+            border-top-right-radius: 0.5em;
+            border-bottom-right-radius: 0.5em;
+            padding: 0 1em;
+        }
+
+        .input-wrapper .input-group-prepend {
+            border-top-left-radius: 0.5em;
+            border-bottom-left-radius: 0.5em;
+        }
+
+        .input-wrapper input {
+            font-size: inherit;
+            padding: .5em 1em;
+            outline: none;
+            border: none;
+            width: 100%;
+        }
+
+        .input-group .feed-back {
+            font-size: .8em;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+        인풋 요소는 prepend, append요소를 고려하자. 라벨이 포함된다면 가로 세로가 같이 고민되면 좋을듯
+        피드백 메시지는 인풋 그룹안에서 제어할지 밖에서 할지 선택으로 주는게 좋을 거 같다.
+    -->
+    <div>
+        <div class="input-group">
+            <label>인풋라벨</label>
+            <div class="input-wrapper">
+                <div class="input-group-prepend">
+                    <span>$</span>
+                </div>
+                <input type="text">
+                <div class="input-group-append">
+                    <span>kWh</span>
+                </div>
+            </div>
+            <span class="feed-back">피드백 메시지</span>
+        </div>
+    </div>
+</body>
+
+</html>

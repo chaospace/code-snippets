@@ -168,6 +168,35 @@
         .cp-checkbox input[type="checkbox"]:checked~.checkmark:after {
             border-color: white;
         }
+
+        .radio-group {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+
+        .radio-group span {
+            margin-top: 2px;
+        }
+
+        .radio-group input[type="radio"] {
+            appearance: none;
+            border: max(2px, 0.1rem) solid gray;
+            border-radius: 50%;
+            background-color: #ffffff;
+            transition: .3s ease-out;
+            transition-property: border;
+            width: 1.2rem;
+            height: 1.2rem;
+            margin: 0 8px;
+            padding: 0;
+        }
+
+        .radio-group input[type="radio"]:checked {
+            border-width: .4rem;
+            border-color: red;
+        }
     </style>
 </head>
 
@@ -177,6 +206,15 @@
         <input type="text" disabled placeholder="주소입력" />
         <input type="text" readonly placeholder="주소입력" />
         <input type="text" class="invalid" placeholder="주소입력" />
+
+        <div class="input-group">
+            <label for="">ㅇㅇㅇ</label>
+            <span class="wrapper">
+                <input type="text" />
+            </span>
+            <span class="feedback-message">피드백 메시지</span>
+        </div>
+
 
         <div class="input-group">
             <label for="">ㅇㅇㅇ</label>
@@ -196,17 +234,17 @@
         </select>
 
         <fieldset>
-            <label>
+            <label class="radio-group">
+                <span>옵션-1</span>
                 <input type="radio" name="type" value="1" />
-                옵션-1
             </label>
-            <label>
+            <label class="radio-group">
+                <span>옵션-2</span>
                 <input type="radio" name="type" value="2" />
-                옵션-2
             </label>
-            <label>
+            <label class="radio-group">
+                <span>옵션-3</span>
                 <input type="radio" name="type" value="3" />
-                옵션-3
             </label>
         </fieldset>
 
