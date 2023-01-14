@@ -1,4 +1,4 @@
-import {adjustHexColor} from '@/helper/numberHelper';
+import {adjustHexColor} from '@/helper/styleHelper';
 import styled, {css, CSSProperties, StyledProps} from 'styled-components';
 import {getStyleProps} from './core';
 
