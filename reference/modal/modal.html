@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .modal--container {
+            position: fixed;
+            display: flex;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            user-select: none;
+        }
+
+        .modal--container__open {
+            visibility: visible;
+            transition: visibility 0s linear;
+        }
+
+        .modal--container__hidden {
+            visibility: hidden;
+            transition: visibility 0s linear .5s;
+        }
+
+        .modal--container__open .modal--backscreen {
+            opacity: 1;
+        }
+
+        .modal--container__hidden .modal--backscreen {
+            opacity: 0;
+        }
+
+        .modal--container__open .modal--contents-section {
+            transform: translate(0, 0);
+        }
+
+        .modal--container__hidden .modal--contents-section {
+            transform: translate(0, 100vh);
+        }
+
+        .modal--container__center {
+            align-items: center;
+        }
+
+        .modal--container__end {
+            align-items: end;
+        }
+
+        .modal--container__stretch {
+            align-items: stretch;
+        }
+
+        .modal--container__center .modal--contents-section {
+            border-radius: 8px;
+        }
+
+
+
+        .modal--backscreen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 1;
+            background-color: rgba(0, 0, 0, .4);
+            transition-property: opacity;
+            transition-duration: .5s;
+            transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+
+
+        .modal--contents-section {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+            padding: 32px;
+            user-select: none;
+            background-color: white;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            transition: transform .8s cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+
+
+
+
+        .modal--body {
+            padding: 16px 0;
+            text-align: left;
+        }
+
+        .modal--body__scrollable {
+            overflow: hidden;
+        }
+
+        @keyframes fadeInDisplay {
+            from {
+                visibility: visible;
+            }
+        }
+
+        @keyframes fadeOutDisplay {
+            to {
+                visibility: hidden;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="modal--container modal--container__center modal--container__hidden">
+        <div class="modal--contents-section">
+            <div class="modal--header">
+                <h1>모달헤더</h1>
+            </div>
+            <div class="modal--body modal--body__scrollable">
+                바디바디!sdlsjldfjlfjlasdjflasjdfljasfdlajsfljad
+            </div>
+            <div class="modal--footer">
+                <button>취소</button>
+                <button>저장</button>
+            </div>
+        </div>
+        <div class="modal--backscreen" onclick="togglePopup()"></div>
+    </div>
+    <div>
+        <button onclick="togglePopup()">팝업오픈</button>
+    </div>
+    <script>
+        // const sectionContainer = document.querySelector('.modal--contents-section');
+        // const modalBackscreen = document.querySelector('.modal--backscreen');
+        const modalContainer = document.querySelector('.modal--container');
+        // modalBackscreen.addEventListener('transitionstart', () => {
+        //     console.log('transition-start', modalBackscreen, 'opacity', modalContainer.style.opacity);
+        //     if (modalBackscreen.style.visibility !== 'hidden') {
+        //         modalBackscreen.style.visibility = 'visible';
+        //     }
+        // });
+        // modalBackscreen.addEventListener('transitionend', () => {
+        //     console.log('transition-end', modalBackscreen, modalBackscreen.style.opacity);
+        //     if (modalBackscreen.style.visibility !== 'visible') {
+        //         modalBackscreen.style.visibility = 'hidden';
+        //     }
+        // });
+
+        function togglePopup() {
+            //const modal = document.querySelector('.modal--container');
+            console.log('hasHidden', modalContainer.classList.contains('modal--container__hidden'))
+            if (modalContainer.classList.contains('modal--container__hidden')) {
+                modalContainer.classList.remove('modal--container__hidden');
+                modalContainer.classList.add('modal--container__open');
+            } else {
+                modalContainer.classList.remove('modal--container__open');
+                modalContainer.classList.add('modal--container__hidden');
+            }
+
+        }
+    </script>
+</body>
+
+</html>
