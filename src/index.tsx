@@ -3,21 +3,16 @@ import {useCallback, useRef, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {createRoot} from 'react-dom/client';
 import styled from 'styled-components';
-import RenderApp from './examples/RenderApp';
+
+import CounterApp from './examples/rerender/CounterApp';
 
 import GlobalStyle from './globalStyle';
-import {Space} from './ui/space';
-import {GridBox, VBox} from './ui/styled/Box';
-import Button from './ui/styled/Button';
+import {VBox} from './ui/styled/Box';
+
 import Input from './ui/styled/form/Input';
-import {Text, HeadLine} from './ui/styled/Texts';
+import {Text} from './ui/styled/Texts';
 import ErrorPage from './views/ErrorPage';
 const message = 'hello';
-
-const Wrapper = styled.div`
-  position: relative;
-  color: blue;
-`;
 
 const PortalTestArea = () => {
   const [feedbackArea, setFeedbackArea] = useState<HTMLElement | undefined>(undefined);
@@ -45,14 +40,32 @@ const PortalTestArea = () => {
   );
 };
 
+const StyledCustomProp = styled.div
+  .withConfig({
+    shouldForwardProp: (prop, defaultValidatorFn) => {
+      return !['hidden'].includes(prop) && defaultValidatorFn(prop);
+    }
+  })
+  .attrs({className: 'foo'})`
+    color:red;
+    &.foo {
+      text-decoration:underline;
+    }
+`;
+
+const Wrapper = styled.div`
+  position: relative;
+  color: blue;
+`;
+
 const appContainer = document.getElementById('app');
 if (appContainer) {
   const root = createRoot(appContainer);
   root.render(
     <>
       <GlobalStyle />
-      <Wrapper>
-        <VBox gap={Space.xl} alignItems="center">
+      <VBox gap={16}>
+        {/* <VBox gap={Space.xl} alignItems="center">
           <HeadLine>다른메시지는 그래도 있습니다.</HeadLine>
           <Text $type="h2">{message}</Text>
         </VBox>
@@ -60,13 +73,16 @@ if (appContainer) {
           <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" />
           <div>열2</div>
           <div>열3</div>
-        </GridBox>
-        <RenderApp />
+        </GridBox> */}
+
+        <CounterApp />
         <ErrorPage>
           <Text>에러페이지는 어떻게 보이나 보자</Text>
         </ErrorPage>
         <PortalTestArea />
-      </Wrapper>
+
+        <StyledCustomProp hidden>어떻게 보일가</StyledCustomProp>
+      </VBox>
     </>
   );
 }
