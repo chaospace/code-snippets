@@ -191,3 +191,36 @@
         )
     }
 ```
+
+# 커스텀 속성처리
+
+TS가 아니라면 커스텀 속성을 위해 따로 신경써야 할 부분은 없고 html속성과 중복되는 속성( color, backgroundColor, ...etc )이 node에  
+추가되는 것을 방지하고 싶은 경우가 있는데 이를 위해 제공하는 방법은 아래와 같음.
+
+- $기호를 통한 임시속성처리
+
+```javascript
+// 속성 이름 앞에 $를 붙이면 태그 속성에서 제외된다.
+const MyComp = styled.div({$color: '##ffaa'})`
+  color:${props => props.$color};
+`;
+<MyComp $color="#eeffaa" />;
+```
+
+- shouldForwardProp를 통한 재정의
+
+```javascript
+//  config를 재설정을 통해 기본처리를 재정의
+const MyComp = styled(Header)
+  .withConfig({
+    shouldForwardProp: (prop, defaultValidatorFn) => {
+      return !['hidden'].includes(prop) && defaultValidatorFn(prop);
+    }
+  })
+  .attrs({className: 'foo'})`
+  color:red;
+  &.foo {
+    text-decoration:underline;
+  }
+`;
+```
