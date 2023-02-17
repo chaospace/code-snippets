@@ -134,12 +134,12 @@ alert(str.match(pattern)); // <a href="link1" class="wrong">... <p style="" clas
 ```
 
 이 문제 해결을 위해서는 <mark>\<a href="something..." class="doc"></mark>을 찾을 수 있는 패턴이 필요하고 greedy, lazy 탐색 모두 문제를 가지고 있다.
-올바른 패턴은 <mark>href="[^"]\*"</mark>으로 이제 해결하고자 하는 모든 문제를 해결할 수 있습니다.
+올바른 패턴은 <mark>href="[^]\*"</mark>으로 이제 해결하고자 하는 모든 문제를 해결할 수 있습니다.
 
 ```javascript
 let str1 = '...<a href="link1" class="wrong">...<p style="" class="doc">...';
 let str2 = '...<a href="link1" class="doc">...<a href="link2" class="doc">...';
-let regexp = /<a href="[^"]*" class="doc">/g;
+let regexp = /<a href="[^]*" class="doc">/g;
 // Works!
 alert(str1.match(regexp)); // null, no matches, that's correct
 alert(str2.match(regexp)); //<a href="link1" class="doc">, <a href="link2" class="doc">
