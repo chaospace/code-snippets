@@ -4,7 +4,7 @@ import nop from '@/utils/nop';
 
 /**
  * 단순 get map처리보다
- * null or undefined 같은 부정한 값이 와도 중닩없이 동작해야 함.
+ * null or undefined 같은 부정한 값이 와도 중단없이 동작해야 함.
  * MapValue안에서 값의 유효성을 판단 후 return 해야 함.
  */
 interface MapValue<T> {
@@ -12,11 +12,26 @@ interface MapValue<T> {
   map<TFunc extends (arg: T) => any>(transformFunc: TFunc): MapValue<ReturnType<TFunc>>;
 }
 
-// // maybe팩토리 인터페이스
 interface MaybeAble<T> {
   create(input: T): MaybeAble<T>;
   value(): T;
   map<TFunc extends (arg: T) => any>(transformFunc: TFunc): MaybeAble<ReturnType<TFunc>>;
+}
+
+class MaybeBase<T> {
+  _value: T;
+
+  constructor(input: T) {
+    this._value = input;
+  }
+
+  isNothing() {
+    return !!this._value;
+  }
+
+  static create<T>(input: T) {
+    return new MaybeBase(input);
+  }
 }
 
 const mapValue = <T>(input: T): MapValue<T> => ({

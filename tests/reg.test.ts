@@ -1,7 +1,7 @@
 // 정규식 테스트
 
 describe.skip('정규식 테스트', () => {
-  it('부정형 후방탐색 테스트', () => {
+  it.skip('부정형 후방탐색 테스트', () => {
     const message = '우니라나 1234430303.2203032';
     //const r = message.match(/(?=(\d{3})+(?!\d))/);
     console.log('후방', message.replace(/(?=(\d{3})+(?!\d))/, ','));
@@ -11,7 +11,7 @@ describe.skip('정규식 테스트', () => {
   });
 });
 
-describe.skip('스타일문자열 제어 테스트', () => {
+describe('스타일문자열 제어 테스트', () => {
   it.skip('camelCase를 snakeCase로 변환', () => {
     const message = 'paddingLeftSide';
     // 유니코드 글자 중 대문자를 찾음.
@@ -47,7 +47,7 @@ describe.skip('스타일문자열 제어 테스트', () => {
     const express2 = /(?!\d+[rem|px|em|vw|vh|%])(\d+)/g;
     //console.log('test', '10 30px'.match(express));
     console.log('replace', express2, '100vh 10px 10 309px 20em'.match(express2));
-    console.log('replace', express2, '100 10% 10vh 309px 10em'.replace(express2, `$1px`));
+    console.log('replace', express2, '100 10% 10 309px 10em'.replace(express2, `$1px`));
 
     console.log('I paid $30 for 100 apples.', 'I paid $30 for 100 apples'.match(/(?!\$)\d+/));
   });
@@ -108,7 +108,7 @@ describe.skip('탐색 테스트', () => {
   });
 });
 
-describe('replace테스트', () => {
+describe.skip('replace테스트', () => {
   it('replace심볼사용', () => {
     const message = '30 20 10';
     console.log('origin', message);
@@ -117,5 +117,12 @@ describe('replace테스트', () => {
     console.log('$` 심볼 사용- 매칭 전 문자열의 일부 삽입', message.replace(/(30)/, '$`9'));
     console.log("$' 심볼 사용- 매칭 후 문자열의 일부 삽입", message.replace(/(30)/, "$' "));
     console.log('$& 심볼 사용- 매칭 문자열의 전체 삽입', message.replace(/(30)/, '$&px'));
+  });
+});
+
+describe('정규식 부정형 전방탐색', () => {
+  it('부정형 탐색을 통한 단위없는 숫자 추출', () => {
+    console.log('0em 10 30px 20px'.match(/(?!\d+[px|em])(\d+)/g));
+    console.log('0em 10 30px 20px'.match(/^(\d+[px|em])\d+/g));
   });
 });

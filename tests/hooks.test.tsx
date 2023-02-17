@@ -1,8 +1,7 @@
 // 훅 테스트
-
+import React, {useCallback, useState} from 'react';
 import useUpdateCallback from '@/hooks/useUpdateCallback';
 import {render, renderHook, act, screen} from '@testing-library/react';
-import React, {useCallback, useState} from 'react';
 import userEvent from '@testing-library/user-event';
 import useCountHookMock from './__mocks__/useCountHookMock';
 
