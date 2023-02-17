@@ -24,6 +24,10 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     this.setState({error: undefined, errorInfo: undefined});
   }
 
+  // static getDerivedStateFromError(error: Error) {
+  //   return {error, errorInfo: 'getDerivedStateFromError'};
+  // }
+
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     this.setState({error, errorInfo});
   }
