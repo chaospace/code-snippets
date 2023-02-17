@@ -119,7 +119,7 @@ function Input(props: PropsWithChildren<InputProps>) {
   const groupStyle =
     style && pickProps(style, ['color', 'fontSize', 'borderColor', 'border', 'flexDirection']);
   const wrapperStyle = style && pickProps(style, ['backgroundColor']);
-  console.log('rest', rest);
+
   return (
     <Input.Container {...groupStyle}>
       <Input.Label htmlFor={inputID}>{label}</Input.Label>

@@ -40,8 +40,7 @@ function CheckBox(props: PropsWithChildren<CheckBoxProps>) {
   const containerStyle = style && pickProps(style, ['fontSize']);
   const labelStyle = style && pickProps(style, ['color', 'fontWeight']);
   const checkMarkStyle = style && pickProps(style, ['backgroundColor', 'border', 'borderRadius']);
-  console.log('checkMark', checkMarkStyle);
-  console.log('labelStyle', labelStyle);
+
   return (
     <CheckBox.Container {...containerStyle} checkColor={checkColor}>
       <CheckBox.Label {...labelStyle}>{children}</CheckBox.Label>
