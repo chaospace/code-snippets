@@ -1,9 +1,9 @@
 // 훅 사용과 re-rerender에 대한 고찰
 import React, {useMemo, useState} from 'react';
 import {fireEvent, render} from '@testing-library/react';
-import MemoPropsComponent from '@/examples/MemoPropsComponent';
-import NoneMemoComponent from '@/examples/NoneMemoComponent';
-import MemoRenderComponent from '@/examples/MemoRenderComponent';
+import MemoPropsComponent from '@/examples/performance/MemoPropsComponent';
+import NoneMemoComponent from '@/examples/performance/NoneMemoComponent';
+import MemoRenderComponent from '@/examples/performance/MemoRenderComponent';
 
 // 초기 아이템 구성
 let itemArr: string[] = [];
