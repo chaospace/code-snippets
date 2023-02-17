@@ -21,7 +21,7 @@ const ErrorFallback = ({error, errorInfo, reset}: FallbackVO) => {
 };
 
 const ErorrContent = (props: any) => {
-  const [provider, setProvider] = useState([{title: 'a'}]);
+  const [provider, setProvider] = useState([{title: '에러가 보일 영역입니다.'}]);
 
   const reqData = useCallback(() => {
     console.log('props', props.hasError);
