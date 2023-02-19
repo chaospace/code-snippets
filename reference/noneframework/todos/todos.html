@@ -11,28 +11,43 @@
 </head>
 
 <body>
-    <section class="todoapp">
-        <header class="header">
-            <h1>
-                todos
-            </h1>
-            <input type="text" class="new-todo" autofocus="" placeholder="what needs to be done?">
-        </header>
-        <section class="main">
-            <input id="toggle-all" type="checkbox" class="toggle-all">
-            <label for="toggle-all">Mark all as complete</label>
-            <ul class="todo-list" data-component="todos"></ul>
+    <template id="todo-item">
+        <li>
+            <div class="view">
+                <input class="toggle" type="checkbox" />
+                <label></label>
+                <button class="destroy"></button>
+            </div>
+            <input class="edit" value="" />
+        </li>
+    </template>
+    <template id="todo-app">
+        <section class="todoapp">
+            <header class="header">
+                <h1>
+                    todos
+                </h1>
+                <input type="text" class="new-todo" autofocus="" placeholder="what needs to be done?">
+            </header>
+            <section class="main">
+                <input id="toggle-all" type="checkbox" class="toggle-all">
+                <label for="toggle-all">Mark all as complete</label>
+                <ul class="todo-list" data-component="todos"></ul>
+            </section>
+            <footer class="footer">
+                <span class="todo-count" data-component="counter"></span>
+                <ul class="filters" data-component="filters">
+                    <li><a href="#/">All</a></li>
+                    <li><a href="#/active">Active</a></li>
+                    <li><a href="#/completed">Completed</a></li>
+                </ul>
+                <button class="clear-completed">Clear completed</button>
+            </footer>
         </section>
-        <footer class="footer">
-            <span class="todo-count" data-component="counter"></span>
-            <ul class="filters" data-component="filters">
-                <li><a href="#/">All</a></li>
-                <li><a href="#/active">Active</a></li>
-                <li><a href="#/completed">Completed</a></li>
-            </ul>
-            <button class="clear-completed">Clear completed</button>
-        </footer>
-    </section>
+    </template>
+    <div id="root">
+        <div data-component="app"></div>
+    </div>
     <footer class="info">
         <p>Duble-click to edit a todo</p>
     </footer>
@@ -41,11 +56,14 @@
         import getTodos from './getTodos.js';
         import registry from "./registry.js";
         import applyDiff from "./applyDiff.js";
+        import appView from "./views/app.js";
         const state = {
             todos: getTodos(),
             currentFilter: 'All'
         };
-        const main = document.querySelector('.todoapp');
+
+        registry.add('app', appView);
+        const main = document.querySelector('#root');
 
         const render = () => {
             window.requestAnimationFrame(() => {
