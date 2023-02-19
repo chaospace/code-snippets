@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/todomvc-common@1.0.5/base.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/todomvc-app-css@2.1.2/index.css">
+    <title>todo-none-frameworks</title>
+</head>
+
+<body>
+    <section class="todoapp">
+        <header class="header">
+            <h1>
+                todos
+            </h1>
+            <input type="text" class="new-todo" autofocus="" placeholder="what needs to be done?">
+        </header>
+        <section class="main">
+            <input id="toggle-all" type="checkbox" class="toggle-all">
+            <label for="toggle-all">Mark all as complete</label>
+            <ul class="todo-list" data-component="todos"></ul>
+        </section>
+        <footer class="footer">
+            <span class="todo-count" data-component="counter"></span>
+            <ul class="filters" data-component="filters">
+                <li><a href="#/">All</a></li>
+                <li><a href="#/active">Active</a></li>
+                <li><a href="#/completed">Completed</a></li>
+            </ul>
+            <button class="clear-completed">Clear completed</button>
+        </footer>
+    </section>
+    <footer class="info">
+        <p>Duble-click to edit a todo</p>
+    </footer>
+
+    <script type="module">
+        import getTodos from './getTodos.js';
+        import registry from "./registry.js";
+        const state = {
+            todos: getTodos(),
+            currentFilter: 'All'
+        };
+
+        const main = document.querySelector('.todoapp');
+        window.requestAnimationFrame(() => {
+            const newMain = registry.renderRoot(main, state);
+            main.replaceWith(newMain);
+        });
+    </script>
+</body>
+
+</html>
