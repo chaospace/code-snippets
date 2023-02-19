@@ -7,7 +7,7 @@ const createNewTodoNode = () => {
   return template.content.firstElementChild.cloneNode(true);
 };
 
-const getTodoElement = (todo, index, events) => {
+const getTodoElement = (todo, index) => {
   const {text, completed} = todo;
   const ele = createNewTodoNode();
   ele.querySelector('input.edit').value = text;
@@ -18,20 +18,27 @@ const getTodoElement = (todo, index, events) => {
     ele.querySelector('input.toggle').checked = true;
   }
 
-  const handler = _ => events.deleteItem(index);
-  ele.querySelector('button.destroy').addEventListener('click', handler);
+  //const handler = _ => events.deleteItem(index);
+  //ele.querySelector('button.destroy').addEventListener('click', handler);
+  ele.querySelector('button.destroy').dataset.index = index;
 
   return ele;
 };
 
 export default (targetElement, {todos}, events) => {
+  const {deleteItem} = events;
   const newTodoList = targetElement.cloneNode(true);
   newTodoList.innerHTML = ''; //이전 내용 제거
   todos
-    .map((todo, index) => getTodoElement(todo, index, events))
+    .map((todo, index) => getTodoElement(todo, index))
     .forEach(todoEle => {
       newTodoList.appendChild(todoEle);
     });
   //newTodoList.innerHTML = todoElements;
+  newTodoList.addEventListener('click', e => {
+    if (e.target.matches('button.destroy')) {
+      deleteItem(e.target.dataset.index);
+    }
+  });
   return newTodoList;
 };
