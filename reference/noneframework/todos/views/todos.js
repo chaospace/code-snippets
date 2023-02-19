@@ -3,11 +3,11 @@ const getTodoElement = todo => {
   return `
         <li ${completed ? 'class="completed"' : ''}>
             <div class="view">
-                <input id="toggle" ${completed ? 'checked' : ''}
+                <input ${completed ? 'checked' : ''}
                     class="toggle"
                     type="checkbox"
                 />
-                <label for="toggle">${text}</label>
+                <label for="">${text}</label>
                 <button class="destroy"></button>
             </div>
             <input class="edit" value="${text}"/>

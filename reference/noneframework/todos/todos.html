@@ -40,16 +40,23 @@
     <script type="module">
         import getTodos from './getTodos.js';
         import registry from "./registry.js";
+        import applyDiff from "./applyDiff.js";
         const state = {
             todos: getTodos(),
             currentFilter: 'All'
         };
-
         const main = document.querySelector('.todoapp');
-        window.requestAnimationFrame(() => {
-            const newMain = registry.renderRoot(main, state);
-            main.replaceWith(newMain);
-        });
+
+        const render = () => {
+            window.requestAnimationFrame(() => {
+                const newMain = registry.renderRoot(main, state);
+                applyDiff(document.body, main, newMain);
+            });
+        }
+        render();
+        setInterval(() => render(), 3000);
+
+
     </script>
 </body>
 
