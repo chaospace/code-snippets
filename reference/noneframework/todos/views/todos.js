@@ -1,23 +1,37 @@
-const getTodoElement = todo => {
-  const {text, completed} = todo;
-  return `
-        <li ${completed ? 'class="completed"' : ''}>
-            <div class="view">
-                <input ${completed ? 'checked' : ''}
-                    class="toggle"
-                    type="checkbox"
-                />
-                <label for="">${text}</label>
-                <button class="destroy"></button>
-            </div>
-            <input class="edit" value="${text}"/>
-        </li>
-    `;
+let template = '';
+
+const createNewTodoNode = () => {
+  if (!template) {
+    template = document.getElementById('todo-item');
+  }
+  return template.content.firstElementChild.cloneNode(true);
 };
 
-export default (targetElement, {todos}) => {
+const getTodoElement = (todo, index, events) => {
+  const {text, completed} = todo;
+  const ele = createNewTodoNode();
+  ele.querySelector('input.edit').value = text;
+  ele.querySelector('label').textContent = text;
+
+  if (completed) {
+    ele.classList.add('completed');
+    ele.querySelector('input.toggle').checked = true;
+  }
+
+  const handler = _ => events.deleteItem(index);
+  ele.querySelector('button.destroy').addEventListener('click', handler);
+
+  return ele;
+};
+
+export default (targetElement, {todos}, events) => {
   const newTodoList = targetElement.cloneNode(true);
-  const todoElements = todos.map(getTodoElement).join('');
-  newTodoList.innerHTML = todoElements;
+  newTodoList.innerHTML = ''; //이전 내용 제거
+  todos
+    .map((todo, index) => getTodoElement(todo, index, events))
+    .forEach(todoEle => {
+      newTodoList.appendChild(todoEle);
+    });
+  //newTodoList.innerHTML = todoElements;
   return newTodoList;
 };
