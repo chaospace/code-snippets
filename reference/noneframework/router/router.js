@@ -25,6 +25,9 @@ const createRouter = () => {
       notFound = cb;
       return router;
     },
+    navigate(fragment) {
+      window.location.hash = fragment;
+    },
     start() {
       window.addEventListener('hashchange', checkRoutes);
       if (!window.location.hash) {
