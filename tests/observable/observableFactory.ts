@@ -21,7 +21,11 @@ export default <T extends Object, S>(model: T, stateGetter: () => S) => {
   const wrapAction = (action: Function) => {
     return (...args: any) => {
       const value = action(...args);
-      invokeListeners();
+      //console.log('value', value);
+      if (value) {
+        invokeListeners();
+      }
+
       return value;
     };
   };

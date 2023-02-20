@@ -18,6 +18,7 @@ export default (initialState = INITIAL_STATE) => {
       text,
       completed: false
     });
+    return true;
   };
 
   const updateItemText = (index: number, text: string) => {
@@ -32,6 +33,7 @@ export default (initialState = INITIAL_STATE) => {
     }
 
     state.todos[index].text = text;
+    return true;
   };
 
   const model = {
