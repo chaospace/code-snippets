@@ -44,7 +44,6 @@ const createRouter = () => {
 
     const params = extractRouteParams(currentRoute, hash);
 
-    console.log('params', params);
     currentRoute.component(params);
   };
 
