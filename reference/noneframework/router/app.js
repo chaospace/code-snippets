@@ -7,6 +7,8 @@ const router = createRouter();
 router
   .addRoute('#/', pages.home)
   .addRoute('#/list', pages.list)
+  .addRoute('#/detail/:id', pages.detail)
+  .addRoute('#/detail/:id/:anotherid', pages.anotherDetail)
   .setNotFound(pages.notFound)
   .start();
 

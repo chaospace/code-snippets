@@ -7,6 +7,16 @@ const createPages = container => {
     container.textContent = 'This is list page';
   };
 
+  const detail = params => {
+    const {id} = params;
+    container.textContent = `This is detail page ${id}`;
+  };
+
+  const anotherDetail = params => {
+    const {id, anotherid} = params;
+    container.textContent = `This is detail page ${id} \n another detail param ${anotherid}`;
+  };
+
   const notFound = () => {
     container.textContent = 'Page not found';
   };
@@ -14,6 +24,8 @@ const createPages = container => {
   return {
     home,
     list,
+    detail,
+    anotherDetail,
     notFound
   };
 };
