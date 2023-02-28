@@ -76,3 +76,65 @@ console.log(counter.value()); // logs 2
 counter.decrement();
 console.log(counter.value()); // logs 1
 ```
+
+## 헷깔리는 This
+
+- 함수 스코프 this는 함수 자신을 가리킨다는 오해.
+  > 자바스크립트에 콘택스트(this)는 컴파일 단계인 렉싱(렉시컬 시점)단계가 아닌 호출 시점에 동적으로 결정되기 때문에 상황에 따라 다르다.  
+  > 아래 코드는 foo에 호출시 this는 전역객체인 window를 가리키며 값은 NaN으로 나옴.
+
+```javascript
+function foo(num) {
+  console.log('foo : ', num);
+  // foo에 호출 카운트를 증가
+  this.count++;
+  console.log(this);
+}
+
+foo.count = 0;
+for (let i = 0; i < 10; i++) {
+  if (i < 5) {
+    foo(i);
+  }
+}
+console.log('foo', foo.count); // foo = 0;
+console.log('window', window.count); //  5;
+```
+
+## 암시적 바인딩에 소실
+
+암시적으로 바인딩 된 함수에서 바인딩이 소실되는 경우가 있는데 콜백이나 함수 참조를 이용할 때 주의가 필요하다.
+
+```javascript
+var a = '전역';
+function foo() {
+  console.log(this.a);
+}
+let obj = {
+  a: 2,
+  foo: foo
+};
+
+let bar = obj.foo; //함수 레퍼런스
+// 바인딩 소실을 보여주기 위해 var로 선언 호이스팅 됨.
+bar(); // 전역
+```
+
+콜백 함수를 전달하는 경우
+
+```javascript
+var a = '전역';
+function foo() {
+  console.log(this.a);
+}
+
+function doFoo(fn) {
+  fn();
+}
+let obj = {
+  a: 2,
+  foo: foo
+};
+
+doFoo(obj.foo);
+```
