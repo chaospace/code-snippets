@@ -46,7 +46,9 @@ function ChatApp() {
           }}
         >
           {roomList.map(v => (
-            <option value={v}>{v}</option>
+            <option key={v} value={v}>
+              {v}
+            </option>
           ))}
         </select>
       </label>

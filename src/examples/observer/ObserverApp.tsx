@@ -13,12 +13,11 @@ type STATE_ACTION_TYPE_KEY = keyof typeof STATE_ACTION;
 type NotiState = {
   name: string;
   age: number;
-  action: () => void;
 };
 
 type StateAction = {
   type: STATE_ACTION_TYPE_KEY;
-  payload: Partial<NotiState>;
+  payload: Partial<NotiState> & {action: () => void};
 };
 
 const stateReducer = (state: NotiState, {type, payload}: StateAction): NotiState => {
