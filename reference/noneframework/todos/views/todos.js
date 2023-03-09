@@ -17,9 +17,6 @@ const getTodoElement = (todo, index) => {
     ele.classList.add('completed');
     ele.querySelector('input.toggle').checked = true;
   }
-
-  //const handler = _ => events.deleteItem(index);
-  //ele.querySelector('button.destroy').addEventListener('click', handler);
   ele.querySelector('button.destroy').dataset.index = index;
 
   return ele;
@@ -34,7 +31,7 @@ export default (targetElement, {todos}, events) => {
     .forEach(todoEle => {
       newTodoList.appendChild(todoEle);
     });
-  //newTodoList.innerHTML = todoElements;
+
   newTodoList.addEventListener('click', e => {
     if (e.target.matches('button.destroy')) {
       deleteItem(e.target.dataset.index);

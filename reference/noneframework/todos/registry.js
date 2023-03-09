@@ -15,8 +15,8 @@ const renderWrapper = component => {
     const childComponents = element.querySelectorAll('[data-component]');
 
     Array.from(childComponents).forEach(target => {
+      // 하위 컴포넌트가 있다면 갱신처리
       const name = target.dataset.component;
-
       const Child = registry[name];
       if (!Child) {
         return;

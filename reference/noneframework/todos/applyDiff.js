@@ -1,5 +1,11 @@
 /**
  * 돔 비교 함수 구현
+ *
+ * - 돔에 속성 길이 비교
+ * - 돔에 속성 값 비교
+ * - 돔에 textContent 비교
+ *
+ * - 하위 돔 요소를 반복하면 순회
  */
 
 const applyDiff = (parentNode, realNode, virtualNode) => {
@@ -16,7 +22,7 @@ const applyDiff = (parentNode, realNode, virtualNode) => {
   }
 
   // 통으로 변경될 경우
-  if (isChangaedNode(realNode, virtualNode)) {
+  if (isChangedNode(realNode, virtualNode)) {
     console.log('변경!');
     realNode.replaceWith(virtualNode);
     return;
@@ -32,7 +38,7 @@ const applyDiff = (parentNode, realNode, virtualNode) => {
   }
 };
 
-const isChangaedNode = (node1, node2) => {
+const isChangedNode = (node1, node2) => {
   const n1Attributes = node1.attributes;
   const n2Attributes = node2.attributes;
   // 속성에 수가 다르면 변경
