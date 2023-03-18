@@ -1,10 +1,11 @@
-import {useEffect, useMemo, useState} from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 import styles from './tictactoe.module.scss';
-console.log('styles', styles);
 
 function TicTacToe() {
   const [player, setPlayer] = useState('X');
   const [boards, setBoardData] = useState<string[]>(Array(9).fill(''));
+  // 기본 히스토리로만 사용하는 단계.
+  const [history, setHistory] = useState<number[]>([]);
 
   const isEmptyBlock = (id: number) => {
     return boards[id] === '';
@@ -18,9 +19,25 @@ function TicTacToe() {
       setBoardData(prev => {
         return prev.map((v, idx) => (idx === id ? player : v));
       });
+      setHistory(prev => [...prev, id]);
       setPlayer(prev => (prev === 'X' ? 'O' : 'X'));
     };
   }, [player]);
+
+  const onMouseDownHistoryItem = useCallback(
+    (event: React.PointerEvent<HTMLButtonElement>) => {
+      const selectID = Number(event.currentTarget.value);
+      const rollbackItems = history.filter((_, idx) => idx > selectID);
+      setBoardData(prev => {
+        for (let rollbackID of rollbackItems) {
+          prev[rollbackID] = '';
+        }
+        return [...prev];
+      });
+      setHistory(history.filter(v => !rollbackItems.includes(v)));
+    },
+    [history]
+  );
 
   /**
    * 완료 여부 체크
@@ -48,21 +65,31 @@ function TicTacToe() {
   }, [boards]);
 
   return (
-    <div>
-      <h1>current player : {player} </h1>
-      <div className={styles.gameContainer}>
-        {boards.map((data, idx) => {
-          return (
-            <button
-              className={styles.gameBlock}
-              key={idx}
-              value={data}
-              onPointerDown={() => isEmptyBlock(idx) && onMouseDownGameBlock(idx)}
-            >
-              {data}
-            </button>
-          );
-        })}
+    <div className={styles.gameWrapper}>
+      <div>
+        <h1>current player : {player} </h1>
+        <div className={styles.gameContainer}>
+          {boards.map((data, idx) => {
+            return (
+              <button
+                className={styles.gameBlock}
+                key={idx}
+                onPointerDown={() => isEmptyBlock(idx) && onMouseDownGameBlock(idx)}
+              >
+                {data}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <div className={styles.historyContainer}>
+        {history.map((v, idx) => (
+          <button
+            key={v}
+            value={idx}
+            onPointerDown={onMouseDownHistoryItem}
+          >{`go to move ${v}`}</button>
+        ))}
       </div>
     </div>
   );
