@@ -1,0 +1,26 @@
+.game--container {
+  position: relative;
+  display: grid;
+  width: 450px;
+  height: 450px;
+  border: 1px solid gray;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.game--block {
+  display: flex;
+  font-size: 30px;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  user-select: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.game--block:nth-child(odd) {
+  background-color: lightgray;
+}
