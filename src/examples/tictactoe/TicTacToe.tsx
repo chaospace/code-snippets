@@ -1,15 +1,27 @@
-import {useCallback, useEffect, useMemo, useState} from 'react';
+import {useCallback, useEffect, useMemo, useReducer, useRef, useState} from 'react';
 import styles from './tictactoe.module.scss';
 
 /**
  * 히스토리 정보를 문자열 배열로 블록정보 전체를 저장
+ * undo와 redo 적용 고민해 보기
+ *
+ * undo, redo용 배열을 별도로 가질 것인지
+ * history인덱스를 관리하며 이동 할 것인가.
+ *
+ * 인덱스가 변경 후 다시 진행을 하면 현재 인덱스 이후 정보는 제거되며 새로운 값이 들어간다.
  * @returns
  */
 function TicTacToe() {
   const [player, setPlayer] = useState('X');
   const [boards, setBoardData] = useState<string[]>(Array(9).fill(''));
   // 기본 히스토리로만 사용하는 단계.
-  const [history, setHistory] = useState<string[]>([]);
+  const history = useRef<{list: string[]; index: number}>({
+    list: [],
+    index: -1
+  }).current;
+
+  const redoIndex = history.list.length - 1 - history.index;
+  const undoIndex = history.index;
 
   const isEmptyBlock = (id: number) => {
     return boards[id] === '';
@@ -21,8 +33,13 @@ function TicTacToe() {
   const onMouseDownGameBlock = useMemo(() => {
     return (id: number) => {
       const nextBoards = boards.map((v, idx) => (idx === id ? player : v));
+      // redoIndex가 존재하면 이전 히스토리정보 제거
+      if (redoIndex > 0) {
+        history.list = history.list.slice(0, history.index + 1);
+      }
+      history.list = [...history.list, nextBoards.join(',')];
+      history.index = history.list.length - 1;
       setBoardData(nextBoards);
-      setHistory(prev => [...prev, nextBoards.join(',')]);
       setPlayer(prev => (prev === 'X' ? 'O' : 'X'));
     };
   }, [player, boards]);
@@ -34,17 +51,25 @@ function TicTacToe() {
    *  - history에 정보가 없으면 boards 초기화
    *  - history정보 갱신
    */
-  const onMouseDownHistoryItem = useCallback(
-    (event: React.PointerEvent<HTMLButtonElement>) => {
-      const nextHistory = history.slice(0, history.length - 1);
-      const undoData = nextHistory.length
-        ? nextHistory[nextHistory.length - 1].split(',')
-        : Array(9).fill('');
-      setBoardData(undoData);
-      setHistory(nextHistory);
-    },
-    [history]
-  );
+  const onMouseDownUndo = useCallback((event: React.PointerEvent<HTMLButtonElement>) => {
+    history.index -= 1;
+    if (history.index < 0) {
+      history.index = -1;
+    }
+    const nextHistory = history.list[history.index];
+    const undoData = nextHistory ? nextHistory.split(',') : Array(9).fill('');
+    setBoardData(undoData);
+  }, []);
+
+  const onMouseDownRedo = useCallback((event: React.PointerEvent<HTMLButtonElement>) => {
+    history.index += 1;
+    if (history.index > history.list.length - 1) {
+      history.index = history.list.length;
+    }
+    const nextHistory = history.list[history.index];
+    const redoData = nextHistory ? nextHistory.split(',') : Array(9).fill('');
+    setBoardData(redoData);
+  }, []);
 
   /**
    * 완료 여부 체크
@@ -90,9 +115,14 @@ function TicTacToe() {
         </div>
       </div>
       <div className={styles.historyContainer}>
-        {history.length && (
-          <button className={styles.historyRollbackButton} onPointerDown={onMouseDownHistoryItem}>
-            {`undo ${history.length}`}
+        {undoIndex >= 0 && (
+          <button className={styles.historyRollbackButton} onPointerDown={onMouseDownUndo}>
+            {`undo ${undoIndex + 1}`}
+          </button>
+        )}
+        {redoIndex > 0 && (
+          <button className={styles.historyRollbackButton} onPointerDown={onMouseDownRedo}>
+            {`redo ${redoIndex}`}
           </button>
         )}
       </div>
