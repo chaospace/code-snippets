@@ -1,11 +1,15 @@
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import styles from './tictactoe.module.scss';
 
+/**
+ * 히스토리 정보를 문자열 배열로 블록정보 전체를 저장
+ * @returns
+ */
 function TicTacToe() {
   const [player, setPlayer] = useState('X');
   const [boards, setBoardData] = useState<string[]>(Array(9).fill(''));
   // 기본 히스토리로만 사용하는 단계.
-  const [history, setHistory] = useState<number[]>([]);
+  const [history, setHistory] = useState<string[]>([]);
 
   const isEmptyBlock = (id: number) => {
     return boards[id] === '';
@@ -16,25 +20,28 @@ function TicTacToe() {
    */
   const onMouseDownGameBlock = useMemo(() => {
     return (id: number) => {
-      setBoardData(prev => {
-        return prev.map((v, idx) => (idx === id ? player : v));
-      });
-      setHistory(prev => [...prev, id]);
+      const nextBoards = boards.map((v, idx) => (idx === id ? player : v));
+      setBoardData(nextBoards);
+      setHistory(prev => [...prev, nextBoards.join(',')]);
       setPlayer(prev => (prev === 'X' ? 'O' : 'X'));
     };
-  }, [player]);
+  }, [player, boards]);
 
+  /**
+   * undo 동작
+   *  - history에 마지막 요소를 제거
+   *  - history에 정보가 있으면 마지막 정보로 boards설정
+   *  - history에 정보가 없으면 boards 초기화
+   *  - history정보 갱신
+   */
   const onMouseDownHistoryItem = useCallback(
     (event: React.PointerEvent<HTMLButtonElement>) => {
-      const selectID = Number(event.currentTarget.value);
-      const rollbackItems = history.filter((_, idx) => idx > selectID);
-      setBoardData(prev => {
-        for (let rollbackID of rollbackItems) {
-          prev[rollbackID] = '';
-        }
-        return [...prev];
-      });
-      setHistory(history.filter(v => !rollbackItems.includes(v)));
+      const nextHistory = history.slice(0, history.length - 1);
+      const undoData = nextHistory.length
+        ? nextHistory[nextHistory.length - 1].split(',')
+        : Array(9).fill('');
+      setBoardData(undoData);
+      setHistory(nextHistory);
     },
     [history]
   );
@@ -83,13 +90,11 @@ function TicTacToe() {
         </div>
       </div>
       <div className={styles.historyContainer}>
-        {history.map((v, idx) => (
-          <button
-            key={v}
-            value={idx}
-            onPointerDown={onMouseDownHistoryItem}
-          >{`go to move ${v}`}</button>
-        ))}
+        {history.length && (
+          <button className={styles.historyRollbackButton} onPointerDown={onMouseDownHistoryItem}>
+            {`undo ${history.length}`}
+          </button>
+        )}
       </div>
     </div>
   );
