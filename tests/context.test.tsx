@@ -9,7 +9,7 @@ type NameContextProps = {
 };
 
 const [useNameContext, NameContextProvider, NameContextConsumer] =
-  ContextBuilder.build<NameContextProps>();
+  ContextBuilder<NameContextProps>();
 
 const providerRender = (ui: ReactNode, providerValue: NameContextProps) => {
   return render(<NameContextProvider value={providerValue}>{ui}</NameContextProvider>);

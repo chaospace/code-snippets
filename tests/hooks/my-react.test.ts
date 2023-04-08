@@ -31,5 +31,6 @@ describe('심플리액트', () => {
     const fooInstance = MyReact.render(Foo);
     fooInstance.click();
     MyReact.render(Foo);
+    console.log('222');
   });
 });

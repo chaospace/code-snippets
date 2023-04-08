@@ -1,7 +1,7 @@
 function composeTypoGraphy(size: number, lineHeight: number, letterSpacing: number) {
   return {
     size: `${size}px`,
-    letterSpacing: `${letterSpacing}em`,
+    letterSpacing: `${letterSpacing}rem`,
     lineHeight: 1.2
   };
 }

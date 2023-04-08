@@ -1,6 +1,6 @@
 import React from 'react';
 // react context 생성
-function build<T>() {
+function ContextBuilder<T>() {
   const context = React.createContext<T>(null as any);
   function useCustomContext() {
     const c = React.useContext(context);
@@ -10,5 +10,4 @@ function build<T>() {
   return [useCustomContext, context.Provider, context.Consumer] as const;
 }
 
-const ContextBuilder = {build} as const;
 export default ContextBuilder;

@@ -8,7 +8,10 @@ type PropsOf<T> = T extends React.ComponentType<infer P> ? P : never;
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
 // styled컴포넌트 속성을 가진 리액트컴포넌트 속성타입 정의를 위한 타입.
-type StyledPropsWithProps<InitialProps, Element extends keyof JSX.IntrinsicElements | JSXElementConstructor<any> = 'div'> = PropsOf<
+type StyledPropsWithProps<
+  InitialProps,
+  Element extends keyof JSX.IntrinsicElements | JSXElementConstructor<any> = 'div'
+> = PropsOf<
   StyledComponent<
     ComponentProps<Element>,
     any,
@@ -34,7 +37,13 @@ type AlignSelf = 'center' | 'start' | 'end' | 'normal' | 'stretch';
 // justify-content 메인 축
 // align 교차축
 // 엘리먼트 content그룹에 정렬 flex-warp을 사용하고 아이템행이 2줄 이상일 때 동작
-type AlignContents = 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-evenly' | 'space-around';
+type AlignContents =
+  | 'flex-start'
+  | 'center'
+  | 'flex-end'
+  | 'space-between'
+  | 'space-evenly'
+  | 'space-around';
 
 type DisplayPostions = 'static' | 'sticky' | 'absolute' | 'relative' | 'fixed';
 
@@ -145,7 +154,7 @@ type DisplaySizeProps = {
 };
 
 type SpaceProps = MarginProps & PaddingProps;
-type ButtonProps = SpaceProps & TextProps;
+type ButtonProps = BorderProps & SpaceProps & TextProps & {bgColor?: string};
 
 type InputProps = FlexProps & DisplaySizeProps & MarginProps & PaddingProps;
 

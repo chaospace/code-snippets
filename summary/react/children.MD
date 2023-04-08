@@ -124,10 +124,10 @@ const SomeOutSideComponent = () => {
   const [state, setState] = useState();
 
   return (
-    <MovingComponent>
+    <MovingComponentMemo>
       <!-- 자식요소는 SomeOutsideComponent에 상태변경에 따라 re-render됨 -->
       <ChildComponent />
-    </MovingComponent>
+    </MovingComponentMemo>
   )
   ```
 

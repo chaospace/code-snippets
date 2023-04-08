@@ -7,7 +7,7 @@ import styles from './tictactoe.module.scss';
  *
  * undo, redo용 배열을 별도로 가질 것인지
  * history인덱스를 관리하며 이동 할 것인가.
- *
+ * redo, undo시 player 상태 적용
  * 인덱스가 변경 후 다시 진행을 하면 현재 인덱스 이후 정보는 제거되며 새로운 값이 들어간다.
  * @returns
  */
@@ -64,7 +64,7 @@ function TicTacToe() {
   const onMouseDownRedo = useCallback((event: React.PointerEvent<HTMLButtonElement>) => {
     history.index += 1;
     if (history.index > history.list.length - 1) {
-      history.index = history.list.length;
+      history.index = history.list.length - 1;
     }
     const nextHistory = history.list[history.index];
     const redoData = nextHistory ? nextHistory.split(',') : Array(9).fill('');
@@ -115,16 +115,24 @@ function TicTacToe() {
         </div>
       </div>
       <div className={styles.historyContainer}>
-        {undoIndex >= 0 && (
-          <button className={styles.historyRollbackButton} onPointerDown={onMouseDownUndo}>
+        {
+          <button
+            className={styles.historyRollbackButton}
+            disabled={undoIndex < 0}
+            onPointerDown={onMouseDownUndo}
+          >
             {`undo ${undoIndex + 1}`}
           </button>
-        )}
-        {redoIndex > 0 && (
-          <button className={styles.historyRollbackButton} onPointerDown={onMouseDownRedo}>
+        }
+        {
+          <button
+            className={styles.historyRollbackButton}
+            disabled={redoIndex <= 0}
+            onPointerDown={onMouseDownRedo}
+          >
             {`redo ${redoIndex}`}
           </button>
-        )}
+        }
       </div>
     </div>
   );

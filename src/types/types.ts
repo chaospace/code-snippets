@@ -1,3 +1,6 @@
+// 객체타입
+type ObjType<T extends Object = any> = {[key: string]: T[keyof T]};
+
 // 콜백함수 타입
 type TFunc = (..._args: any) => any;
 // 콜백함수의 리턴 타입 참조를 위한 타입
@@ -13,4 +16,4 @@ type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>;
 };
 
-export type {DeepPartial, RequirePartial, Optional, InferReturn, TFunc};
+export type {ObjType, DeepPartial, RequirePartial, Optional, InferReturn, TFunc};

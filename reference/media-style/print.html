@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>print style test</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        @media print {
+            * {
+
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+
+            .page-container {
+
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                padding: 20px;
+                width: 21cm;
+                height: 29.7cm;
+                background-color: white;
+                border: 1px solid;
+                margin: 1cm 0;
+                page-break-after: always;
+            }
+
+            .table-container {
+                table-layout: fixed;
+                border-collapse: collapse;
+                width: 100%;
+                text-align: center;
+            }
+
+            .table-container tr:nth-child(odd) td {
+                background-color: lightblue;
+            }
+
+            .table-container tr {
+                break-inside: avoid;
+                break-after: auto
+            }
+
+            .table-container tr th,
+            .table-container tr td {
+                padding: 8px;
+                background-color: white;
+            }
+
+            .footer-container {
+                display: flex;
+                margin-top: auto;
+                min-height: 200px;
+                background-color: bisque;
+            }
+
+            .spacer {
+                display: flex;
+                flex-grow: 1;
+                height: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container">
+
+        <head>헤더</head>
+        <table class="table-container">
+            <thead>
+                <tr>
+                    <th>
+                        a
+                    </th>
+                    <th>
+                        b
+                    </th>
+                    <th>
+                        c
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="page-container">
+        <table class="table-container">
+            <thead>
+                <tr>
+                    <th>
+                        a
+                    </th>
+                    <th>
+                        b
+                    </th>
+                    <th>
+                        c
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="spacer">
+            여기는 여백영역
+        </div>
+        <footer class="footer-container">
+            대략 풋더 내용---
+        </footer>
+    </div>
+    <script>
+        function asyncify(fn) {
+            console.log('async-call');
+            let orig_fn = fn;
+            let intv = setTimeout(function () {
+                intv = null;
+                if (fn) fn();
+            }, 0);
+            fn = null;
+            return function () {
+                if (intv) {
+                    // 함수 실행 스코프인 window와 argument배열을 인자로 전달.
+                    fn = orig_fn.bind.apply(orig_fn, [this].concat([].slice.call(arguments)));
+                } else {
+                    orig_fn.apply(this, arguments);
+                }
+            }
+        }
+        function result(data) {
+            console.log('a', a, 'data', data);
+        }
+        var a = 0;
+        setTimeout(() => {
+            asyncify(result)('00');
+        }, 10);
+
+        //console.log(reFunc);
+        a++;
+    </script>
+</body>
+
+</html>

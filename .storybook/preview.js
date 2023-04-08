@@ -25,7 +25,7 @@ export const decorators = [
   Story => (
     <>
       <GlobalStyle />
-      <div style={{margin: '3em'}}>
+      <div style={{margin: '2rem'}}>
         <ThemeProvider theme={theme}>
           <Story />
         </ThemeProvider>

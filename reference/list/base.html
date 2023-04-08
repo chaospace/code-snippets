@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>base-list</title>
+    <style>
+        *,
+        html,
+        *:after,
+        *::before {
+            box-sizing: border-box;
+        }
+
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+
+
+        .accordion--container {
+            position: relative;
+        }
+
+        .accordion--item {
+            display: flex;
+            flex-direction: column;
+            padding: 8px;
+        }
+
+        .accordion--header {
+            width: 100%;
+            border: none;
+            outline: none;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+
+        .accordion--content-wrapper {
+            position: relative;
+            overflow: hidden;
+            background-color: azure;
+            transition-property: all;
+            transition-duration: 0.8s;
+            max-height: 0;
+        }
+
+
+        .accordion--content-wrapper__in {
+            max-height: 100vh;
+        }
+
+        .accordion--content {
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="accordion--container">
+        <li class="accordion--item">
+            <button class="accordion--header" onclick="togglePanel();">아코디언</button>
+            <div class="accordion--content-wrapper">
+                <div class="accordion--content">
+                    <p>
+                        It is a long established fact that a reader will be distracted by the readable
+                        content of a page when looking at its layout. The point of using Lorem Ipsum is that
+                        it has a more-or-less normal distribution of letters, as opposed to using 'Content
+                        here, content here', making it look like readable English. Many desktop publishing
+                        packages and web page editors now use Lorem Ipsum as their default model text, and a
+                        search for 'lorem ipsum' will uncover many web sites still in their infancy. Various
+                        versions have evolved over the years, sometimes by accident, sometimes on purpose
+                        (injected humour and the like).
+                    </p>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <script>
+        const panel = document.querySelector('.accordion--content-wrapper');
+        const contentBody = document.querySelector('.accordion--content');
+        function togglePanel() {
+            if (panel.classList.contains('accordion--content-wrapper__in')) {
+                panel.classList.remove('accordion--content-wrapper__in');
+                //panel.classList.add('accordion--content-wrapper__out');
+            } else {
+                //panel.classList.remove('accordion--content-wrapper__out');
+                panel.classList.add('accordion--content-wrapper__in');
+                //panel.style.height = `${panel.scrollHeight}px`;
+            }
+
+        }
+    </script>
+</body>
+
+</html>
