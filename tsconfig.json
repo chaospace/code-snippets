@@ -16,7 +16,6 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "allowJs": false,
-    "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "forceConsistentCasingInFileNames": true,
