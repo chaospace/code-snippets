@@ -1,6 +1,6 @@
-import {css, CSSProperties} from 'styled-components';
-import {InferReturn, TFunc} from '../../types/types';
-import TypoGraphyType, {TypoGraphyStyles} from './types/typo';
+import { css, CSSProp, CSSProperties } from 'styled-components';
+import { InferReturn, TFunc } from '../../types/types';
+import TypoGraphyType, { TypoGraphyStyles } from './types/typo';
 import {
   OverFlowProps,
   BorderProps,
@@ -42,8 +42,8 @@ const overFlowCSS = (props: OverFlowProps) => {
   return style;
 };
 function getOverFlowStyle(props: OverFlowProps) {
-  const {overflow: $overflow, overflowX: $overflowX, overflowY: $overflowY} = props;
-  return overFlowCSS({overflow: $overflow, overflowX: $overflowX, overflowY: $overflowY});
+  const { overflow: $overflow, overflowX: $overflowX, overflowY: $overflowY } = props;
+  return overFlowCSS({ overflow: $overflow, overflowX: $overflowX, overflowY: $overflowY });
 }
 
 /**
@@ -131,9 +131,8 @@ function getFlexDirectionStyle(value: AlignDirection) {
 function getBorderStyle(props: BorderProps) {
   let styles = ``;
   if (props.borderWidth || props.borderType || props.borderColor) {
-    styles = `border: ${props.borderWidth || 1}px ${props.borderType || 'solid'} ${
-      props.borderColor || 'white'
-    };`;
+    styles = `border: ${props.borderWidth || 1}px ${props.borderType || 'solid'} ${props.borderColor || 'white'
+      };`;
   }
   if (props.borderRadius) {
     styles += `border-radius: ${measureValue(props.borderRadius)};`;
@@ -141,7 +140,7 @@ function getBorderStyle(props: BorderProps) {
   return styles || undefined;
 }
 
-function getFlexStyle({flexWrap, flexGrow, flexBasis, flexShrink}: FlexProps) {
+function getFlexStyle({ flexWrap, flexGrow, flexBasis, flexShrink }: FlexProps) {
   return css`
     ${() => curriedStyleSetter('flex-grow', flexGrow, '')};
     ${() => curriedStyleSetter('flex-shrink', flexShrink, '')};
@@ -153,7 +152,7 @@ function getPointerEventsStyle(props: PointerEventProps) {
   return curriedStyleSetter('pointer-events', props.pointerEvent, '');
 }
 
-function getMarginStyle({ml, mr, mx, mt, mb, my, m}: MarginProps) {
+function getMarginStyle({ ml, mr, mx, mt, mb, my, m }: MarginProps) {
   return css`
     ${() => executeStyleSetter(marginLeftCSS, ml)};
     ${() => executeStyleSetter(marginRightCSS, mr)};
@@ -164,7 +163,7 @@ function getMarginStyle({ml, mr, mx, mt, mb, my, m}: MarginProps) {
     ${() => executeStyleSetter(marginCSS, m)};
   `;
 }
-function getPaddingStyle({pl, pr, px, pt, pb, py, p}: PaddingProps) {
+function getPaddingStyle({ pl, pr, px, pt, pb, py, p }: PaddingProps) {
   return css`
     ${() => executeStyleSetter(paddingLeftCSS, pl)};
     ${() => executeStyleSetter(paddingRightCSS, pr)};
@@ -183,7 +182,7 @@ function getSpaceStyle(props: SpaceProps) {
   `;
 }
 
-function getColorStyle({$color: color, bgColor}: ColorProps) {
+function getColorStyle({ $color: color, bgColor }: ColorProps) {
   return css`
     ${() => color && `color:${color};`};
     ${() => bgColor && `background-color:${bgColor};`};
@@ -197,7 +196,7 @@ function getFontWeight(bold?: boolean) {
 }
 
 function getTextStyle(props: TextProps) {
-  const {align, size, $type: type, bold, letterSpacing, lineHeight} = props;
+  const { align, size, $type: type, bold, letterSpacing, lineHeight } = props;
   return css`
     ${() => getDefaultTypoStyle(type || 'h6')};
     ${() => curriedStyleSetter('text-align', align)};
@@ -250,7 +249,7 @@ function getSizeStyle(props: DisplaySizeProps) {
     ${() => curriedStyleSetter('max-height', props.maxHeight)};
   `;
 }
-function getZIndexStyle({zIndex}: ZIndexProps) {
+function getZIndexStyle({ zIndex }: ZIndexProps) {
   return curriedStyleSetter('z-index', zIndex, '');
 }
 
@@ -261,19 +260,21 @@ function getZIndexStyle({zIndex}: ZIndexProps) {
  * @param props
  * @returns
  */
-const styleMap = new Map<string, string>();
+type CSSKey = keyof CSSProperties;
+const styleMap = new Map<CSSKey, string>();
 function getStyleProps(props: CSSProperties) {
   let style = '';
   for (let prop in props) {
     if (document.body.style.hasOwnProperty(prop)) {
-      const hasKey = styleMap.get(prop);
+      const key = prop as CSSKey;
+      const hasKey = styleMap.get(key);
       const kebabKey = hasKey
-        ? styleMap.get(prop)!
+        ? styleMap.get(key)!
         : prop.replace(/(\p{Ll})(\p{Lu})/gu, `$1-$2`).toLowerCase();
 
-      style += `${kebabKey}: ${props[prop]};`;
+      style += `${kebabKey}: ${props[key]};`;
       if (!hasKey) {
-        styleMap.set(prop, kebabKey);
+        styleMap.set(key, kebabKey);
       }
     }
   }
