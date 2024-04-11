@@ -1,4 +1,4 @@
-import {createGlobalStyle} from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
 *,
@@ -14,6 +14,7 @@ body {
   text-rendering: optimizelegibility;
   text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
+  font-family : "Noto Sans KR", "system-ui", sans-serif, -apple-system;
 }
 
 body,
