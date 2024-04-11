@@ -1,9 +1,10 @@
 //  반복 테스트
 
+import { ObjType } from '@/types/types';
 import isArray from '@/utils/isArray';
 
 describe('for 루프안에서 continue동작 테스트', () => {
-  const testObj = {
+  const testObj: ObjType = {
     name: 'chaospace',
     age: 200,
     history: {

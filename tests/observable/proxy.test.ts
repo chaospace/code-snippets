@@ -1,11 +1,14 @@
 // proxy
+type ProxyObj = {
+  [key: (string | symbol)]: any
+}
 
 describe('프록시', () => {
   it('리시버동작 확인', () => {
-    let proxy = new Proxy(
-      {age: 13},
+    let proxy = new Proxy<ProxyObj>(
+      { age: 13 },
       {
-        get: function (target, property, receiver) {
+        get: function (target, property, _) {
           //console.log('reciver-', receiver);
           if (property in target) {
             return target[property];

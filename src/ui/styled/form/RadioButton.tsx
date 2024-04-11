@@ -1,8 +1,8 @@
-import React, {PropsWithChildren, InputHTMLAttributes} from 'react';
-import {pickProps} from '@/helper/styleHelper';
-import styled, {CSSProperties} from 'styled-components';
-import {getStyleProps} from '../core';
-import {colors} from '@/theme';
+import React, { PropsWithChildren, InputHTMLAttributes } from 'react';
+import { pickProps } from '@/helper/styleHelper';
+import styled, { CSSProperties } from 'styled-components';
+import { getStyleProps } from '../core';
+import { colors } from '@/theme';
 
 type RadioStyleProps = {
   labelPosition?: 'left' | 'right';
@@ -48,7 +48,7 @@ const Container = styled.label<CSSProperties>`
   align-items: end;
   font-size: 16px;
   && {
-    ${props => getStyleProps({fontSize: props.fontSize})}
+    ${props => getStyleProps({ fontSize: props.fontSize })}
   }
 `;
 
@@ -57,20 +57,20 @@ const Label = styled.span`
 `;
 
 function RadioButton(props: PropsWithChildren<RadioButtonProps>) {
-  const {children, style, labelPosition, ...rest} = props;
-
+  const { children, style, labelPosition, ...rest } = props;
+  const restProps: any = rest;
   const containerStyle = style && pickProps(style, ['fontSize']);
   const labelStyle = style && pickProps(style, ['color', 'fontWeight']);
   const inputStyle =
     style && pickProps(style, ['backgroundColor', 'border', 'borderWidth', 'borderColor']);
-  const LabelText = <RadioButton.Label {...labelStyle}>{children}</RadioButton.Label>;
-  const testIDProps = rest['data-test-id'] && {'data-test-id': rest['data-test-id']};
-  delete rest['data-test-id'];
+  const LabelText = <RadioButton.Label { ...labelStyle }>{ children }</RadioButton.Label>;
+  const testIDProps = restProps['data-test-id'] && { 'data-test-id': restProps['data-test-id'] };
+  delete restProps['data-test-id'];
   return (
-    <RadioButton.Container {...containerStyle} {...testIDProps}>
-      {labelPosition === 'left' && LabelText}
-      <RadioButton.Input type="radio" {...inputStyle} {...rest} />
-      {labelPosition === 'right' && LabelText}
+    <RadioButton.Container { ...containerStyle } { ...testIDProps }>
+      { labelPosition === 'left' && LabelText }
+      <RadioButton.Input type="radio" { ...inputStyle } { ...rest } />
+      { labelPosition === 'right' && LabelText }
     </RadioButton.Container>
   );
 }

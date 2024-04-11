@@ -1,7 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import {render, screen} from '@testing-library/react';
-import styled, {StyledComponent} from 'styled-components';
+import { render, screen } from '@testing-library/react';
+import styled, { StyledComponent } from 'styled-components';
 const MyText = styled.h1`
   color: black;
   font-size: 12px;
@@ -26,5 +26,5 @@ test('button-style-test', () => {
   const style = getStyledCompStyle(MyText);
   expect(style.display).toEqual('block');
   expect(style.color).toEqual('black');
-  expect(style['font-size']).toEqual('12px');
+  expect(style.fontSize).toEqual('12px');
 });

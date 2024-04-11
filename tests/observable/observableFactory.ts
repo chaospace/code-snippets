@@ -2,7 +2,8 @@
  * 속성 변경을 감지하기 위한 옵저버
  */
 
-export default <T extends Object, S>(model: T, stateGetter: () => S) => {
+import { ObjType } from '@/types/types';
+export default <T extends ObjType, S>(model: T, stateGetter: () => S) => {
   let listeners: Function[] = [];
 
   const addChangeListener = (cb: Function) => {
@@ -37,7 +38,7 @@ export default <T extends Object, S>(model: T, stateGetter: () => S) => {
   // 객체 key중 함수 타입을 추출해 curring을 이용한 noti 처리
   return Object.keys(model)
     .filter(key => typeof model[key] === 'function')
-    .reduce((proxy: any, key: string) => {
+    .reduce((proxy: ObjType, key: string) => {
       const action = model[key];
       return {
         ...proxy,

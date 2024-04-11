@@ -2,12 +2,21 @@
  * eventBus를 위한 todo모델
  */
 
+import { ObjType } from '@/types/types';
+
 const INITIAL_STATE = {
   todos: [],
   currentFilter: 'all'
 };
+type Todo = {
+  text: string,
+  completed: boolean
+}
+type State = {
+  todos: Todo[],
+  currentFilter: string
+};
 
-type State = typeof INITIAL_STATE;
 type Action = {
   type: string;
   payload: any;
@@ -16,7 +25,7 @@ type Action = {
 const cloneDeep = (obj: State) => JSON.parse(JSON.stringify(obj));
 
 const updateItem = (state: State, event: any) => {
-  const {index, text} = event.payload;
+  const { index, text } = event.payload;
   if (!text) {
     return;
   }
@@ -41,7 +50,7 @@ const updateItem = (state: State, event: any) => {
 };
 
 const addItem = (state: State, event: any) => {
-  const {text} = event.payload;
+  const { text } = event.payload;
   if (!text) {
     return;
   }
@@ -57,7 +66,7 @@ const addItem = (state: State, event: any) => {
   };
 };
 
-const methods = {
+const methods: ObjType = {
   ITEM_ADD: addItem,
   ITEM_UPDATE: updateItem
 };

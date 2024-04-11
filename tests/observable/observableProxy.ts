@@ -20,7 +20,7 @@ export default (state = INITIAL_STATE) => {
   };
 
   const proxy = new Proxy(deepClone(state), {
-    set(target: State, property: string, newValue: any) {
+    set(target: State, property: keyof State, newValue: any) {
       const isChanged = !Object.is(target[property], newValue);
       const results = Reflect.set(target, property, newValue);
       if (isChanged) {

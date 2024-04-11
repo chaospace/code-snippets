@@ -14,10 +14,10 @@ function pixelToRem(value: string | number, base = 16) {
 }
 
 function pickProps<T, K extends keyof T>(style: T, keys: K[]) {
-  const results = {};
+  const results: any = {};
   for (const key of keys) {
     if (hasProperty(style, key) && !!style[key]) {
-      results[key.toString()] = style[key];
+      results[key] = style[key];
     }
   }
   return results;
@@ -43,4 +43,4 @@ function adjustHexColor(color: string, value = 0) {
   return hasPrefix ? `#${result}` : result;
 }
 
-export {pickProps, adjustHexColor};
+export { pickProps, adjustHexColor };

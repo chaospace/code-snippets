@@ -15,6 +15,8 @@
  * - 라우터 매칭 시 params과 regexp를 이용해 매칭 시 파라미터 값 설정
  */
 
+import { ObjType } from '@/types/types';
+
 // 파라미터 영역 매칭 정규식
 const parameter_regexp = /:(\w+)/g;
 // /가 아닌 모든 문자열 매칭
@@ -48,11 +50,11 @@ describe('정규식을 이용한 파라미터 추출 테스트', () => {
   });
 
   it.skip('/list/1/2에서 id는1 subid는2 여야 한다.', () => {
-    const extractUrlParams = ({paramNames, regexp}: any, path: string) => {
+    const extractUrlParams = ({ paramNames, regexp }: any, path: string) => {
       if (paramNames.length == 0) {
         return {};
       }
-      const resutls = {};
+      const resutls: ObjType = {};
       const matches = path.match(regexp);
       console.log('matches', matches);
 
@@ -68,6 +70,6 @@ describe('정규식을 이용한 파라미터 추출 테스트', () => {
     };
     const regexp = new RegExp(fragmentRegexp('/list/:id/:subid'));
     console.log('params', params);
-    console.log('results', extractUrlParams({paramNames: params, regexp}, '/list/30/10'));
+    console.log('results', extractUrlParams({ paramNames: params, regexp }, '/list/30/10'));
   });
 });

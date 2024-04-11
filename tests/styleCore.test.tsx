@@ -5,12 +5,13 @@
 
 import React from 'react';
 import '@testing-library/jest-dom';
-import {render, screen} from '@testing-library/react';
-import styled, {css, CSSProperties, StyledComponent} from 'styled-components';
+import { render, screen } from '@testing-library/react';
+import styled, { css, CSSProperties, StyledComponent } from 'styled-components';
 import AppProvider from './__mocks__/appMock';
+import { ObjType } from '@/types/types';
 //HTMLAttribute
 //camelCase를 snakeCase로 변경
-const getStyleProps = (props: CSSProperties) => {
+const getStyleProps = (props: ObjType) => {
   let style = '';
   for (let prop in props) {
     const snakeKey = prop.replace(/(\p{Ll})(\p{Lu})/gu, `$1-$2`).toLowerCase();
@@ -25,10 +26,10 @@ function getStyledCompStyle(Component: StyledComponent<'div', any>, index = 0) {
   return global.window.getComputedStyle(compRoots[index] as Element);
 }
 
-type StyleProperty = CSSProperties & {theme: any};
+type StyleProperty = CSSProperties & { theme: any };
 const MyComp = styled.div<StyleProperty>`
   ${props => props.theme?.button && css(props.theme.button)};
-  ${({theme, ...rest}) => rest && getStyleProps(rest)};
+  ${({ theme, ...rest }) => rest && getStyleProps(rest)};
 `;
 
 const adjustHexColor = (color: string, value = 0) => {

@@ -17,6 +17,7 @@ const PropsBox = styled.div(props => ({
 }));
  */
 
+import { ObjType } from '@/types/types';
 import isNumber from '@/utils/isNumber';
 const assign = Object.assign;
 const get = (obj: any, key: any = undefined, fallbackValue: any = undefined) => {
@@ -68,7 +69,7 @@ const createStyleFunction = ({
 }: any) => {
   properties = properties || [property];
   const sx = (value: any, scale: any, _props: any = undefined) => {
-    const result = {};
+    const result: ObjType = {};
     console.log('sx---------------');
     console.log('properties', properties, 'value', value, 'scale', scale, '_props', _props);
     const n = transform(value, scale, _props);
@@ -91,7 +92,7 @@ const parseResponsiveStyle = (
   raw: any = undefined,
   _props: any = undefined
 ) => {
-  let styles = {};
+  let styles: ObjType = {};
 
   //raw.slice(0, mediaQuries.length)
   raw.concat().forEach((value: string, i: number) => {
@@ -117,7 +118,7 @@ const parseResponsiveObject = (
   raw: any = undefined,
   _props: any = undefined
 ) => {
-  let styles = {};
+  let styles: ObjType = {};
   for (let key in raw) {
     const breakpoint = breakpoints[key];
     const value = raw[key];
@@ -135,10 +136,10 @@ const parseResponsiveObject = (
   return styles;
 };
 
-const createParser = (config: any) => {
-  const cache: any = {};
-  const parse = (props: any) => {
-    let styles = {};
+const createParser = (config: ObjType) => {
+  const cache: ObjType = {};
+  const parse: any = (props: ObjType) => {
+    let styles: ObjType = {};
     let shouldSort = false;
     const isChacheDisabled = props.theme && props.theme.disableStyledSystemCache;
     for (const key in props) {
@@ -146,9 +147,9 @@ const createParser = (config: any) => {
       const sx = config[key];
       const raw = props[key];
       const scale = get(props.theme, sx.scale, sx.defaults);
-      console.log('createParser-----------------\n');
-      console.log('key', key, 'props', props, 'raw', raw, 'scale', scale);
-      console.log('sx-info', sx.scale, sx.defaults);
+      // console.log('createParser-----------------\n');
+      // console.log('key', key, 'props', props, 'raw', raw, 'scale', scale);
+      // console.log('sx-info', sx.scale, sx.defaults);
       if (typeof raw === 'object') {
         cache.breakpoints =
           (!isChacheDisabled && cache.breakpoints) ||
@@ -198,8 +199,8 @@ const createParser = (config: any) => {
   return parse;
 };
 
-const system = (args = {}) => {
-  const config = {};
+const system = (args: ObjType = {}) => {
+  const config: ObjType = {};
   Object.keys(args).forEach(key => {
     const conf = args[key];
     if (conf === true) {

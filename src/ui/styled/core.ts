@@ -1,4 +1,4 @@
-import { css, CSSProp, CSSProperties } from 'styled-components';
+import { css, CSSProperties } from 'styled-components';
 import { InferReturn, TFunc } from '../../types/types';
 import TypoGraphyType, { TypoGraphyStyles } from './types/typo';
 import {

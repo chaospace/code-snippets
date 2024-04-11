@@ -1,5 +1,5 @@
 // 객체타입
-type ObjType<T extends Object = any> = {[key: string]: T[keyof T]};
+type ObjType = { [key: string]: any };
 
 // 콜백함수 타입
 type TFunc = (..._args: any) => any;
@@ -16,4 +16,4 @@ type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>;
 };
 
-export type {ObjType, DeepPartial, RequirePartial, Optional, InferReturn, TFunc};
+export type { ObjType, DeepPartial, RequirePartial, Optional, InferReturn, TFunc };
