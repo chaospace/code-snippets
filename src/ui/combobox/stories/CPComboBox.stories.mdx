@@ -1,0 +1,26 @@
+import {ArgsTable, Canvas, Meta, Story} from '@storybook/addon-docs';
+import CPComboBox from "@/ui/combobox/CPComboBox";
+
+<!-- 컴포넌트 정의   type: {required: true} -->
+
+<Meta 
+    title="UI/ComboBox"
+    argTypes={{
+        children: {
+            table: {disable: true}
+        }
+    }}
+    component={CPComboBox}
+/>
+
+export const ComponentTemplate = args => {
+    return <CPComboBox {...args} />;
+};
+
+# 콤보박스  
+
+<Canvas>
+    <Story name="Default">
+        {ComponentTemplate.bind({})}
+    </Story>
+</Canvas>

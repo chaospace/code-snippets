@@ -35,7 +35,7 @@ const StyledButton = styled.button<CSSProperties>`
 `;
 
 StyledButton.defaultProps = {
-  color: colors.gray07,
+  color: colors.gray7,
   fontSize: '12px'
 };
 
@@ -54,7 +54,7 @@ const StyledInput = styled.input<InputProps>`
 
 const StyledLine = styled.hr<DisplaySizeProps & { color?: string | number }>`
   align-self: stretch;
-  background-color: ${props => props.color || colors.gray01};
+  background-color: ${props => props.color || colors.gray1};
   margin: 0;
   border: 0;
   ${props => getSizeStyle(props)};

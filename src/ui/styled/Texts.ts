@@ -10,7 +10,7 @@ const TextBase = styled.p<TypoProps>`
 
 const Text = styled(TextBase)``;
 Text.defaultProps = {
-  $color: colors.gray07,
+  $color: colors.gray7,
   $type: 'h8'
 };
 
@@ -19,7 +19,7 @@ const HeadLine = styled(Text).attrs((props: TypoProps) => ({
 }))``;
 
 HeadLine.defaultProps = {
-  $color: colors.gray08,
+  $color: colors.gray8,
   $type: 'h1',
   bold: true
 };
