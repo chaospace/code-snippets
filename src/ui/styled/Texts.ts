@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import colors from '../colors';
-import {TypoProps} from './types/types';
-import {getSpaceStyle, getTextStyle} from './core';
+import colors from '../../styles/colors';
+import { TypoProps } from './types/types';
+import { getSpaceStyle, getTextStyle } from './core';
 
 const TextBase = styled.p<TypoProps>`
   ${props => getTextStyle(props)};
@@ -24,4 +24,4 @@ HeadLine.defaultProps = {
   bold: true
 };
 
-export {Text, HeadLine};
+export { Text, HeadLine };

@@ -1,7 +1,7 @@
 // 테마 설정
 
-import {css} from 'styled-components';
-import {adjustHexColor} from './helper/styleHelper';
+import { css } from 'styled-components';
+import { adjustHexColor } from './helper/styleHelper';
 
 const colors = {
   disabled: '#d7d7d7',
@@ -120,5 +120,5 @@ const theme = {
     }
   `
 };
-export {colors};
+export { colors };
 export default theme;
