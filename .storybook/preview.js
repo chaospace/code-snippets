@@ -1,4 +1,3 @@
-//import '@/assets/styles/index.scss';
 import GlobalStyle from '@/globalStyle';
 import {PrismLight as SyntaxHighlighter} from 'react-syntax-highlighter';
 import scss from 'react-syntax-highlighter/dist/esm/languages/prism/scss';
