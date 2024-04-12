@@ -1,15 +1,15 @@
 import GlobalStyle from '@/globalStyle';
-import {HBox, VBox} from '@/ui/styled/Box';
-import {Link, Outlet} from 'react-router-dom';
-import {HeadLine} from '@/ui/styled/Texts';
+import { HBox, VBox } from '@/ui/styled/Box';
+import { Link, Outlet } from 'react-router-dom';
+import { HeadLine } from '@/ui/styled/Texts';
 
 function Main() {
   return (
     <>
       <GlobalStyle />
-      <VBox p={16}>
+      <VBox p={ 16 }>
         <HeadLine>Code-snippets</HeadLine>
-        <HBox p={8} gap={8}>
+        <HBox p={ 8 } gap={ 8 }>
           <ul>
             <li>
               <Link to="/ui/accordion">아코디언</Link>
@@ -22,11 +22,14 @@ function Main() {
             <li>
               <Link to="/examples/tictactoe">틱택토 게임</Link>
             </li>
+            <li>
+              <Link to="/examples/style">em-rem 스타일</Link>
+            </li>
           </ul>
         </HBox>
       </VBox>
 
-      <VBox m={16} gap={16}>
+      <VBox m={ 16 } gap={ 16 }>
         <Outlet />
       </VBox>
     </>
