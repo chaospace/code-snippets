@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.4.2/chroma.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+      body {
+        overflow: hidden;
+        height: 100vh;
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+      }
+      svg {
+        overflow: visible;
+        width: 100%;
+      }
+      path {
+        opacity: 0;
+      }
+
+      p {
+        text-align: center;
+        padding: 0 20px;
+        position: fixed;
+        left: 0;
+        bottom: 10px;
+        width: 100%;
+        font-family: 'Varela Round', sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <svg class="text" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 458.71 200">
+      <path
+        d="M61 83.5c-1.07 3.67-2.83 6.83-5.3 9.5-2.4 2.6-5.37 4.6-8.9 6-3.47 1.33-7.43 2-11.9 2-5.8 0-10.9-1.37-15.3-4.1-4.4-2.8-7.83-6.73-10.3-11.8C6.83 80.03 5.6 74 5.6 67c0-7 1.2-13.03 3.6-18.1 2.47-5.07 5.9-8.97 10.3-11.7 4.4-2.8 9.53-4.2 15.4-4.2 4.67 0 8.7.67 12.1 2 3.4 1.27 6.23 3.2 8.5 5.8 2.27 2.53 3.93 5.73 5 9.6"
+      />
+      <path
+        d="M71.1 63.2c1.13-4.13 3.57-7.53 7.3-10.2 3.73-2.73 8.23-4.1 13.5-4.1 3.87 0 7.17.73 9.9 2.2 2.8 1.4 4.93 3.43 6.4 6.1 1.53 2.67 2.3 5.93 2.3 9.8v32.9M71.1 27v73"
+      />
+      <path
+        d="M151.2 87c-.47 3.27-1.07 5.4-3.2 7.6-2.07 2.13-4.6 3.73-7.6 4.8a26.04 26.04 0 0 1-9 1.6c-3.33 0-6.2-.47-8.6-1.4-2.4-1-4.23-2.4-5.5-4.2-1.27-1.8-1.9-4-1.9-6.6 0-3.73 1.23-6.67 3.7-8.8 2.53-2.13 6.1-3.63 10.7-4.5l21.7-4.2m-36.4-10.1c1.53-4.13 3.93-7.2 7.2-9.2 3.33-2 7.33-3 12-3 3.73 0 6.9.7 9.5 2.1 2.6 1.33 4.57 3.3 5.9 5.9 1.4 2.6 2.1 5.73 2.1 9.4l-.6 20.6s0 0 0 0v4.6c0 2.6.37 4.57 1.1 5.9.8 1.27 1.77 2.13 2.9 2.6 1.13.47 2.2.7 3.2.7 1.47 0 2.67-.27 3.6-.8"
+      />
+      <path
+        d="M190.5 49c4.6 0 8.63 1.03 12.1 3.1 3.53 2.07 6.27 5.07 8.2 9 2 3.87 3 8.5 3 13.9s-1 10.07-3 14c-1.93 3.87-4.67 6.83-8.2 8.9-3.47 2.07-7.5 3.1-12.1 3.1s-8.67-1.03-12.2-3.1c-3.47-2.07-6.2-5.03-8.2-8.9-2-3.93-3-8.6-3-14s1-10.03 3-13.9c2-3.93 4.73-6.93 8.2-9 3.53-2.07 7.6-3.1 12.2-3.1 0 0 0 0 0 0"
+      />
+      <path
+        d="M217.5 88.9c.93 4 3.23 7.03 6.9 9.1 3.73 2 8.2 3 13.4 3 3.93 0 7.33-.53 10.2-1.6 2.87-1.07 5.07-2.6 6.6-4.6 1.6-2.07 2.4-4.47 2.4-7.2 0-3-.97-5.47-2.9-7.4-1.87-1.93-5.07-4.09-9.9-4.5l-11.7-1c-4.69-.4-7.9-2.53-9.9-4.6-1.93-2.13-2.9-4.63-2.9-7.5 0-2.6.8-4.9 2.4-6.9 1.6-2.07 3.8-3.7 6.6-4.9 2.8-1.2 5.97-1.8 9.5-1.8 5.13 0 9.27 1 12.4 3 3.13 2 5.17 5.17 6.1 9.5"
+      />
+      <path
+        d="M267.1 50v71m0-52.6c1.19-6.79 5.8-13.01 12.39-15.37 8.51-3.28 19.34-1.41 25.22 5.91 5.68 6.98 6.45 16.64 5.15 25.23-1.1 7.44-5.63 14.68-12.78 17.59-8.59 3.51-19.69 1.85-25.72-5.6-2.17-2.64-3.57-5.85-4.36-9.16"
+      />
+      <path
+        d="M351.11 87c-.47 3.27-1.07 5.4-3.2 7.6-2.07 2.13-4.6 3.73-7.6 4.8a26.04 26.04 0 0 1-9 1.6c-3.33 0-6.2-.47-8.6-1.4-2.4-1-4.23-2.4-5.5-4.2-1.27-1.8-1.9-4-1.9-6.6 0-3.73 1.23-6.67 3.7-8.8 2.53-2.13 6.1-3.63 10.7-4.5l21.7-4.2m-36.4-10.1c1.53-4.13 3.93-7.2 7.2-9.2 3.33-2 7.33-3 12-3 3.73 0 6.9.7 9.5 2.1 2.6 1.33 4.57 3.3 5.9 5.9 1.4 2.6 2.1 5.73 2.1 9.4l-.6 20.6s0 0 0 0v4.6c0 2.6.37 4.57 1.1 5.9.8 1.27 1.77 2.13 2.9 2.6 1.13.47 2.2.7 3.2.7 1.47 0 2.67-.27 3.6-.8"
+      />
+      <path
+        d="M410.11 86.3c-.53 3-1.8 5.6-3.8 7.8-1.93 2.2-4.33 3.9-7.2 5.1-2.87 1.2-6 1.8-9.4 1.8-4.4 0-8.3-1.03-11.7-3.1-3.4-2.07-6.1-5.03-8.1-8.9-1.93-3.93-2.9-8.6-2.9-14s1-10.03 3-13.9c2-3.93 4.73-6.93 8.2-9 3.47-2.07 7.4-3.1 11.8-3.1 3.33 0 6.33.53 9 1.6s4.9 2.63 6.7 4.7c1.87 2 3.2 4.47 4 7.4"
+      />
+      <path
+        d="M415.32 74.5h43.39v-.7c0-5.13-.87-9.53-2.6-13.2-1.67-3.73-4.07-6.6-7.2-8.6s-6.9-3-11.3-3c0 0 0 0 0 0-4.2 0-8 1.03-11.4 3.1-3.33 2.07-6 5.03-8 8.9s-3 8.53-3 14c0 5.4 1 10.07 3 14 2.07 3.87 4.83 6.83 8.3 8.9 3.53 2.07 7.5 3.1 11.9 3.1 2.93 0 5.7-.47 8.3-1.4 2.6-1 4.9-2.37 6.9-4.1 2-1.8 3.57-3.93 4.7-6.4"
+      />
+      <g id="group"></g>
+    </svg>
+    <p>Click to update the styles</p>
+    <script>
+      const paths = document.querySelectorAll('path');
+      const group = document.querySelector('#group');
+      const colours = [
+        chroma.scale(['#FF7900', '#F94E5D', '#CA4B8C', '#835698', '#445582', '#2F4858']),
+        chroma.scale(['#845EC2', '#D65DB1', '#FF6F91', '#FF9671', '#FFC75F', '#F9F871']),
+        chroma.scale(['#F24B8E', '#F6ACC2', '#FFE3F1', '#59BAB7']),
+        chroma.scale(['#1FAAFE', '#00C6FF', '#00DCE4', '#10ECB8', '#A0F68B', '#F9F871'])
+      ];
+      let currentGradient = 1;
+      const tl = gsap.timeline({
+        onReverseComplete: () => {
+          tl.timeScale(1);
+          tl.play(0);
+        },
+        onComplete: () => {
+          tl.timeScale(1.5);
+          tl.reverse(0);
+        }
+      });
+
+      function generatePoints() {
+        tl.clear();
+        group.innerHTML = '';
+        let delay = 0;
+        paths.forEach(path => {
+          const length = path.getTotalLength();
+          for (let i = 0; i < length; i += 1) {
+            const pointLength = Math.random() * length;
+            const point = path.getPointAtLength(pointLength);
+            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('cx', point.x);
+            circle.setAttribute('cy', point.y);
+            circle.setAttribute('r', Math.random() * 3 + 1);
+            group.appendChild(circle);
+            const coloursX = point.x / 458.5 + (Math.random() - 0.5) * 0.2;
+            tl.to(
+              circle,
+              {
+                autoRound: false,
+                fill: colours[currentGradient % colours.length](coloursX).hex(),
+                cx: point.x + (Math.random() - 0.5) * 60,
+                cy: point.y + (Math.random() - 0.5) * 60,
+                duration: 'random(0.5, 2)',
+                delay: (delay + pointLength) * 0.002,
+                ease: 'power2.out'
+              },
+              0
+            );
+          }
+          delay += length;
+        });
+        tl.reversed(false).play(0);
+        currentGradient++;
+      }
+      window.addEventListener('click', () => {
+        generatePoints();
+      });
+      generatePoints();
+    </script>
+  </body>
+</html>
