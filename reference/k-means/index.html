@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>k-means</title>
+  </head>
+  <body>
+    <canvas class="screen"></canvas>
+    <script src="./kmeans_.js"></script>
+    <script>
+      // test
+      let data = [
+        [1, 1, 1],
+        [1, 2, 1],
+        [-1, -1, -1],
+        [-1, -1, -1.5],
+        [-1, -1, -1.5]
+      ];
+      const result = kmeans(data, 2, false);
+      console.log(result);
+    </script>
+  </body>
+</html>
